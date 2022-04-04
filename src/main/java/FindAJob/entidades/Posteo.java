@@ -36,7 +36,9 @@ public class Posteo {
     
     private Double DineroGuardado;
     
-    private String descripcion;
+    private String descripcionOferta;
+    
+    private String descripcionSolicitud;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
@@ -126,14 +128,6 @@ public class Posteo {
         this.DineroGuardado = DineroGuardado;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public Date getAlta() {
         return alta;
     }
@@ -188,6 +182,22 @@ public class Posteo {
 
     public void setResolucionAdministrador(String resolucionAdministrador) {
         this.resolucionAdministrador = resolucionAdministrador;
+    }
+
+    public String getDescripcionOferta() {
+        return descripcionOferta;
+    }
+
+    public void setDescripcionOferta(String descripcionOferta) {
+        this.descripcionOferta = descripcionOferta;
+    }
+
+    public String getDescripcionSolicitud() {
+        return descripcionSolicitud;
+    }
+
+    public void setDescripcionSolicitud(String descripcionSolicitud) {
+        this.descripcionSolicitud = descripcionSolicitud;
     }
     
     
