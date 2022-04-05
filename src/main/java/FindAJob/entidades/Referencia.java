@@ -47,6 +47,8 @@ public class Referencia {
     private Integer cantidadValoraciones;
 
     private Integer puntosValoracionAcumulados;
+    
+    private Boolean alta;
 
     //
     public Referencia() {
@@ -116,5 +118,15 @@ public class Referencia {
     public void setPuntosValoracionAcumulados(Integer puntosValoracionAcumulados) {
         this.puntosValoracionAcumulados = puntosValoracionAcumulados;
     }
+
+    public Boolean getAlta() {
+        return alta;
+    }
+
+    public void setAlta(Boolean alta) {
+        this.alta = alta;
+    }
+    
+    
 
 }
