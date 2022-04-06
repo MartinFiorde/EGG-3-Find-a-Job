@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FindAJob.enums;
 
-/**
- *
- * @author Martin F - PC Desk
- */
 public enum Rubro {
-    
+    SERVICIOSPROFESIONALES("Servicios profesionales"), GREMIOSADOMICILIO("Gremios a domicilio"),
+    TAREASDOMESTICAS("Tareas domesticas"), PROGRAMACIONYTECNOLOGIA("Programacion y tecnologia"),
+    DISENIOYMULTIMEDIA("Diseño y multimedia"), SALUDYBELLEZA("Salud y belleza"),
+    MARKETINGYGESTORESDEVENTAS("Marketing y gestores de ventas"), ARTEYCULTURA("Arte y cultura"), 
+    GASTRONOMIA("Gastronomia");
+    private String nombreLindo;
+
+    private Rubro(String nombreLindo) {
+        this.nombreLindo = nombreLindo;
+    }
+
+    public String getNombreLindo() {
+        return nombreLindo;
+    }
+
+    public void setNombreLindo(String nombreLindo) {
+        this.nombreLindo = nombreLindo;
+    }
+
 }
