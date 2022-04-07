@@ -16,7 +16,7 @@ public class MainControlador {
     // doc con todas las opciones de autorizacion >>> https://www.baeldung.com/spring-security-expressions
     @PreAuthorize("permitAll()")
     public String index() {
-        return "testMAFBEnd/index-test.html";
+        return "index.html";
     }
 
 
