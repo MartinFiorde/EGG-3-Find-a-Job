@@ -28,14 +28,6 @@ public class Referencia {
     @Temporal(TemporalType.TIMESTAMP)
     private Date inicioProfesion;
 
-    public Date getInicioProfesion() {
-        return inicioProfesion;
-    }
-
-    public void setInicioProfesion(Date inicioProfesion) {
-        this.inicioProfesion = inicioProfesion;
-    }
-
     // casilla donde el usuario describe la experiencia y conocimientos que tiene para realizar la profeción
     private String experiencia;
 
@@ -49,6 +41,18 @@ public class Referencia {
     private Integer puntosValoracionAcumulados;
     
     private Boolean alta;
+    
+    //
+    
+     public Date getInicioProfesion() {
+        return inicioProfesion;
+    }
+     
+    //
+
+    public void setInicioProfesion(Date inicioProfesion) {
+        this.inicioProfesion = inicioProfesion;
+    }
 
     //
     public Referencia() {
