@@ -1,0 +1,30 @@
+body {
+    background-image: url(/img/FONDO\ 3.png);
+}
+.navbar {
+background-color: rgba(39, 39, 38, 0.911) !important;
+font-size: 20px;
+display: flex;
+border-radius: 5px;
+}
+
+.navbar-brand {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgba(0, 0, 0, 0.623);
+    font-size: 25px;
+}
+    
+#registrar {
+  background-color: rgba(196, 196, 26, 0.911);
+  border: 0ch;
+  color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+} 
+

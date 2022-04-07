@@ -35,7 +35,7 @@ public class UsuarioControlador {
             model.put("mail", usuario.getMail());
             model.put("clave", usuario.getClave());
         }
-        return "/testMAFBEnd/registro-test.html";
+        return "registro.html";
     }
 
     @PostMapping("/register2")
@@ -45,14 +45,14 @@ public class UsuarioControlador {
             System.out.println("registrar");
             usuarioServicio.registrarCuenta(mail, clave, clave2);
             model.put("error", "Se ha registrado correctamente!");
-            return "/testMAFBEnd/index-test.html";
+            return "registro.html";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("mail", mail);
             model.put("clave", clave);
             model.put("clave2", clave2);
-            return "/testMAFBEnd/registro-test.html";
+            return "registro.html";
         }
     }
 
