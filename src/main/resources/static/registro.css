@@ -1,9 +1,10 @@
 body {
-    background-image: url(/img/fondo\ registro.png);
-    background-attachment: fixed;
-    overflow: scroll;
+    background-image: url(/img/fondo-registro.png);
+    background-size: cover;
+    background-attachment: fixed; 
 }
 
+/* formulario */
 .form-holder {
     display: flex;
     flex-direction: column;
@@ -143,6 +144,35 @@ body {
   margin-top: -9px !important;
   margin-bottom: 8px !important;
 }
+/* end formulario */
 
+/* navbar */
+.navbar {
+  background-color: rgba(39, 39, 38, 0.911) !important;
+  font-size: 20px;
+  display: flex;
+  border-radius: 5px;
+  }
+  
+  .navbar-brand img{
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+  }
+      
+  #registrar {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+  }
+  
+  .btn {
+      color: aliceblue;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+      color: aliceblue;
+  }
 
+  /* end navbar */
 

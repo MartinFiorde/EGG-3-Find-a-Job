@@ -61,6 +61,6 @@ public class UsuarioControlador {
     public String registroUsuario(ModelMap model, @RequestParam(required = false) String mail, @RequestParam(required = false) String clave, @PathVariable(required = false) String error) {
         model.addAttribute("mail", mail);
         model.addAttribute("clave", clave);
-        return "/testMAFBEnd/login-test.html";
+        return "login.html";
     }
 }
