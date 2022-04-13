@@ -1,17 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FindAJob.servicios;
 
+import FindAJob.entidades.Posteo;
+import FindAJob.repositorios.PosteoRepositorio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Martin F - PC Desk
- */
 @Service
 public class PosteoServicio {
+
+private final PosteoRepositorio posteoRepositorio;
+private final ReferenciaServicio referenciaServicio;
+
+    
+    @Autowired   
+    public PosteoServicio(PosteoRepositorio posteoRepositorio, ReferenciaServicio referenciaServicio) {
+        this.posteoRepositorio = posteoRepositorio;
+        this.referenciaServicio = referenciaServicio;
+    }
+
+    
+    
+    //
+    
+    
+    public void  cargarPosteo (Posteo posteo){
+        //VALIDACIONES         
+        posteoRepositorio.save(posteo);
+    }
+    
+    
     
 }

@@ -1,5 +1,6 @@
 package FindAJob.servicios;
 
+import FindAJob.entidades.Profesion;
 import FindAJob.entidades.Referencia;
 import FindAJob.excepciones.ErrorServicio;
 import FindAJob.repositorios.ReferenciaRepositorio;
@@ -40,6 +41,8 @@ private final ArchivoServicio archivoServicio;
         referenciaRepositorio.save(referencia);
     }
     
+            
+    
     @Transactional 
     public void alta(Referencia referencia) throws ErrorServicio  {
         if(referencia.getAlta() != true){
@@ -76,15 +79,8 @@ private final ArchivoServicio archivoServicio;
     }       
     
     @Transactional//REVISAR ANOTACIONES
-    public void asignarProfesion (Referencia referencia, String id, Date date)throws ErrorServicio{
-        //************************************************************************
-        //FRONT END:
-        //para llamar este metodo necesario tener profesion previamente creada!!
-        
-        //crear buscarPorId en profesionServicio con Optional y
-        //verificar que no llegue vacio
-        //************************************************************************
-        
+    public void asignarProfesion (Referencia referencia, Profesion profesion, Date date)throws ErrorServicio{
+                 
         
         //Profesion profesion = profesionServicio.buscarPorId(id); 
         referencia.setInicioProfesion(date);

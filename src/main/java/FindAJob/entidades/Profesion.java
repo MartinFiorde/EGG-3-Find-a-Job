@@ -23,7 +23,15 @@ public class Profesion {
 
     private String subtipo;
 
+    
+    
+    
     //
+    
+    
+    
+    
+    
     public Profesion() {
     }
 
