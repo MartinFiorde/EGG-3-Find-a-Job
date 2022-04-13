@@ -132,10 +132,10 @@ public class UsuarioControlador {
         return "/testMAFBEnd/usuario-test.html";
     }
 
-    @GetMapping("usuario/lista-usuarios")
+    @GetMapping("/admin/usuarios")
     @PreAuthorize("isAuthenticated()")
-    public String verListaUsuarios(ModelMap model, @PathVariable String idUsuario) {
-
+    public String verListaUsuarios(ModelMap model) {
+        model.put("usuarios", usuarioServicio.findAll());
         return "/testMAFBEnd/lista-usuarios-test.html";
     }
 
