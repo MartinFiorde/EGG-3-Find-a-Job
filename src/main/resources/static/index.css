@@ -186,7 +186,7 @@ font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   width: 100%;
   height: 1000px;
   margin: 0 auto;
-  background-image: url(img/fondorubros.jpg);
+  background-image: url(/img/rubros/fondorubros.jpg);
   background-size: cover; 
 }
 .galeria-rubros {
