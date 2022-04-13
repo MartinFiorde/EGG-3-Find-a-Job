@@ -260,4 +260,8 @@ public class UsuarioServicio implements UserDetailsService {
         return idsesion;
     }
 
+    public List<Usuario> findAll(){
+        return usuarioRepositorio.findAll();
+    }
+    
 }
