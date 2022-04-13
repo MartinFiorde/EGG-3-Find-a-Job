@@ -35,7 +35,7 @@ public class UsuarioControlador {
     @GetMapping("/register")
     @PreAuthorize("permitAll()")
     public String formularioUsuario(ModelMap model, @RequestParam(required = false) String idSesion) throws ErrorServicio {
-        return "/testMAFBEnd/registro-test.html";
+        return "/registro.html";
     }
 
     @PostMapping("/register2")
@@ -52,7 +52,7 @@ public class UsuarioControlador {
             model.put("mail", mail);
             model.put("clave", clave);
             model.put("clave2", clave2);
-            return "registro.html";
+            return "index.html";
         }
     }
 
@@ -133,7 +133,7 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/admin/usuarios")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaUsuarios(ModelMap model) {
         model.put("usuarios", usuarioServicio.findAll());
         return "/testMAFBEnd/lista-usuarios-test.html";
