@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div th:object="${usuarios}" class="container justify-content-center">
+            <h1 th:text="'lista de usuarios'"></h1>
+             <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead style="background-color: rgb(241, 216, 201)">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Mail</th>
+                            <th scope="col">Nacimiento</th>
+                            <th scope="col">Saldo</th>
+                            <th scope="col">Zona</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="usuario : ${usuarios}">
+                        <tr>
+                            <td th:text="${usuario.id}" scope="row"></td>
+                            <td th:text="${usuario.nombre}"></td>
+                            <td th:text="${usuario.apellido}"></td>
+                            <td th:text="${usuario.mail}"></td>
+                            <td th:text="${usuario.nacimiento}"></td>
+                            <td th:text="${usuario.dineroEnCuenta}"></td>
+                            <td th:text="${usuario.zona.nombreCiudad}"></td>
+                            <td scope="row">
+                                <a
+                                    style="width: 60px"
+                                    class="btn btn-success btn-sm"
+                                    th:if="${usuario.activo == true}"
+                                    th:href="@{l/desactivar/{id}(id =__${usuario.id}__)}"
+                                >
+                                    Activo
+                                </a>
+                                <a
+                                    style="width: 60px"
+                                    class="btn btn-danger btn-sm"
+                                    th:if="${usuario.activo == false}"
+                                    th:href="@{l/activar/{id}(id =__${usuario.id}__)}"
+                                >
+                                    X
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>

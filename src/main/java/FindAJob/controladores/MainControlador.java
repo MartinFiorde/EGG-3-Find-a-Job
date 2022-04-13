@@ -31,36 +31,45 @@ public class MainControlador {
     
     
 
-    @GetMapping
+    @GetMapping("testindex")
     // doc con todas las opciones de autorizacion >>> https://www.baeldung.com/spring-security-expressions
+    @PreAuthorize("permitAll()")
+    public String testIndex() {
+        return "testMAFBEnd/index-test.html";
+    }
+
+    @GetMapping
     @PreAuthorize("permitAll()")
     public String index() {
         return "index.html";
     }
     
+
     
     //TESTEO RODRIGO
     //IGNORAR
-    @GetMapping("/form")
-    public String testeoReferencia(ModelMap model ){ //, @RequestParam("enumRubro")Rubro rubro 
-        List<String> rubros = new ArrayList();
-            for (Rubro aux : Rubro.values()){
-                rubros.add(aux.getNombreLindo().toString());
-            }
+   //@GetMapping("/form")
+    //public String testeoReferencia(ModelMap model ){ //, @RequestParam("enumRubro")Rubro rubro 
+    //    List<String> rubros = new ArrayList();
+    //        for (Rubro aux : Rubro.values()){
+    //            rubros.add(aux.getNombreLindo().toString());
+    //        }
 
-        model.addAttribute("rubros", rubros);
-        model.addAttribute("referencia", new Referencia());
+    //    model.addAttribute("rubros", rubros);
+    //    model.addAttribute("referencia", new Referencia());
         
-        return "testRodrigo/testReferencia";
-    }
+    //    return "testRodrigo/testReferencia";
+   // }
     
-    @PostMapping("/form")
-    public String reciboTesteoReferencia(ModelMap model,@RequestParam String idRubro){
-        System.out.println("idRubro");
+   // @PostMapping("/form")
+    //public String reciboTesteoReferencia(ModelMap model,@RequestParam String idRubro){
+    //    System.out.println("idRubro");
         
-        return null; //retornar vista
-    }
+    //    return null; //retornar vista
+    //}
    
     
   
+=======
+
 }
