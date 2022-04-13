@@ -11,7 +11,7 @@
             rel="stylesheet"
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous"
-            />
+        />
     </head>
 
     <body>
@@ -20,141 +20,226 @@
             <div class="container">
                 <header
                     class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
-                    >
+                >
                     <a
                         href="/"
                         class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-                        >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="40"
-                            height="32"
-                            fill="currentColor"
-                            class="bi bi-book me-2"
-                            viewBox="0 0 16 16"
-                            >
-                        <path
-                            d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"
-                            ></path>
-                        </svg>
-                        <span class="fs-4">Libreria MAF</span>
+                    >
+                        <span class="fs-4">Find a Job</span>
+                    </a>
+                    <a
+                        href="/testindex"
+                        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
+                    >
+                        <span class="fs-4">Testeo</span>
                     </a>
 
                     <ul class="nav nav-pills">
-                        <li class="nav-item visually-hidden">
+                        <li
+                            sec:authorize="hasAnyRole('ADMIN')"
+                            class="nav-item dropdown"
+                        >
                             <a
+                                class="nav-link dropdown-toggle"
                                 href="#"
-                                class="nav-link active"
-                                aria-current="page"
-                                >Home</a
+                                id="dropdown03"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >Admin</a
                             >
-                        </li>
-                        <li class="nav-item visually-hidden">
-                            <a href="#" class="nav-link">Features</a>
+                            <ul
+                                class="dropdown-menu"
+                                aria-labelledby="dropdown03"
+                            >
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/admin/mediaciones}"
+                                        >Ver mediaciones pendientes</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/admin/posteos}"
+                                        >Ver lista de posteos</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/admin/usuarios}"
+                                        >Ver lista de usuarios</a
+                                    >
+                                </li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item dropdown">
+                        <li
+                            sec:authorize="hasAnyRole('USER','ADMIN')"
+                            class="nav-item dropdown"
+                        >
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 id="dropdown03"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
-                                >Libros</a
+                                >Cliente</a
                             >
                             <ul
                                 class="dropdown-menu"
                                 aria-labelledby="dropdown03"
-                                >
+                            >
                                 <li>
-                                    <a class="dropdown-item" href="/l/form">Cargar</a>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/cliente/saldo(mail = ${#authentication.name})}"
+                                        >Ver saldos</a
+                                    >
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/l/search">Buscar</a>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/cliente/solicitudes(mail = ${#authentication.name})}"
+                                        >Ver solicitudes posteadas</a
+                                    >
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/l"
-                                       >Ver lista</a
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/cliente/trabajos(mail = ${#authentication.name})}"
+                                        >Ver trabajos en marcha</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/cliente/buscador}"
+                                        >Buscar trabajos ofrecidos</a
                                     >
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
+
+                        <li
+                            sec:authorize="hasAnyRole('USER','ADMIN')"
+                            class="nav-item dropdown"
+                        >
                             <a
                                 class="nav-link dropdown-toggle"
                                 href="#"
                                 id="dropdown03"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
-                                >Autores</a
+                                >Trabajador</a
                             >
                             <ul
                                 class="dropdown-menu"
                                 aria-labelledby="dropdown03"
-                                >
-                                <li>
-                                    <a class="dropdown-item" href="/a/form"
-                                       >Cargar</a
-                                    >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/a/search"
-                                       >Buscar</a
-                                    >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/a"
-                                       >Ver lista</a
-                                    >
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                href="#"
-                                id="dropdown03"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                >Editoriales</a
                             >
-                            <ul
-                                class="dropdown-menu"
-                                aria-labelledby="dropdown03"
-                                >
                                 <li>
-                                    <a class="dropdown-item" href="/e/form#">Cargar</a>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/trabajador/referencias(mail = ${#authentication.name})}"
+                                        >Ver referencias</a
+                                    >
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/e/search">Buscar</a>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/trabajador/ofertas(mail = ${#authentication.name})}"
+                                        >Ver ofertas posteadas</a
+                                    >
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/e"
-                                       >Ver lista</a
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/trabajador/trabajos(mail = ${#authentication.name})}"
+                                        >Ver trabajos en marcha</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        th:href="@{/trabajador/buscador}"
+                                        >Buscar trabajos solicitados</a
                                     >
                                 </li>
                             </ul>
                         </li>
                     </ul>
 
-                    <!-- Buscador -->
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input
-                            type="search"
-                            class="form-control form-control-dark"
-                            placeholder="Buscar libro..."
-                            aria-label="Search"
-                            />
-                    </form>
+                    <div class="text-end">
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a
+                                    sec:authorize="!isAuthenticated()"
+                                    class="btn btn-primary me-2"
+                                    href="/login"
+                                    >Ingresar</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    sec:authorize="!isAuthenticated()"
+                                    class="btn btn-secondary me-2"
+                                    href="/register"
+                                    >Registrarse</a
+                                >
+                            </li>
 
-                <div class="text-end">
-                    <a sec:authorize="!isAuthenticated()" class="btn btn-primary me-2" href="/login">Ingresar</a>
-                    <a sec:authorize="!isAuthenticated()" class="btn btn-secondary me-2" href="/register">Registrarse</a>
-                    <a sec:authorize="hasAnyRole('USER','ADMIN')" class="btn btn-danger me-2" href="/logout">Cerrar Sesion</a>
-                </div>
+                            <li
+                                sec:authorize="hasAnyRole('USER','ADMIN')"
+                                class="nav-item dropdown"
+                            >
+                                <a
+                                    class="btn btn-primary me-2 dropdown-toggle"
+                                    href="#"
+                                    id="dropdown03"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    >Cuenta</a
+                                >
+                                <ul
+                                    class="dropdown-menu"
+                                    aria-labelledby="dropdown03"
+                                >
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            th:href="@{/usuario/}"
+                                            >Ver perfil</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            th:href="@{/usuario/datos}"
+                                            >Modificar datos</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            th:href="@{/usuario/clave}"
+                                            >Cambiar clave</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            sec:authorize="hasAnyRole('USER','ADMIN')"
+                                            class="dropdown-item"
+                                            href="/logout"
+                                            >Cerrar Sesion</a
+                                        >
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </header>
             </div>
-
             <div class="b-example-divider"></div>
         </nav>
 

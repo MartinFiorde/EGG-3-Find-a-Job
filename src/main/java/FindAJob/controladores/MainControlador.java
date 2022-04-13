@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @PreAuthorize("permitAll()")
 public class MainControlador {
 
-    @GetMapping
+    @GetMapping("testindex")
     // doc con todas las opciones de autorizacion >>> https://www.baeldung.com/spring-security-expressions
     @PreAuthorize("permitAll()")
-    public String index() {
+    public String testIndex() {
         return "testMAFBEnd/index-test.html";
     }
 
+    @GetMapping
+    // doc con todas las opciones de autorizacion >>> https://www.baeldung.com/spring-security-expressions
+    @PreAuthorize("permitAll()")
+    public String Indextemp() {
+        return "testMAFBEnd/index-test.html";
+    }
 
 }
