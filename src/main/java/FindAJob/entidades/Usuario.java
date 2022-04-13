@@ -2,6 +2,7 @@ package FindAJob.entidades;
 
 import FindAJob.enums.Rol;
 import FindAJob.enums.Zona;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Usuario {
@@ -27,8 +29,8 @@ public class Usuario {
 
     private String apellido;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date nacimiento;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate nacimiento;
 
     private String mail;
 
@@ -56,11 +58,11 @@ public class Usuario {
     @OneToMany
     private List<Referencia> referencias;
 
-    //
+    // CONSTRUCTOR VACIO
     public Usuario() {
     }
 
-    //
+    // GETERS Y SETERS
     public String getId() {
         return id;
     }
@@ -165,12 +167,23 @@ public class Usuario {
         this.dineroEnCuenta = dineroEnCuenta;
     }
 
-    public Date getNacimiento() {
+    public LocalDate getNacimiento() {
         return nacimiento;
     }
 
-    public void setNacimiento(Date nacimiento) {
+    public void setNacimiento(LocalDate nacimiento) {
         this.nacimiento = nacimiento;
     }
 
+    // METODOS
+    public String getFullName() {
+        return nombre + " " + apellido;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", nacimiento=" + nacimiento + ", mail=" + mail + ", clave=" + clave + ", dineroEnCuenta=" + dineroEnCuenta + ", alta=" + alta + ", baja=" + baja + ", activo=" + activo + ", rol=" + rol + ", zona=" + zona + ", foto=" + foto + ", referencias=" + referencias + '}';
+    }
+    
+    
 }
