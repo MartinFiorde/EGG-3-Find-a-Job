@@ -107,6 +107,16 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    @Transactional(rollbackOn = Exception.class)
+    public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
+        Usuario usuario = validarId(idUsuario);
+        if ((usuario.getDineroEnCuenta() + monto) < 0) {
+            System.out.println("No hay saldo suficiente para realizar la operacion.");
+        }
+        usuario.setDineroEnCuenta(usuario.getDineroEnCuenta() + monto);
+        usuarioRepositorio.save(usuario);
+    }
+
     public Usuario validarId(String id) throws ErrorServicio {
         Optional<Usuario> res = usuarioRepositorio.findById(id);
         if (!res.isPresent()) {
@@ -260,8 +270,8 @@ public class UsuarioServicio implements UserDetailsService {
         return idsesion;
     }
 
-    public List<Usuario> findAll(){
+    public List<Usuario> findAll() {
         return usuarioRepositorio.findAll();
     }
-    
+
 }

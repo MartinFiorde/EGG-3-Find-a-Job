@@ -1,9 +1,11 @@
 package FindAJob.enums;
 
 public enum Status {
-    SOLICITADO("Solicitado"), OFRECIDO("Ofrecido"), PORCONFIRMAR("Por confirmar"), ENPROCESO("En proceso"),
-    ENTREGADO("Entregado"), FINEXITOSO("Fin exitoso"), FINCONFLICTO("Fin con conflicto"),
-    CANCELADOEXITO("Cancelado con exito"), CANCELCONFIRM("Cancelación Confirmada"), BORRADOR("Borrador");
+    A_BORRADOR("Borrador"),
+    B_PUBLICADO("Publicado"),
+    C_ENPROCESO("En proceso"),
+    D_ENTREGADO("Entregado"),
+    E_PAGADO("Pagado");
 
     private String nombreLindo;
 
@@ -13,9 +15,5 @@ public enum Status {
 
     public String getNombreLindo() {
         return nombreLindo;
-    }
-
-    public void setNombreLindo(String nombreLindo) {
-        this.nombreLindo = nombreLindo;
     }
 }
