@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 @PreAuthorize("permitAll()")
 public class MainControlador {
-    
+
     private final ProfesionServicio profesionServicio;
     private final ReferenciaServicio referenciaServicio;
 
@@ -27,9 +26,6 @@ public class MainControlador {
         this.profesionServicio = profesionServicio;
         this.referenciaServicio = referenciaServicio;
     }
-
-    
-    
 
     @GetMapping("testindex")
     // doc con todas las opciones de autorizacion >>> https://www.baeldung.com/spring-security-expressions
@@ -43,7 +39,7 @@ public class MainControlador {
     public String index() {
         return "index.html";
     }
-    
+  
 
     
     //TESTEO RODRIGO
@@ -67,7 +63,5 @@ public class MainControlador {
         
     //    return null; //retornar vista
     //}
-   
-    
-
+      
 }

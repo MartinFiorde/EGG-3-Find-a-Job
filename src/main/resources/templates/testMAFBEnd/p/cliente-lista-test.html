@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lista posts</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div class="container justify-content-center">
+            <h1>Lista de posts vinculados</h1>
+
+            <a class="dropdown-item" th:href="@{/post/form/{idPosteo}(idPosteo ='new')}">Nuevo post</a>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead style="background-color: rgb(241, 216, 201)">
+                        <tr>
+                            <!-- <th scope="col">ID</th> -->
+                            <th scope="col">Status</th>
+                            <th scope="col">Alta</th>
+                            <th scope="col">Rubro</th>
+                            <th scope="col">Profesion</th>
+                            <th scope="col">Sub Profesion</th>
+                            <th scope="col">Zona</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Fecha de entrega</th>
+                            <th scope="col">Dinero guardado</th>
+                            <th scope="col">Trabajador</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Link</th>
+                        </tr>
+                    </thead>
+            
+                    <tbody th:each="posteo : ${posteos}">
+                        <tr>
+                            <!-- <td th:text="${libro.id}" scope="row"></td> -->
+                            <td th:text="${posteo.status.nombreLindo}" scope="row"></td>
+                            <td th:text="${posteo.alta}" scope="row"></td>
+                            <td th:text="${posteo.profesion.rubro.nombreLindo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.subtipo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.tipo}" scope="row"></td>
+                            <td th:text="${posteo.zona.nombreCiudad}" scope="row"></td>
+                            <td th:text="${posteo.precio}" scope="row"></td>
+                            <td th:text="${posteo.entregaTrabajo}" scope="row"></td>
+                            <td th:text="${posteo.dineroGuardado}" scope="row"></td>
+                            <td th:text="${posteo.trabajador.fullName}" scope="row"></td>
+                            <td th:text="${posteo.cliente}" scope="row"></td>
+                            <td scope="row">
+                                <a th:href="@{/post/form/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>

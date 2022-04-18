@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+           </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">testindex</a>
+
+        <div class="container justify-content-center">
+            <h1>Gestión de dinero: </h1>
+            <p><span>Saldo en cuenta: </span><span th:text="'$ ' + ${usuario.dineroEnCuenta}"></span></p>
+            <form
+                th:action="@{/cliente/saldo}"
+                enctype="multipart/form-data"
+                method="POST"
+                >
+                <input type="number" placeholder="Monto a ingresar" name="carga" />
+                <input type="submit" value="Depositar en la aplicación" />
+            </form>
+            
+            <form
+                th:action="@{/cliente/saldo}"
+                enctype="multipart/form-data"
+                method="POST"
+                >
+                <input type="number" placeholder="Monto a retirar" name="retiro" />
+                <input type="submit" value="Retirar de la aplicación" />
+            </form>
+
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+                ></p>
+        </div>
+        
+    </body>
+</html>

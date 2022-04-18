@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div class="container justify-content-center">
+            <h1>Cambio datos de usuario</h1>
+            <form
+                th:action="@{/usuario/datos2}"
+                th:object="${usuario}"
+                enctype="multipart/form-data"
+                method="POST"
+            >
+                <br />
+                <label>Nombre</label>
+                <input type="text" placeholder="Nombre" th:field="*{nombre}"  />
+                <br />
+                <label>Apellido</label>
+                <input type="text" placeholder="Apellido" th:field="*{apellido}" />
+                <br />
+                <label>Nacimiento</label>
+                <input type="date" placeholder="Fecha de nacimiento" th:field="*{nacimiento}" />
+                <br />
+                <!-- 
+                <label>Zona</label>
+                <select name="idZona">
+                    <option th:each="aux : ${zonas}" th:value="${aux}" th:text="${aux}" 
+                    th:selected="${idZona != null ? idZona == aux : false}" ></option>
+                </select>
+                <br />
+                 -->
+                <label>Zona</label>
+                <select name="zona2">
+                    <option th:each="aux2 : ${zonas2}" th:value="${aux2}" th:text="${aux2.nombreCiudad}" 
+                    th:selected="${idZona != null ? idZona == aux2.nombreCiudad : false}" ></option>
+                </select>
+                <br />
+                
+                <input type="submit" value="Aceptar" />
+            </form>
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>

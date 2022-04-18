@@ -52,7 +52,7 @@ public class UsuarioControlador {
             model.put("mail", mail);
             model.put("clave", clave);
             model.put("clave2", clave2);
-            return "registro.html";
+            return "index.html";
         }
     }
 
@@ -133,10 +133,44 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/admin/usuarios")
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaUsuarios(ModelMap model) {
         model.put("usuarios", usuarioServicio.findAll());
         return "listaUsers";
     }
 
+    @GetMapping("/usuario/saldo")
+    @PreAuthorize("isAuthenticated()")
+    public String verMenuDeSaldo(ModelMap model) throws ErrorServicio {
+        Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+        model.put("usuario", usuario);
+        return "/testMAFBEnd/saldo-test.html";
+    }
+
+    @PostMapping("/usuario/saldo")
+    @PreAuthorize("isAuthenticated()")
+    public String procesarCambioDeSaldo(ModelMap model, @RequestParam(required = false) Double carga, @RequestParam(required = false) Double retiro) throws ErrorServicio {
+        try {
+            if (carga == null) {
+                carga = 0d;
+            }
+            if (retiro == null) {
+                retiro = 0d;
+            }
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            usuarioServicio.CargarOQuitarDinero(usuario.getId(), carga - retiro);
+            model.put("usuario", usuario);
+            if (Math.abs(carga)+Math.abs(retiro) != 0) {
+            model.put("error", "Su operacion se realizó con éxito!");    
+            }
+            return "/testMAFBEnd/saldo-test.html";
+        } catch (Exception ex) {
+            System.out.println(ex);
+            model.put("error", ex.getMessage());
+            model.put("usuario", usuarioServicio.validarId(usuarioServicio.returnIdSession()));
+            return "/testMAFBEnd/saldo-test.html";
+        }
+    }
+
 }
+
