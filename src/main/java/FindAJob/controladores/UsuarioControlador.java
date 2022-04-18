@@ -35,7 +35,7 @@ public class UsuarioControlador {
     @GetMapping("/register")
     @PreAuthorize("permitAll()")
     public String formularioUsuario(ModelMap model, @RequestParam(required = false) String idSesion) throws ErrorServicio {
-        return "/registro.html";
+        return "registro.html";
     }
 
     @PostMapping("/register2")
@@ -67,7 +67,7 @@ public class UsuarioControlador {
     @GetMapping("usuario/clave")
     @PreAuthorize("isAuthenticated()")
     public String formularioCambioClave(ModelMap model) throws ErrorServicio {
-        return "/testMAFBEnd/cambio-clave-test.html";
+        return "/settings/cambioClave";
     }
 
     // 3 metodos para traer el id del usuario a un controlador. El mas práctico y seguro es el /*3*/
@@ -79,14 +79,14 @@ public class UsuarioControlador {
             usuarioServicio.validarClaveVieja(idsesion, clavevieja);
             usuarioServicio.modificarClave(idsesion, clave, clave2);
             model.put("error", "La clave se ha cambiado correctamente!");
-            return "/testMAFBEnd/index-test.html";
+            return"/settings/cambioClave";
 
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("clave", clave);
             model.put("clave2", clave2);
-            return "/testMAFBEnd/cambio-clave-test.html";
+            return "/settings/cambioClave";
         }
     }
 
@@ -99,7 +99,7 @@ public class UsuarioControlador {
         model.put("zonas2", zonas2);
         model.put("idZona", usuario.getZona().getNombreCiudad());
         model.put("foto", usuario.getFoto());
-        return "/testMAFBEnd/cambio-datos-test.html";
+        return "/settings/cambioDatos";
     }
 
     @PostMapping("usuario/datos2")
@@ -110,7 +110,7 @@ public class UsuarioControlador {
             usuario.setId(usuarioServicio.returnIdSession());
             usuarioServicio.modificarDatos(usuario, foto);
             model.put("error", "Los datos se han guardado correctamente!");
-            return "/testMAFBEnd/index-test.html";
+            return "/settings/cambioDatos";
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -120,7 +120,7 @@ public class UsuarioControlador {
             model.put("zonas2", zonas2);
             model.put("idZona", usuario.getZona().getNombreCiudad());
             model.put("foto", foto);
-            return "/testMAFBEnd/cambio-datos-test.html";
+            return "/settings/cambioDatos";
         }
     }
 
@@ -129,14 +129,14 @@ public class UsuarioControlador {
     public String verPerfilUsuario(ModelMap model) throws ErrorServicio {
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
-        return "/testMAFBEnd/usuario-test.html";
+        return "vistaUsuario.html";
     }
 
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaUsuarios(ModelMap model) {
         model.put("usuarios", usuarioServicio.findAll());
-        return "/testMAFBEnd/lista-usuarios-test.html";
+        return "listaUsers";
     }
 
     @GetMapping("/usuario/saldo")
@@ -173,3 +173,4 @@ public class UsuarioControlador {
     }
 
 }
+

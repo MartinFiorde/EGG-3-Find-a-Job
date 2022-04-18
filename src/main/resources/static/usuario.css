@@ -1,0 +1,114 @@
+*{
+  padding: 0%;
+  margin: 0;
+}
+body {
+  background-image: url(img/user/fondo-user.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* navbar */
+.navbar {
+  background-color: rgba(39, 39, 38, 0.911) !important;
+  font-size: 20px;
+  display: flex;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.navbar-brand img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+}
+
+#inicio {
+  background-color: #e9c564;
+  border: 0ch;
+  color: black;
+}
+
+.btn {
+  color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: aliceblue;
+}
+
+/* end navbar */
+
+
+.fondo-blur {
+  backdrop-filter: blur(10px);
+  margin:  auto;
+  padding-top: 60px;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  width: 70vw;
+  height: 90vh;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+  z-index: 2;
+}
+.titulo {
+  position: absolute;
+  left: 40%;
+  margin-top: -50px;
+  z-index: 1;
+}
+
+.titulo h2 {
+  position: relative;
+  color: #e9c564;
+  font-size: 6vw;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-shadow: 4px 4px 4px black;
+}
+.nombre-usuario {
+  text-align: center;
+  color: darkgrey;
+}
+.datos-usuario{
+  margin: auto;
+  width: 70vw;
+  height: 70vh;
+}
+
+ .perfil-datos {
+  margin: auto;
+  margin-left: 150px;
+  margin-right: 0%;
+  width: 15vw;
+  height: 60vh;
+  border-radius: 15px;
+ }
+ .perfil-datos2 {
+  margin: auto;
+  margin-left: 0%;
+  width: 21vw;
+  height: 60vh;
+  border-radius: 15px;
+ }
+ .datos-user1 {
+   text-align: center;
+   color: aliceblue;
+   padding: auto;
+   font-size: 20px;
+   background-color:rgba(255, 255, 255, 0.123);
+   border-radius: 8px;
+   box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+   margin: 15px;
+   width: 32vw;
+   height: 7vh;
+ }
+
+ .datos-user {
+  margin: 17px;
+  width: 11vw;
+  height: 7vh;
+  color: darkgrey;
+}
+
+

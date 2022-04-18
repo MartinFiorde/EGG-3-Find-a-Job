@@ -39,5 +39,29 @@ public class MainControlador {
     public String index() {
         return "index.html";
     }
+  
 
+    
+    //TESTEO RODRIGO
+    //IGNORAR
+   //@GetMapping("/form")
+    //public String testeoReferencia(ModelMap model ){ //, @RequestParam("enumRubro")Rubro rubro 
+    //    List<String> rubros = new ArrayList();
+    //        for (Rubro aux : Rubro.values()){
+    //            rubros.add(aux.getNombreLindo().toString());
+    //        }
+
+    //    model.addAttribute("rubros", rubros);
+    //    model.addAttribute("referencia", new Referencia());
+        
+    //    return "testRodrigo/testReferencia";
+   // }
+    
+   // @PostMapping("/form")
+    //public String reciboTesteoReferencia(ModelMap model,@RequestParam String idRubro){
+    //    System.out.println("idRubro");
+        
+    //    return null; //retornar vista
+    //}
+      
 }
