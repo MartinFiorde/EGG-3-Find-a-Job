@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div class="container justify-content-center">
+            <h1>Información del Posteo</h1>
+            <form
+                id="formPost"
+                th:action="@{/post/form}"
+                th:object="${posteo}"
+                enctype="multipart/form-data"
+                method="POST"
+            >
+                <input type="hidden" th:if="*{id != null}" name="idPosteo" th:value="*{id}" />
+
+                <br />
+                <p><span>Posteo id: </span><span th:if="${posteo.id != null}" th:text="*{id}"></span></p>
+                <p><span>Status: </span><span th:if="${posteo.status != null}" th:text="*{status.nombreLindo}"></span></p>
+                <p><span>Fecha de alta: </span><span th:if="${posteo.alta != null}" th:text="*{alta}"></span></p>
+                <label>Rubro: </label>
+                <select name="rubro" id="rubro" onchange="obtenerProfesiones()">
+                    <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}" 
+                    th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}" ></option>
+                </select>
+                <p><span>Profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.subtipo}"></span></p>
+                <p><span>Sub profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.tipo}"></span></p>
+
+                <select name="tipo" id="tipo" onchange="obtenerSubProfesioens()">
+                    <option th:value="${aux2}"></option>
+                </select>
+
+                <br />
+                <br />
+                <label>Zona: </label>
+                <select name="zona">
+                    <option th:each="aux : ${zonas}" th:value="${aux}" th:text="${aux.nombreCiudad}" 
+                    th:selected="${idZona != null ? idZona == aux.nombreCiudad : false}" ></option>
+                </select>
+                
+                <br />
+                <p><span>Nombre del Trabajador: </span><span th:if="${posteo.trabajador != null}" th:text="*{trabajador.fullName}"></span></p>
+                <!-- <p><span>Referencias: </span><span th:if="${posteo.trabajador != null}" th:text="*{referencias.experiencia}"></span></p> -->
+                <label>Observaciones del Trabajador: </label>
+                <input type="text" placeholder="Comentarios sobre la solicitud" th:field="*{descripcionOferta}" />
+                <br />
+                <br />
+                <label>Precio: </label>
+                <input type="number" placeholder="Precio" th:field="*{precio}"  />
+
+                <br />
+                <p><span>Nombre del cliente: </span><span th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></span></p>
+                <label>Observaciones del Cliente: </label>
+                <input type="text" placeholder="Comentarios sobre la solicitud" th:field="*{descripcionSolicitud}" />
+                <p><span>Dinero guardado: </span><span th:if="${posteo.cliente != null}" th:text="'$ ' + *{dineroGuardado}"></span></p>
+                <label>Fecha de entrega: </label>
+                <input type="date" placeholder="Fecha de entrega" th:field="*{entregaTrabajo}"  />
+                <p><span>Chat: </span><span th:if="${posteo.chat != null}" th:text="*{chat}"></span></p>
+
+                <br />
+                <!--
+                <input type="submit" value="Editar" />
+                -->
+                <br />
+                <button onclick="changeFormAction('formPost', '/post/form/')" >Guardar borrador</button>
+                <button onclick="changeFormAction('formPost', '/post/b/')" >Publicar</button>
+                <button onclick="changeFormAction('formPost', '/post/c/')" >Contratar</button>
+                <button onclick="changeFormAction('formPost', '/post/d/')" >Confirmar entrega</button>
+                <button onclick="changeFormAction('formPost', '/post/e/')" >Confirmar pago</button>
+                <br />
+            </form>
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+
+        <script src="/js/form.js"></script>
+    </body>
+</html>
