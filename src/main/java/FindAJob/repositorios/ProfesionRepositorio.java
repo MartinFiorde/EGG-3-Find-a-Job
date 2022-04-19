@@ -11,9 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfesionRepositorio extends JpaRepository<Profesion, String> {
 
+
     @Query(value = "SELECT a FROM Profesion a WHERE a.rubro LIKE :rubro")
     public List<Profesion> filtrarPorRubro(@Param("rubro") Rubro rubro);
-    
-// @Query("SELECT l FROM profesion l WHERE l.rubro LIKE %rubro%")
-// public List<Profesion> buscarSubtipoPorRubro (@Param ("rubro") String rubro);    
+
 }

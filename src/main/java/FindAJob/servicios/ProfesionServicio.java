@@ -41,20 +41,23 @@ public class ProfesionServicio {
 
     }
 
+
+    
+    public String asignarSubtipo (String id) throws ErrorServicio{
+
+
     public void asignarRubro() {
 
     }
 
-//    public List<Profesion> buscarSubTipoPorRubro(String profesion){ 
-//       //Devuelve lista subrubros segun el rubro que llega de la vista, no necesita valicion.
-//        return profesionRepositorio.buscarSubtipoPorRubro(profesion); 
-//    }
     public String asignarSubtipo(String id) throws ErrorServicio {
+
         //llega el id del rubro(con el subrubro elegido) que se elegio en la vista
         Profesion profesion = buscarPorId(id);
         String subtipo = profesion.getSubtipo();
         return subtipo;
     }
+
 
     public Profesion validarId(String id) throws ErrorServicio {
         Optional<Profesion> res = profesionRepositorio.findById(id);
@@ -63,5 +66,6 @@ public class ProfesionServicio {
         }
         return res.get();
     }
+
 
 }
