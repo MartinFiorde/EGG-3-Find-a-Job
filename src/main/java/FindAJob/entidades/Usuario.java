@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 public class Usuario {
@@ -178,6 +179,11 @@ public class Usuario {
     // METODOS
     public String getFullName() {
         return nombre + " " + apellido;
+    }
+    
+    public Long getEdad() {
+        long anios = ChronoUnit.YEARS.between(nacimiento, LocalDate.now());
+        return anios;
     }
 
     @Override
