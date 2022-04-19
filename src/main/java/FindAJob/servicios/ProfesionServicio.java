@@ -46,13 +46,8 @@ public class ProfesionServicio {
     
     public void asignarRubro(){
         
-    }
-        
-//    public List<Profesion> buscarSubTipoPorRubro(String profesion){ 
-//       //Devuelve lista subrubros segun el rubro que llega de la vista, no necesita valicion.
-//        return profesionRepositorio.buscarSubtipoPorRubro(profesion); 
-//    }
-    
+    }        
+
     
     public String asignarSubtipo (String id) throws ErrorServicio{
         //llega el id del rubro(con el subrubro elegido) que se elegio en la vista
@@ -61,5 +56,5 @@ public class ProfesionServicio {
         return subtipo;
     }
     
-    
+   
 }

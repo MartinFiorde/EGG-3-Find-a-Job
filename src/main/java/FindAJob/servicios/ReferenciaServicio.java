@@ -5,6 +5,7 @@ import FindAJob.entidades.Referencia;
 import FindAJob.excepciones.ErrorServicio;
 import FindAJob.repositorios.ReferenciaRepositorio;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,8 +118,6 @@ private final ArchivoServicio archivoServicio;
         validarHerramientas(herramientas);
         referencia.setHerramientas(herramientas);
     }
-          
-    
     
        
     //VALIDACIONES
