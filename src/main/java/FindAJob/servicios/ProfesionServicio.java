@@ -44,19 +44,13 @@ public class ProfesionServicio {
 
     
     public String asignarSubtipo (String id) throws ErrorServicio{
-
-
+    return null;
+    }
     public void asignarRubro() {
 
     }
 
-    public String asignarSubtipo(String id) throws ErrorServicio {
-
-        //llega el id del rubro(con el subrubro elegido) que se elegio en la vista
-        Profesion profesion = buscarPorId(id);
-        String subtipo = profesion.getSubtipo();
-        return subtipo;
-    }
+   
 
 
     public Profesion validarId(String id) throws ErrorServicio {

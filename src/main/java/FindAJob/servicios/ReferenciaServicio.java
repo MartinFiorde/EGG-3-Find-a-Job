@@ -86,8 +86,7 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
 
     @Transactional//REVISAR ANOTACIONES
     public void asignarArchivos(Referencia referencia, String id) throws ErrorServicio {
-        //************************************************************************
-        //FRONT END:
+        
         //para llamar este metodo necesario tener archivo previamente creada!!
 
         //crear buscarPorId en archivoServicio con Optional y
@@ -110,7 +109,7 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
     }
 
     //VALIDACIONES
-    //REVISAR   
+     
     public void validarExperiencia(String experiencia) throws ErrorServicio {
         if (experiencia.length() < 20) {  //REVISAR
             throw new ErrorServicio("Debe contener al menos 20 caracteres");
@@ -120,12 +119,12 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
         }
     }
 
-    //REVISAR   
+      
     public void validarHerramientas(String herramientas) throws ErrorServicio {
-        if (herramientas.length() < 20) {  //REVISAR
+        if (herramientas.length() < 20) {  
             throw new ErrorServicio("Debe contener al menos 20 caracteres");
         }
-        if (herramientas.length() > 500) {  //REVISAR  
+        if (herramientas.length() > 500) {  
             throw new ErrorServicio("No debe contener mas de 500 caracteres");
         }
     }
