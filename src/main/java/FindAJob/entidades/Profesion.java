@@ -68,4 +68,11 @@ public class Profesion {
         this.subtipo = subtipo;
     }
 
+    @Override
+    public String toString() {
+        return "Profesion{" + "id=" + id + ", rubro=" + rubro + ", tipo=" + tipo + ", subtipo=" + subtipo + '}';
+    }
+
+    
+    
 }

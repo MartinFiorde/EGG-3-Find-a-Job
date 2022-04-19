@@ -19,7 +19,7 @@
         <nav th:replace="fragments/navbar.html :: header"></nav>
     </header>
     <!-- end navbar -->
-   <!-- REGISTRO -->
+   <!-- login -->
    <div class="form-body">
     <div class="row">
         <div class="form-holder animate__animated animate__fadeInLeft">
@@ -37,7 +37,7 @@
                 </div>
                   <p class="error" style="color: red;" th:text="${error != null ? error : ''}"></p>
                         <div class="form-button mt-3">
-                            <button id="submit" type="submit" class="btn btn-primary shadow">Registrar</button>
+                            <button id="submit" type="submit" class="btn btn-primary shadow">Iniciar Sesion</button>
                         </div>
                         <p class="login">¿Aun no tienes cuenta en Find A Job?<a href="/register">Registrarse</a></p>
                     </form>

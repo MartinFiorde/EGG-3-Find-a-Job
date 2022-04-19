@@ -1,69 +1,59 @@
 package FindAJob.entidades;
 
+import FindAJob.enums.Status;
 import FindAJob.enums.Zona;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Posteo {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
     @OneToOne
     private Profesion profesion;
-
     @OneToOne
     private Usuario cliente;
-
     @OneToOne
     private Usuario trabajador;
-
     @OneToOne
     private Referencia referencia;
-
+    @Enumerated(EnumType.STRING)
     private Zona zona;
-    
+    @Enumerated(EnumType.STRING)
+    private Status status;
     private Double precio;
-    
     private Double DineroGuardado;
-    
     private String descripcionOferta;
-    
     private String descripcionSolicitud;
-    
     @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date baja;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date entregaTrabajo;
-    
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate entregaTrabajo;
     private String chat;
-    
     private String reclamoCliente;
-    
     private String reclamoTrabajador;
-    
     private String resolucionAdministrador;
-    
-    //
 
+    //
     public Posteo() {
     }
-    
-    //
 
+    //
     public String getId() {
         return id;
     }
@@ -144,11 +134,11 @@ public class Posteo {
         this.baja = baja;
     }
 
-    public Date getEntregaTrabajo() {
+    public LocalDate getEntregaTrabajo() {
         return entregaTrabajo;
     }
 
-    public void setEntregaTrabajo(Date entregaTrabajo) {
+    public void setEntregaTrabajo(LocalDate entregaTrabajo) {
         this.entregaTrabajo = entregaTrabajo;
     }
 
@@ -199,6 +189,20 @@ public class Posteo {
     public void setDescripcionSolicitud(String descripcionSolicitud) {
         this.descripcionSolicitud = descripcionSolicitud;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Posteo{" + "id=" + id + ", profesion=" + profesion + ", cliente=" + cliente + ", trabajador=" + trabajador + ", referencia=" + referencia + ", zona=" + zona + ", status=" + status + ", precio=" + precio + ", DineroGuardado=" + DineroGuardado + ", descripcionOferta=" + descripcionOferta + ", descripcionSolicitud=" + descripcionSolicitud + ", alta=" + alta + ", baja=" + baja + ", entregaTrabajo=" + entregaTrabajo + ", chat=" + chat + '}';
+    }
+
     
     
 }
