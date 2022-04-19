@@ -9,6 +9,7 @@ import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
 import FindAJob.repositorios.PosteoRepositorio;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,15 +44,25 @@ public class PosteoServicio {
 
     @Transactional(rollbackOn = Exception.class)
     public void escribirChat(String idPosteo, String mensaje) throws ErrorServicio {
+        if (mensaje.toLowerCase() == null || mensaje.isEmpty() || mensaje.trim() == "") {
+            throw new ErrorServicio("Debe ingresar un mensaje válido");
+        }
         if (mensaje.length() > 200) {
             throw new ErrorServicio("Supero el limite de 200 caracteres por mensaje");
         }
         Posteo posteo = validarId(idPosteo);
-        String mensajeFinal = (new Date()) + " - " + usuarioServicio.validarId(usuarioServicio.returnIdSession()).getFullName() + ": " + mensaje + " .- \n";
+        String mensajeFinal = (new Date()) + " - " + usuarioServicio.validarId(usuarioServicio.returnIdSession()).getFullName() + ": " + mensaje;
+        List<String> chats = posteo.getChats();
         System.out.println("Mensaje: " + mensajeFinal);
-        posteo.setChat(posteo.getChat().concat(mensajeFinal));
-        System.out.println("Chat completo: \n" + posteo.getChat());
+        chats.add(mensajeFinal);
+        posteo.setChats(chats);
         posteoRepositorio.save(posteo);
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void BajaA(String id) throws ErrorServicio {
+        Posteo posteo = validarId(id);
+        crearBorradorA(id, posteo, posteo.getProfesion().getId(), posteo.getZona().toString());
     }
 
     @Transactional(rollbackOn = Exception.class)
@@ -65,7 +76,10 @@ public class PosteoServicio {
             }
         }
 
-        if (posteoOrigen.getPrecio() < 0d) {
+        if (posteoOrigen.getDescripcionOferta().toLowerCase() == null || posteoOrigen.getDescripcionOferta().isEmpty() || posteoOrigen.getDescripcionOferta().trim() == "") {
+            throw new ErrorServicio("Debe ingresar una descripción del servicio ofrecido.");
+        }
+        if (posteoOrigen.getPrecio() < 0d || posteoOrigen.getPrecio() == null) {
             throw new ErrorServicio("Debe ingresar un precio válido.");
         }
         if (posteoOrigen.getDescripcionOferta() != null) {
@@ -82,7 +96,8 @@ public class PosteoServicio {
         posteoDestino.setZona(Zona.valueOf(idZona));
         posteoDestino.setProfesion(profesionServicio.validarId(idProfesion));
         posteoDestino.setAlta(null);
-        posteoDestino.setChat("Sala de chat pública. Consulta inquietudes o convení términos con el oferente.- \n");
+        List<String> chats = new ArrayList();
+        posteoDestino.setChats(chats);
 
         posteoRepositorio.save(posteoDestino);
     }
@@ -97,7 +112,9 @@ public class PosteoServicio {
             throw new ErrorServicio("La operacion no puede ser realizada sobre este post en su estado actual.");
         }
         posteo.setStatus(Status.B_PUBLICADO);
-
+        List<String> chats = new ArrayList();
+        chats.add(new Date() + " - " + "Sala de chat pública. Consulta inquietudes o convení términos con el oferente");
+        posteo.setChats(chats);
         posteo.setAlta(new Date());
         posteoRepositorio.save(posteo);
     }
@@ -118,7 +135,9 @@ public class PosteoServicio {
         posteo.setEntregaTrabajo(entregaEstimada);
         usuarioServicio.CargarOQuitarDinero(posteo.getCliente().getId(), -(posteo.getPrecio()));
         posteo.setDineroGuardado(posteo.getPrecio());
-        posteo.setChat(posteo.getChat() + new Date() + " - " + "Oferta contratada. Acceso al chat limitado a las partes involucradas.- \n");
+        List<String> chats = new ArrayList();
+        chats.add(new Date() + " - " + "Oferta contratada. Acceso al chat limitado a las partes involucradas");
+        posteo.setChats(chats);
 
         posteoRepositorio.save(posteo);
     }
@@ -153,8 +172,8 @@ public class PosteoServicio {
         posteoRepositorio.save(posteo);
     }
 
-    public List<Posteo> findAll(){
+    public List<Posteo> findAll() {
         return posteoRepositorio.findAll();
     }
-    
+
 }

@@ -26,11 +26,13 @@
                             <th scope="col">Profesion</th>
                             <th scope="col">Sub Profesion</th>
                             <th scope="col">Zona</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Fecha de entrega</th>
-                            <th scope="col">Dinero guardado</th>
                             <th scope="col">Trabajador</th>
+                            <th scope="col">Precio estimado</th>
                             <th scope="col">Cliente</th>
+                            <th scope="col">Pago reservado</th>
+                            <th scope="col">Fecha de entrega</th>
+                            
+                            
                             <th scope="col">Link</th>
                         </tr>
                     </thead>
@@ -41,8 +43,8 @@
                             <td th:text="${posteo.status.nombreLindo}" scope="row"></td>
                             <td th:text="${posteo.alta}" scope="row"></td>
                             <td th:text="${posteo.profesion.rubro.nombreLindo}" scope="row"></td>
-                            <td th:text="${posteo.profesion.subtipo}" scope="row"></td>
                             <td th:text="${posteo.profesion.tipo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.subtipo}" scope="row"></td>
                             <td th:text="${posteo.zona.nombreCiudad}" scope="row"></td>
                             <td th:text="${posteo.precio}" scope="row"></td>
                             <td th:text="${posteo.entregaTrabajo}" scope="row"></td>

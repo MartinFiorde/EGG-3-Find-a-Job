@@ -94,21 +94,14 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/usuario/saldo}"
-                                        >Ver saldos</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        class="dropdown-item"
-                                        th:href="@{/post/lista}"
+                                        th:href="@{/trabajo/lista}"
                                         >Ver lista de trabajos</a
                                     >
                                 </li>
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/cliente/buscador}"
+                                        th:href="@{/post/buscador}"
                                         >Buscar ofertas</a
                                     >
                                 </li>
@@ -134,7 +127,7 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/trabajador/referencias}"
+                                        th:href="@{/referencias}"
                                         >Ver referencias</a
                                     >
                                 </li>
@@ -142,14 +135,14 @@
                                     <a
                                         class="dropdown-item"
                                         th:href="@{/post/lista}"
-                                        >Ver lista de trabajos</a
+                                        >Ver lista de ofertas</a
                                     >
                                 </li>
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/trabajador/buscador}"
-                                        >Buscar solicitudes</a
+                                        th:href="@{/trabajo/lista}"
+                                        >Ver lista de trabajos</a
                                     >
                                 </li>
                             </ul>
@@ -191,6 +184,13 @@
                                     class="dropdown-menu"
                                     aria-labelledby="dropdown03"
                                 >
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            th:href="@{/usuario/saldo}"
+                                            >Ver saldo</a
+                                        >
+                                    </li>
                                     <li>
                                         <a
                                             class="dropdown-item"

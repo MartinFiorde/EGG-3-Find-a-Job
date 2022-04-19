@@ -26,16 +26,25 @@
                 <p><span>Status: </span><span th:if="${posteo.status != null}" th:text="*{status.nombreLindo}"></span></p>
                 <p><span>Fecha de alta: </span><span th:if="${posteo.alta != null}" th:text="*{alta}"></span></p>
                 <label>Rubro: </label>
-                <select name="rubro" id="rubro" onchange="obtenerProfesiones()">
+                <select name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
                     <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}" 
                     th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}" ></option>
                 </select>
-                <p><span>Profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.subtipo}"></span></p>
-                <p><span>Sub profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.tipo}"></span></p>
-
-                <select name="tipo" id="tipo" onchange="obtenerSubProfesioens()">
-                    <option th:value="${aux2}"></option>
+                <!-- <p><span>Profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.subtipo}"></span></p>
+                <p><span>Sub profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.tipo}"></span></p> -->
+                <br/>
+                <br/>
+                <label>Profesion: </label>
+                <select name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
+                    <option th:each="aux3 : ${tipos}"th:value="${aux3}" th:text="${aux3}"
+                    th:selected="${idTipo != null ? idTipo == aux3 : false}" ></option>
                 </select>
+                <br/>
+                <br/>
+                <label>Sub Profesion: </label>
+                <select name="subtipo" id="subtipo" >
+                    <option th:each="aux4 : ${subtipos}"th:value="${aux4}" th:text="${aux4}" 
+                    th:selected="${idSubtipo != null ? idSubtipo == aux4 : false}" ></option>                </select>
 
                 <br />
                 <br />
@@ -52,7 +61,7 @@
                 <input type="text" placeholder="Comentarios sobre la solicitud" th:field="*{descripcionOferta}" />
                 <br />
                 <br />
-                <label>Precio: </label>
+                <label>Precio estimado por proyecto/hora: </label>
                 <input type="number" placeholder="Precio" th:field="*{precio}"  />
 
                 <br />

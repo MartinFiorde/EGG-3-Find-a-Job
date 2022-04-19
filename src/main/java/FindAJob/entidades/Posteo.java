@@ -3,12 +3,18 @@ package FindAJob.entidades;
 import FindAJob.enums.Status;
 import FindAJob.enums.Zona;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,7 +50,10 @@ public class Posteo {
     private Date baja;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate entregaTrabajo;
-    private String chat;
+    @ElementCollection // 1
+    @CollectionTable(name = "chats", joinColumns = @JoinColumn(name = "id")) // 2
+    @Column(name = "chats") // 3
+    private List<String> chats;
     private String reclamoCliente;
     private String reclamoTrabajador;
     private String resolucionAdministrador;
@@ -142,12 +151,12 @@ public class Posteo {
         this.entregaTrabajo = entregaTrabajo;
     }
 
-    public String getChat() {
-        return chat;
+    public List<String> getChats() {
+        return chats;
     }
 
-    public void setChat(String chat) {
-        this.chat = chat;
+    public void setChats(List<String> chats) {
+        this.chats = chats;
     }
 
     public String getReclamoCliente() {
@@ -200,9 +209,7 @@ public class Posteo {
 
     @Override
     public String toString() {
-        return "Posteo{" + "id=" + id + ", profesion=" + profesion + ", cliente=" + cliente + ", trabajador=" + trabajador + ", referencia=" + referencia + ", zona=" + zona + ", status=" + status + ", precio=" + precio + ", DineroGuardado=" + DineroGuardado + ", descripcionOferta=" + descripcionOferta + ", descripcionSolicitud=" + descripcionSolicitud + ", alta=" + alta + ", baja=" + baja + ", entregaTrabajo=" + entregaTrabajo + ", chat=" + chat + '}';
+        return "Posteo{" + "id=" + id + ", profesion=" + profesion + ", cliente=" + cliente + ", trabajador=" + trabajador + ", referencia=" + referencia + ", zona=" + zona + ", status=" + status + ", precio=" + precio + ", DineroGuardado=" + DineroGuardado + ", descripcionOferta=" + descripcionOferta + ", descripcionSolicitud=" + descripcionSolicitud + ", alta=" + alta + ", baja=" + baja + ", entregaTrabajo=" + entregaTrabajo + ", chats=" + chats + ", reclamoCliente=" + reclamoCliente + ", reclamoTrabajador=" + reclamoTrabajador + ", resolucionAdministrador=" + resolucionAdministrador + '}';
     }
 
-    
-    
 }
