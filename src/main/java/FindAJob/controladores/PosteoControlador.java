@@ -40,9 +40,18 @@ public class PosteoControlador {
         this.profesionServicio = profesionServicio;
     }
 
+    private ModelMap cargarListasDesplegables(ModelMap model) {
+        List<Zona> zonas = Arrays.asList(Zona.values());
+        model.put("zonas", zonas);
+        List<Rubro> rubros = Arrays.asList(Rubro.values());
+        model.put("rubros", rubros);
+        return model;
+    }
+
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
+        // FALTA APLICAR UN FILTRO X TRABAJADOR
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
         return "/testMAFBEnd/p/post-lista-test.html";
@@ -64,10 +73,7 @@ public class PosteoControlador {
             model.put("idSubtipo", posteo.getProfesion().getSubtipo());
 
         }
-        List<Zona> zonas = Arrays.asList(Zona.values());
-        model.put("zonas", zonas);
-        List<Rubro> rubros = Arrays.asList(Rubro.values());
-        model.put("rubros", rubros);
+        cargarListasDesplegables(model);
         model.put("posteo", posteo);
         return "/testMAFBEnd/p/post-form-test.html";
     }
@@ -100,12 +106,7 @@ public class PosteoControlador {
             model.put("posteo", posteo);
             model.put("idZona", posteo.getZona().getNombreCiudad());
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
-            List<Zona> zonas = Arrays.asList(Zona.values());
-            model.put("zonas", zonas);
-            List<Rubro> rubros = Arrays.asList(Rubro.values());
-            model.put("rubros", rubros);
-            List<Posteo> posteos = posteoServicio.findAll();
-            model.put("posteos", posteos);
+            cargarListasDesplegables(model);
             model.put("error", "Los datos se han guardado correctamente!");
             return "/testMAFBEnd/p/post-lista-test.html";
 
@@ -115,10 +116,7 @@ public class PosteoControlador {
             model.put("posteo", posteo);
             model.put("idZona", posteo.getZona().getNombreCiudad());
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
-            List<Zona> zonas = Arrays.asList(Zona.values());
-            model.put("zonas", zonas);
-            List<Rubro> rubros = Arrays.asList(Rubro.values());
-            model.put("rubros", rubros);
+            cargarListasDesplegables(model);
             return "/testMAFBEnd/p/post-form-test.html";
         }
     }
@@ -163,6 +161,60 @@ public class PosteoControlador {
             return "/testMAFBEnd/p/post-ver-test.html";
         }
 
+    }
+
+    @GetMapping("post/buscador")
+    @PreAuthorize("isAuthenticated()")
+    public String buscarPosts(ModelMap model, @RequestParam(required = false) String idRubro, @RequestParam(required = false) String idTipo, @RequestParam(required = false) String idSubtipo, @RequestParam(required = false) String idZona) throws ErrorServicio {
+        cargarListasDesplegables(model);
+        List<Posteo> posteos = null;
+        if (idSubtipo != null) {
+            posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        if (idTipo != null) {
+            posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        if (idRubro != null) {
+            posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
+        model.put("posteos", posteos);
+        return "/testMAFBEnd/p/post-buscador-test.html";
+    }
+
+    @PostMapping("post/buscador")
+    @PreAuthorize("isAuthenticated()")
+    public String buscarPostsPorRubro(ModelMap model, @RequestParam(required = false) String rubro, @RequestParam(required = false) String tipo, @RequestParam(required = false) String subtipo) throws ErrorServicio {
+        cargarListasDesplegables(model);
+        List<Posteo> posteos = null;
+        if (subtipo != null && !subtipo.equals("null")) {
+            System.out.println("filtro por subtipo: "+subtipo);
+            posteos = posteoServicio.buscarPostsPorSubtipoYStatusB(subtipo, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        if (tipo != null && !tipo.equals("null")) {
+            System.out.println("filtro por tipo: "+tipo);
+            posteos = posteoServicio.buscarPostsPorTipoYStatusB(tipo, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        if (rubro != null && !rubro.equals("null")) {
+            System.out.println("filtro por rubro: "+rubro);
+            posteos = posteoServicio.buscarPostsPorRubroYStatusB(rubro, "B_PUBLICADO");
+            model.put("posteos", posteos);
+            return "/testMAFBEnd/p/post-buscador-test.html";
+        }
+        System.out.println("sin filtro");
+        posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
+        model.put("posteos", posteos);
+        return "/testMAFBEnd/p/post-buscador-test.html";
     }
 
 }

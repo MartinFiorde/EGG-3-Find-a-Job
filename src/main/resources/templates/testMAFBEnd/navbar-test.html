@@ -94,7 +94,7 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/trabajo/lista}"
+                                        th:href="@{/post/trabajos/{tipo}(tipo = 'cliente')}"
                                         >Ver lista de trabajos</a
                                     >
                                 </li>
@@ -141,7 +141,7 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/trabajo/lista}"
+                                        th:href="@{/post/trabajos/{tipo}(tipo = 'trabajador')}"
                                         >Ver lista de trabajos</a
                                     >
                                 </li>

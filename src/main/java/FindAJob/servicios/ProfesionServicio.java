@@ -27,15 +27,17 @@ public class ProfesionServicio {
         return profesionRepositorio.filtrarPorRubro(Rubro.valueOf(rubro)).get(0);
     }
     
+    public Profesion entregarUnaProfesionAleatoriaSegunTipo(String tipo){
+        return profesionRepositorio.filtrarPorTipo(tipo).get(0);
+    }
+    
     public List<String> devolverTiposFiltradosPorRubro(String rubro){
         List<Profesion> profesiones = profesionRepositorio.filtrarPorRubro(Rubro.valueOf(rubro.trim().toString()));
         TreeSet<String> tipos = new TreeSet();
         for (Profesion aux : profesiones) {
             tipos.add(aux.getTipo());
         }
-        System.out.println("tipos size: "+tipos.size());
         List<String> tipos2 = new ArrayList(tipos);
-        System.out.println("tipos2 size: "+tipos2.size());
         return tipos2;
     }
 
