@@ -4,6 +4,7 @@ import FindAJob.entidades.Posteo;
 import FindAJob.entidades.Profesion;
 import FindAJob.entidades.Referencia;
 import FindAJob.entidades.Usuario;
+import FindAJob.enums.Rubro;
 import FindAJob.enums.Status;
 import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -174,6 +176,32 @@ public class PosteoServicio {
 
     public List<Posteo> findAll() {
         return posteoRepositorio.findAll();
+    }
+
+    public List<Posteo> buscarPostsPorStatusB(String idStatus) {
+        return posteoRepositorio.buscarPostsPorStatusB(Status.valueOf(idStatus));
+    }
+
+    public List<Posteo> buscarPostsPorSubtipoYStatusB(String idSubtipo, String idStatus) {
+        return posteoRepositorio.buscarPostsPorSubtipoYStatusB(idSubtipo, Status.valueOf(idStatus));
+    }
+
+    public List<Posteo> buscarPostsPorTipoYStatusB(String idTipo, String idStatus) {
+        return posteoRepositorio.buscarPostsPorTipoYStatusB(idTipo, Status.valueOf(idStatus));
+    }
+
+    public List<Posteo> buscarPostsPorRubroYStatusB(String idRubro, String idStatus) {
+        return posteoRepositorio.buscarPostsPorRubroYStatusB(Rubro.valueOf(idRubro), Status.valueOf(idStatus));
+    }
+
+    public List<Posteo> filtrarListaPorZona(List<Posteo> posteos, String idZona) {
+        List<Posteo> filtrados = new ArrayList();
+        for (Posteo aux : posteos) {
+            if (aux.getZona().equals(Zona.valueOf(idZona))) {
+                filtrados.add(aux);
+            }
+        }
+        return filtrados;
     }
 
 }
