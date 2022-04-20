@@ -26,6 +26,25 @@ width: 100%;
 .navbar-light .navbar-nav .nav-link {
     color: aliceblue;
 } 
+#dropdownMenuButton1 {
+  background-color: #e9c564;
+  border-color: #e9c564;
+  color: black;
+  font-size: 20px;
+}
+#dropdown-item {
+  color: black;
+}
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  left: -47px;
+  margin-top: 0.125rem;
+  text-align: end;
+}
+
+.nav-pills .nav-link{
+  color: aliceblue;
+}
 /* end navbar */
 
 .titulo {
@@ -240,6 +259,8 @@ display: block;
 .imagen-rubros:hover .hover-galeria {
   transform: scale(1);
 }
+
+
 /*end rubros */
 /* sobre nosotros */
 .footer-dark {
