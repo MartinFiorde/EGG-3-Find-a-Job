@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+        <!-- Bootstrap core CSS -->
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div class="container justify-content-center">
+            <h1>Cambio clave de usuario</h1>
+            <form
+                th:action="@{/usuario/clave2/{mailpath}(mailpath = ${#authentication.name})}"
+                enctype="multipart/form-data"
+                method="POST"
+            >
+                <input
+                    type="hidden"
+                    name="mailsesion"
+                    th:value="${#authentication.name}"
+                />
+                <br />
+                <input type="password" name="clavevieja" placeholder="Contraseña actual" />
+                <br />
+                <input type="password" name="clave" placeholder="Contraseña nueva" />
+                <br />
+                <input type="password" name="clave2" placeholder="Repita la contraseña" />
+                <br />
+                <input type="submit" value="Aceptar" />
+            </form>
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>

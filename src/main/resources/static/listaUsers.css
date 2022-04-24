@@ -1,0 +1,66 @@
+*{
+    padding: 0%;
+    margin: 0;
+  }
+  body {
+    background-image: url(img/user/fondo-user.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  
+  /* navbar */
+  .navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+  }
+  
+  #inicio {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+  }
+  
+  .btn {
+    color: aliceblue;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+  }
+  
+  /* end navbar */
+  
+  /* table */
+  .table {
+    text-align: center;
+    margin: auto;
+    margin-top: 80px;
+    background-color: #fcfcfc6b;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    width: 80vw;
+    height: 40vh;
+  }
+  
+  .table>:not(caption)>*>* {
+    border-bottom-width: 0px;
+  }
+  .btn-group-vertical {
+    margin: auto;
+    margin-top: 5vw;
+    margin-right: 0%;
+    align-items: flex-end;
+    justify-content: end;
+    width: 9vw;
+    height: 4vh;
+  }
+ /* end table */

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+        
+        <div th:object="${usuario}" class="container justify-content-center">
+            <h1 th:text="'Datos del usuario '+*{fullName}"></h1>
+            <br/>
+            <h2>Mail</h2>
+            <p th:text="*{mail}"></p>
+            <h2>Nombre</h2>
+            <p th:text="*{nombre}"></p>
+            <h2>Apellido</h2>
+            <p th:text="*{apellido}"></p>
+            <h2>Nacimiento</h2>
+            <p th:text="*{nacimiento}"></p>
+            <h2>Saldo</h2>
+            <p th:text="'$ '+*{dineroEnCuenta}"></p>
+            <h2>Zona</h2>
+            <p th:text="*{zona}"></p>  
+
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>

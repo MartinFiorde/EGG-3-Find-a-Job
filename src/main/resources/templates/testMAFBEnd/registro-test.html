@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Formulario</title>
+           </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">testindex</a>
+
+        <div class="container justify-content-center">
+
+            <h1>Registro de usuario</h1>
+            <form
+                th:action="@{/register2}"
+                enctype="multipart/form-data"
+                method="POST"
+                >
+                <input type="hidden" th:if="${id != null}" name="id" th:value="${id}"/>
+                <input type="email" name="mail" placeholder="Email" th:value="${mail}"/>
+                <br>
+                <input type="password" name="clave" placeholder="Contraseña" />
+                <br>
+                <input type="password" name="clave2" placeholder="Repita la contraseña" />
+                <br>
+                <input type="submit" value="Aceptar" />
+            </form>
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+                ></p>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lista Trabajos</title>
+    </head>
+
+    <body>
+        <a class="dropdown-item" href="/testindex">Index test</a>
+
+        <div class="container justify-content-center">
+            <h1>Lista de trabajos vinculados</h1>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead style="background-color: rgb(241, 216, 201)">
+                        <tr>
+                            <!-- <th scope="col">ID</th> -->
+                            <th scope="col">Status</th>
+                            <th scope="col">Rubro</th>
+                            <th scope="col">Profesion</th>
+                            <th scope="col">Sub Profesion</th>
+                            <th scope="col">Zona</th>
+
+                            <th scope="col">Trabajador</th>
+                            <th scope="col">Referencias</th>
+                            <th scope="col">Precio oferta</th>
+                            <!-- Agregar datos de trabajador según hagan falta -->
+
+                            <th scope="col">Cliente</th>
+                            <!-- Agregar datos de cliente según hagan falta -->
+
+                            <th scope="col">Ver</th>
+                        </tr>
+                    </thead>
+
+                    <tbody th:each="posteo : ${posteos}">
+                        <tr>
+                            <!-- <td th:text="${libro.id}" scope="row"></td> -->
+                            <td th:text="${posteo.status.nombreLindo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.rubro.nombreLindo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.tipo}" scope="row"></td>
+                            <td th:text="${posteo.profesion.subtipo}" scope="row"></td>
+                            <td th:text="${posteo.zona.nombreCiudad}" scope="row"></td>
+
+                            <td  scope="row">
+                                <a th:text="${posteo.trabajador.fullName}" th:href="@{/usuario/{idUsuario}(idUsuario =__${posteo.trabajador.id}__)}" ></a>
+                            </td>
+                            <td scope="row">
+                                <a th:if="${posteo.referencia == null}" >Sin datos</a>
+                                <!-- PONER LINK A URL DE VISTA INDIVIDUAL DE LA REFERENCIA -->
+                                <a th:if="${posteo.referencia != null}" th:href="@{/xxxxxx/{idRef}(idRef =__${posteo.referencia.id}__)}" >Ver detalle</a>
+                            </td>
+                            <td th:text="${posteo.precio}" scope="row"></td>
+
+                            <td  scope="row">
+                                <a th:if="${posteo.cliente == null}" >Sin datos</a>
+                                <a th:if="${posteo.cliente != null}" th:text="${posteo.cliente.fullName}" th:href="@{/usuario/{idUsuario}(idUsuario =__${posteo.cliente.id}__)}" ></a>
+                            </td>
+
+                            <td scope="row">
+                                <a th:if="${posteo.cliente == null}" th:href="@{/post/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                                <a th:if="${posteo.cliente != null}" th:href="@{/trabajo/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p
+                style="color: red"
+                th:if="${error != null}"
+                th:text="${error}"
+            ></p>
+        </div>
+    </body>
+</html>
