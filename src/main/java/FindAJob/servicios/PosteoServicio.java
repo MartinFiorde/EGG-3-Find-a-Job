@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
@@ -122,24 +123,27 @@ public class PosteoServicio {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void solicitarC(String id, String descripcion, LocalDate entregaEstimada) throws ErrorServicio {
+    public void solicitarC(String id, String descripcion, LocalDate entregaEstimada, Double dineroGuardado) throws ErrorServicio {
         Posteo posteo = validarId(id);
-        if (posteo.getTrabajador().getId() == usuarioServicio.returnIdSession()) {
+        if (posteo.getTrabajador().getId().equals(usuarioServicio.returnIdSession())) {
             throw new ErrorServicio("No puede contratarse a si mismo.");
         }
         if (posteo.getStatus() != Status.B_PUBLICADO) {
             throw new ErrorServicio("La operacion no puede ser realizada sobre este post en su estado actual.");
         }
         posteo.setStatus(Status.C_ENPROCESO);
-
+        
         posteo.setCliente(usuarioServicio.validarId(usuarioServicio.returnIdSession()));
         posteo.setDescripcionSolicitud(descripcion);
         posteo.setEntregaTrabajo(entregaEstimada);
-        usuarioServicio.CargarOQuitarDinero(posteo.getCliente().getId(), -(posteo.getPrecio()));
-        posteo.setDineroGuardado(posteo.getPrecio());
-        List<String> chats = new ArrayList();
-        chats.add(new Date() + " - " + "Oferta contratada. Acceso al chat limitado a las partes involucradas");
-        posteo.setChats(chats);
+        usuarioServicio.CargarOQuitarDinero(posteo.getCliente().getId(), -(dineroGuardado));
+        posteo.setDineroGuardado(dineroGuardado);
+
+        //PROBANDO ESTA LINEA
+        posteo.getChats().add(new Date() + " - " + "Oferta contratada. Acceso al chat limitado a las partes involucradas");
+//        List<String> chats = posteo.getChats();
+//        chats.add(new Date() + " - " + "Oferta contratada. Acceso al chat limitado a las partes involucradas");
+//        posteo.setChats(chats);
 
         posteoRepositorio.save(posteo);
     }
@@ -194,6 +198,46 @@ public class PosteoServicio {
         return posteoRepositorio.buscarPostsPorRubroYStatusB(Rubro.valueOf(idRubro), Status.valueOf(idStatus));
     }
 
+    public List<Posteo> quitarTrabajadorLogeadoDeResultados(List<Posteo> posteosCompletos) {
+        List<Posteo> posteosFiltrados = new ArrayList();
+        for (Posteo aux : posteosCompletos) {
+            if (!usuarioServicio.returnIdSession().equals(aux.getTrabajador().getId())) {
+                posteosFiltrados.add(aux);
+            }
+        }
+        return posteosFiltrados;
+    }
+
+    public List<Posteo> quitarClienteLogeadoDeResultados(List<Posteo> posteosCompletos) {
+        List<Posteo> posteosFiltrados = new ArrayList();
+        for (Posteo aux : posteosCompletos) {
+            if (!usuarioServicio.returnIdSession().equals(aux.getCliente().getId())) {
+                posteosFiltrados.add(aux);
+            }
+        }
+        return posteosFiltrados;
+    }
+
+    public List<Posteo> dejarSoloClienteLogeadoDeResultados(List<Posteo> posteosCompletos) {
+        List<Posteo> posteosFiltrados = new ArrayList();
+        for (Posteo aux : posteosCompletos) {
+            if (usuarioServicio.returnIdSession().equals(aux.getCliente().getId())) {
+                posteosFiltrados.add(aux);
+            }
+        }
+        return posteosFiltrados;
+    }
+    
+    public List<Posteo> dejarSoloTrabajadorLogeadoDeResultados(List<Posteo> posteosCompletos) {
+        List<Posteo> posteosFiltrados = new ArrayList();
+        for (Posteo aux : posteosCompletos) {
+            if (usuarioServicio.returnIdSession().equals(aux.getTrabajador().getId())) {
+                posteosFiltrados.add(aux);
+            }
+        }
+        return posteosFiltrados;
+    }
+    
     public List<Posteo> filtrarListaPorZona(List<Posteo> posteos, String idZona) {
         List<Posteo> filtrados = new ArrayList();
         for (Posteo aux : posteos) {
@@ -204,4 +248,12 @@ public class PosteoServicio {
         return filtrados;
     }
 
+    public List<Posteo> buscarTrabajoPorTrabajador(Status idStatus, String idTrabajador){
+        return posteoRepositorio.buscarTrabajoPorTrabajador(idStatus, idTrabajador);
+    }
+
+    public List<Posteo> buscarTrabajoPorCliente(Status idStatus, String idCliente){
+    return posteoRepositorio.buscarTrabajoPorCliente(idStatus, idCliente);
+    }
+    
 }

@@ -132,6 +132,14 @@ public class UsuarioControlador {
         return "vistaUsuario.html";
     }
 
+    @GetMapping("/usuario/{idUsuario}")
+    @PreAuthorize("isAuthenticated()")
+    public String verPerfilUsuario(ModelMap model, @PathVariable String idUsuario) throws ErrorServicio {
+        Usuario usuario = usuarioServicio.validarId(idUsuario);
+        model.put("usuario", usuario);
+        return "vistaUsuario.html";
+    }
+    
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaUsuarios(ModelMap model) {
