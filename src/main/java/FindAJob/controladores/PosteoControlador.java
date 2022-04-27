@@ -54,7 +54,7 @@ public class PosteoControlador {
         // FALTA APLICAR UN FILTRO X TRABAJADOR
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-lista-test.html";
+        return "/post/postLista.html";
     }
 
     @GetMapping("post/form/{idPosteo}")
@@ -108,7 +108,7 @@ public class PosteoControlador {
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
             cargarListasDesplegables(model);
             model.put("error", "Los datos se han guardado correctamente!");
-            return "/testMAFBEnd/p/post-lista-test.html";
+            return "/post/postLista.html";
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -171,21 +171,21 @@ public class PosteoControlador {
         if (idSubtipo != null) {
             posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (idTipo != null) {
             posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (idRubro != null) {
             posteos = posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-buscador-test.html";
+        return "/post/buscador.html";
     }
 
     @PostMapping("post/buscador")
@@ -197,24 +197,24 @@ public class PosteoControlador {
             System.out.println("filtro por subtipo: "+subtipo);
             posteos = posteoServicio.buscarPostsPorSubtipoYStatusB(subtipo, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (tipo != null && !tipo.equals("null")) {
             System.out.println("filtro por tipo: "+tipo);
             posteos = posteoServicio.buscarPostsPorTipoYStatusB(tipo, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (rubro != null && !rubro.equals("null")) {
             System.out.println("filtro por rubro: "+rubro);
             posteos = posteoServicio.buscarPostsPorRubroYStatusB(rubro, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         System.out.println("sin filtro");
         posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-buscador-test.html";
+        return "/post/buscador.html";
     }
 
 }

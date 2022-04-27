@@ -15,23 +15,28 @@
             <div class="table-responsive">
                 
                 <form id="formPost" th:action="@{/post/buscador/}" enctype="multipart/form-data" method="POST" >
+                    
                 <label>Rubro: </label>
                 <select name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
                     <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}" 
                     ></option>
                 </select>
+
                 <label>Profesion: </label>
                 <select name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
                     <option th:each="aux3 : ${tipos}"th:value="${aux3}" th:text="${aux3}"
                     ></option>
                 </select>
+
                 <label>Sub Profesion: </label>
                 <select name="subtipo" id="subtipo" >
                     <option th:each="aux4 : ${subtipos}"th:value="${aux4}" th:text="${aux4}" 
                     ></option>                
                 </select>
+
                 <input type="submit" value="Buscar" />
-                <br />
+
+                <br/>
                 <form id="formPost" th:action="@{/post/form}" th:object="${posteo}" enctype="multipart/form-data" method="POST" ></form>
                 <br/>
                 <!--
