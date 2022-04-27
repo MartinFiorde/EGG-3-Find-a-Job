@@ -10,11 +10,32 @@
     <body>
         <a class="dropdown-item" href="/testindex">Index test</a>
 
-        <div class="container justify-content-center">
+        <div th:object="${posteo}" class="container justify-content-center">
+            <h1>Información detallada</h1>
+
+                <p><span>Posteo id: </span><span th:if="*{id != null}" th:text="*{id}" ></span></p>
+                <p><span>Status: </span><span th:if="*{status != null}" th:text="*{status.nombreLindo}" ></span></p>
+                <p><span>Fecha de publicación: </span>
+                    <span th:if="*{alta != null}" th:text="*{alta}" ></span>
+                    <span th:if="*{alta == null}" >no aplica</span>
+                </p>
+                <br/>
+                <p><span>Rubro: </span><span th:if="*{profesion != null}" th:text="*{profesion.rubro.nombreLindo}"></span></p>
+                <p><span>Profesion: </span><span th:if="*{profesion != null}" th:text="*{profesion.tipo}"></span></p>
+                <p><span>Sub Profesion: </span><span th:if="*{profesion != null}" th:text="*{profesion.subtipo}"></span></p>
+                <p><span>Zona: </span><span th:if="*{zona != null}" th:text="*{zona.nombreCiudad}"></span></p>
+                <br/>
+                <p><span>Nombre del Trabajador: </span><span th:if="${posteo.trabajador != null}" th:text="*{trabajador.fullName}"></span></p>
+                <p><span>Edad: </span><span th:if="${posteo.trabajador != null}" th:text="*{trabajador.edad}"></span></p>
+                <!-- ACA VAN DATOS DEL TRABAJADOR -->
+                <!-- ACA VAN DATOS DE LA REFERENCIA APLICABLE -->
+            
+         
+            
             <h1>Información del Posteo</h1>
             <form
                 id="formPost"
-                th:action="@{/post/form}"
+                th:action="@{/trabajo/form}"
                 th:object="${posteo}"
                 enctype="multipart/form-data"
                 method="POST"
@@ -22,69 +43,43 @@
                 <input type="hidden" th:if="*{id != null}" name="idPosteo" th:value="*{id}" />
 
                 <br />
-                <p><span>Posteo id: </span><span th:if="${posteo.id != null}" th:text="*{id}"></span></p>
-                <p><span>Status: </span><span th:if="${posteo.status != null}" th:text="*{status.nombreLindo}"></span></p>
-                <p><span>Fecha de alta: </span><span th:if="${posteo.alta != null}" th:text="*{alta}"></span></p>
-                <label>Rubro: </label>
-                <select name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
-                    <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}" 
-                    th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}" ></option>
-                </select>
-                <!-- <p><span>Profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.subtipo}"></span></p>
-                <p><span>Sub profesion: </span><span th:if="${posteo.profesion != null}" th:text="*{profesion.tipo}"></span></p> -->
-                <br/>
-                <br/>
-                <label>Profesion: </label>
-                <select name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
-                    <option th:each="aux3 : ${tipos}"th:value="${aux3}" th:text="${aux3}"
-                    th:selected="${idTipo != null ? idTipo == aux3 : false}" ></option>
-                </select>
-                <br/>
-                <br/>
-                <label>Sub Profesion: </label>
-                <select name="subtipo" id="subtipo" >
-                    <option th:each="aux4 : ${subtipos}"th:value="${aux4}" th:text="${aux4}" 
-                    th:selected="${idSubtipo != null ? idSubtipo == aux4 : false}" ></option>                </select>
-
-                <br />
-                <br />
-                <label>Zona: </label>
-                <select name="zona">
-                    <option th:each="aux : ${zonas}" th:value="${aux}" th:text="${aux.nombreCiudad}" 
-                    th:selected="${idZona != null ? idZona == aux.nombreCiudad : false}" ></option>
-                </select>
-                
-                <br />
-                <p><span>Nombre del Trabajador: </span><span th:if="${posteo.trabajador != null}" th:text="*{trabajador.fullName}"></span></p>
-                <!-- <p><span>Referencias: </span><span th:if="${posteo.trabajador != null}" th:text="*{referencias.experiencia}"></span></p> -->
-                <label>Observaciones del Trabajador: </label>
-                <input type="text" placeholder="Comentarios sobre la solicitud" th:field="*{descripcionOferta}" />
-                <br />
-                <br />
-                <label>Precio estimado por proyecto/hora: </label>
-                <input type="number" placeholder="Precio" th:field="*{precio}"  />
-
-                <br />
-                <p><span>Nombre del cliente: </span><span th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></span></p>
-                <label>Observaciones del Cliente: </label>
+                <label>Condiciones del Cliente: </label>
                 <input type="text" placeholder="Comentarios sobre la solicitud" th:field="*{descripcionSolicitud}" />
-                <p><span>Dinero guardado: </span><span th:if="${posteo.cliente != null}" th:text="'$ ' + *{dineroGuardado}"></span></p>
+                <br />
+                <br />
+                <label>Dinero depositado: </label>
+                <input type="number" placeholder="Monto comprometido" th:field="*{dineroGuardado}"  /><span>Valor garantizado de cobro contra conclusión demostrada del trabajo</span>
+                <br />
                 <label>Fecha de entrega: </label>
                 <input type="date" placeholder="Fecha de entrega" th:field="*{entregaTrabajo}"  />
-                <p><span>Chat: </span><span th:if="${posteo.chat != null}" th:text="*{chat}"></span></p>
 
+                <!--                <input type="submit" value="Editar" />                -->
                 <br />
-                <!--
-                <input type="submit" value="Editar" />
-                -->
-                <br />
-                <button onclick="changeFormAction('formPost', '/post/form/')" >Guardar borrador</button>
-                <button onclick="changeFormAction('formPost', '/post/b/')" >Publicar</button>
-                <button onclick="changeFormAction('formPost', '/post/c/')" >Contratar</button>
-                <button onclick="changeFormAction('formPost', '/post/d/')" >Confirmar entrega</button>
-                <button onclick="changeFormAction('formPost', '/post/e/')" >Confirmar pago</button>
+                <button onclick="changeFormAction('formPost', '/trabajo/form/')" >Contratar</button>
+                <!-- <button onclick="changeFormAction('formPost', '/post/b/')" >Publicar</button> -->
                 <br />
             </form>
+            
+            <br />
+            <p th:if="*{chats != null}" >Chat:</p>
+            <table class="table table-striped table-sm">
+                <tbody th:each="chat : ${posteo.chats}">
+                    <tr>
+                        <td th:text="${chat}" scope="row"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form
+            id="formPost"
+            th:action="@{/chat/escribir/{idPosteo}(idPosteo =__${posteo.id}__)}"
+            enctype="multipart/form-data"
+            method="POST"
+            >
+            <input type="text" placeholder="Mensaje para el chat" name="msj" />
+            <input type="submit" value="Enviar mensaje al chat" />
+        </form>
+
             <p
                 style="color: red"
                 th:if="${error != null}"
