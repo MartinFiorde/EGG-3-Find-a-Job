@@ -50,7 +50,7 @@ public class PosteoControlador {
         model.put("rubros", rubros);
         return model;
     }
-
+    
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
@@ -77,7 +77,7 @@ public class PosteoControlador {
         }
         cargarListasDesplegables(model);
         model.put("posteo", posteo);
-        return "/testMAFBEnd/p/post-form-test.html";
+        return "/post/postForm.html";
     }
 
     @PostMapping("post/form/")
@@ -120,7 +120,7 @@ public class PosteoControlador {
             model.put("idZona", posteo.getZona().getNombreCiudad());
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
             cargarListasDesplegables(model);
-            return "/testMAFBEnd/p/post-form-test.html";
+            return "/post/postForm.html";
         }
     }
 
@@ -212,6 +212,7 @@ public class PosteoControlador {
             System.out.println("filtro por subtipo: " + subtipo);
             posteos = posteoServicio.buscarPostsPorSubtipoYStatusB(subtipo, "B_PUBLICADO");
             model.put("posteos", posteos);
+            model.put("titulo",subtipo);
             return "/post/buscador.html";
         }
         if (tipo != null && !tipo.equals("null")) {
@@ -259,7 +260,7 @@ public class PosteoControlador {
 
             List<Posteo> posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/trabajo-lista-test.html";
+            return "/trabajo/trabajoLista.html";
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -284,7 +285,7 @@ public class PosteoControlador {
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.E_PAGADO, usuarioServicio.returnIdSession()));
         }
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/trabajo-lista-test.html";
+        return "/trabajo/trabajoLista.html";
     }
 
     @GetMapping("trabajo/ver/{idPosteo}")
@@ -340,7 +341,7 @@ public class PosteoControlador {
     public String verListaTrabajosAdmin(ModelMap model) throws ErrorServicio {
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/trabajo-lista-test.html";
+        return "/trabajo/trabajoLista.html";
     }
     
 }

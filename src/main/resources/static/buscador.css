@@ -2,6 +2,7 @@
 
 body {
   background-image: url(/img/user/fondo-buscador.jpg);
+  background-size: cover;
 }
 .navbar {
     background-color: rgba(39, 39, 38, 0.911) !important;
@@ -75,12 +76,12 @@ h2 {
     margin: auto;
     margin-top: 10px;
     margin-left: 15px;
-    width: 43vw;
-    height: 60vh;
+    width: 35vw;
+    height: 65vh;
 }
 
 .form-control {
-  width: 40vw;
+  width: 34vw;
   height: 60vh;
   padding-top: 30px;
   font-size: 20px;
@@ -117,13 +118,12 @@ label {
   border-radius: 8px;
   width: 30vw;
   height: 8vh;
-  margin-left: 50px;
+  margin-left: 13px;
 }
 
 .usuario {
-  margin: auto;
-  width: 51vw;
-  height: 90vh;
+  width: 60vw;
+  height: 100vh;
 }
 .card {
   display: flex;
@@ -132,9 +132,10 @@ label {
   position: relative;
   margin: auto;
   border: none;
-  width: 50vw;
-  height: 25vh;
-  margin-top: 25px;
+  width: 55vw;
+  height: 60vh;
+  margin-top: 8px;
+  margin-left: 20px;
   background-color: transparent;
 }
 .card div {
@@ -154,6 +155,10 @@ transform: perspective(500px) rotateY(0deg);
   transform: perspective(500px) rotateY(180deg);
 }
 
+.table {
+  border-color:transparent;
+}
+
 .card:hover .front {
   transform: perspective(500px) rotateY(180deg);
 }
@@ -165,21 +170,15 @@ transform: perspective(500px) rotateY(0deg);
   display: flex;
   justify-content: center;
 }
-
-.precio {
-  display: flex;
-  align-items: flex-end;
+.btn-ver-oferta {
+  border-radius: 6px;
+  width: 5vw;
+  height: 8vh;
+  background-color: #e9c564;
+  padding-top: 0;
 }
-.precio h5{
-width: 100%;
-height: 7vh;
-font-size: 25px;
-color: #ffff;
-background-color: rgba(0, 0, 0, 0.527);
-border-radius: 0 0 10px 10px;
-display: flex;
-justify-content: center;
-margin-bottom: 0px;
+.btn-ver-oferta a {
+  text-decoration: none;
+  color: black;
 }
-
 /* end buscador */
