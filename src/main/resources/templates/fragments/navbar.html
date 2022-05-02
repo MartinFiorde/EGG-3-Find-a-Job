@@ -29,10 +29,6 @@
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/">Inicio</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href='#rubros'>Trabajos</a>
-            </li>
-
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,13 +72,10 @@
                 aria-expanded="false">Cliente</a>
               <ul class="dropdown-menu" aria-labelledby="dropdown03">
                 <li>
-                  <a class="dropdown-item" th:href="@{/post/lista}">Ver lista de trabajos</a>
+                  <a class="dropdown-item" th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'cliente')}">Ver lista de trabajos</a>
                 </li>
                 <li>
                   <a class="dropdown-item" th:href="@{/post/buscador}">Buscar ofertas</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/post/form/{idPosteo}(idPosteo ='new')}">Nuevo posteo</a>
                 </li>
               </ul>
             </li>
@@ -92,13 +85,13 @@
                 aria-expanded="false">Trabajador</a>
               <ul class="dropdown-menu" aria-labelledby="dropdown03">
                 <li>
-                  <a class="dropdown-item" th:href="@{/trabajador/referencias}">Ver referencias</a>
+                  <a class="dropdown-item" th:href="@{/referencias}">Ver referencias</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" >Ver lista de ofertas</a>
+                  <a class="dropdown-item" th:href="@{/post/lista}">Ver lista de ofertas</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" th:href="@{/trabajador/buscador}">Buscar solicitudes</a>
+                  <a class="dropdown-item" th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'trabajador')}">Ver lista de trabajos</a>
                 </li>
               </ul>
             </li>
@@ -118,7 +111,7 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" th:href="@{/usuario/}">Ver perfil</a></li>
-              <li><a class="dropdown-item" th:href="@{/usuario/saldo}">Ver saldos</a></li>
+              <li><a class="dropdown-item" th:href="@{/usuario/saldo}">Ver saldo</a></li>
               <li><a class="dropdown-item" th:href="@{/usuario/datos}">Modificar datos</a></li>
               <li><a class="dropdown-item" th:href="@{/usuario/clave}">Cambiar clave</a></li>
               <li><a class="dropdown-item" sec:authorize="hasAnyRole('USER','ADMIN')" href="/logout">Cerrar Sesion</a>

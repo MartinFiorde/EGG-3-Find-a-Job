@@ -1,7 +1,7 @@
 body {
     margin: 0%;
     padding: 0%;
-    background-image: url(/img/fondo-cliente.jpg);
+    background-color: #3e4144;
     background-size: cover;
 }
 
@@ -87,8 +87,56 @@ body {
 }
 
 .table {
-    margin-top: 10px;
-    font-size: 23px;
+    text-align: center;
+    font-size: 19px;
+    border-color:transparent;
 }
+.tbody{
+    text-align: start;
+}
+a{
+    color:black;
+}
+a:hover {
+    color: black;
+}
+.btn-ver {
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color:#aac7d7;
+    border: #aac7d7;
+}
+
+.btn-editar {
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color: #c8e2c9;
+    border-color: #c8e2c9;
+}
+.btn-si-no{
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color: #ed808f;
+    border: #ed808f;
+}
+
+.btn-nuevo-posteo {
+    margin-left: 8px;
+    border-radius: 6px;
+    width: 15vw;
+    height: 7vh;
+    background-color: #e9c564;
+    border: #e9c564;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
+
+.btn-nuevo-posteo a {
+    text-decoration: none;
+}
+
+
 
 
