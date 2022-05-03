@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,6 +90,7 @@ public class UsuarioControlador {
             return "/settings/cambioClave";
         }
     }
+   
 
     @GetMapping("usuario/datos")
     @PreAuthorize("isAuthenticated()")

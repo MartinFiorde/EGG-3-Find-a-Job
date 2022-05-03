@@ -1,5 +1,6 @@
 package FindAJob.repositorios;
 
+import FindAJob.entidades.Referencia;
 import FindAJob.entidades.Usuario;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,6 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT a FROM Usuario a WHERE a.mail LIKE %:mailq%")
     public List<Usuario> buscarMailsLike(@Param("mailq") String mail);
+   
 
 }
