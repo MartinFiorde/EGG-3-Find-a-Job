@@ -54,7 +54,8 @@ public class PosteoControlador {
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
-        List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+        List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+        posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
         model.put("posteos", posteos);
         return "/post/postLista.html";
     }
@@ -107,11 +108,10 @@ public class PosteoControlador {
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
             cargarListasDesplegables(model);
             model.put("error", "Los datos se han guardado correctamente!");
-            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+            posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
             model.put("posteos", posteos);
-
             return "/post/postLista.html";
-
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -342,5 +342,5 @@ public class PosteoControlador {
         model.put("posteos", posteos);
         return "/testMAFBEnd/p/trabajo-lista-test.html";
     }
-    
+
 }
