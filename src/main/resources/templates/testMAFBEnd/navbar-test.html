@@ -54,13 +54,6 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/admin/mediaciones}"
-                                        >Ver mediaciones pendientes</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        class="dropdown-item"
                                         th:href="@{/admin/posteos}"
                                         >Ver todos los posteos</a
                                     >
@@ -94,7 +87,7 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/post/trabajos/{tipo}(tipo = 'cliente')}"
+                                        th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'cliente')}"
                                         >Ver lista de trabajos</a
                                     >
                                 </li>
@@ -141,7 +134,7 @@
                                 <li>
                                     <a
                                         class="dropdown-item"
-                                        th:href="@{/post/trabajos/{tipo}(tipo = 'trabajador')}"
+                                        th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'trabajador')}"
                                         >Ver lista de trabajos</a
                                     >
                                 </li>

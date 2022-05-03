@@ -1,0 +1,184 @@
+/* navbar */
+
+body {
+  background-image: url(/img/user/fondo-buscador.jpg);
+  background-size: cover;
+}
+.navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+    }
+    
+    .navbar-brand img{
+      display: inline-block;
+      vertical-align: middle;
+      width: 50px;
+    }
+        
+    #registrar {
+      background-color: #e9c564;
+      border: 0ch;
+      color: black;
+    }
+    
+    .btn {
+        color: aliceblue;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+        color: aliceblue;
+    } 
+    #dropdownMenuButton1 {
+      background-color: #e9c564;
+      border-color: #e9c564;
+      color: black;
+      font-size: 20px;
+    }
+    #dropdown-item {
+      color: black;
+    }
+    .dropdown-menu[data-bs-popper] {
+      top: 100%;
+      left: -47px;
+      margin-top: 0.125rem;
+      text-align: end;
+    }
+    
+    .nav-pills .nav-link{
+      color: aliceblue;
+    }
+    /* end navbar */
+
+/* buscador */
+.container {
+    margin: auto;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 97vw;
+    max-width: 99vw;
+    height: 120vh;
+}
+
+h2 {
+    color: #e9c564;
+    font-size: 5vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+    margin-top: 10px;
+}
+
+.buscador {
+    margin: auto;
+    margin-top: 10px;
+    margin-left: 15px;
+    width: 35vw;
+    height: 65vh;
+}
+
+.form-control {
+  width: 34vw;
+  height: 60vh;
+  padding-top: 30px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
+select {
+  width: 100%;
+  padding: 9px 20px;
+  text-align: left;
+  border: 0;
+  outline: 0;
+  border-radius: 6px;
+  background-color:rgba(22, 21, 21, 0.932);
+  font-size: 19px;
+  font-weight: 300;
+  color: #ffff;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+label {
+  color: #ffff;
+}
+.form-control input[type=submit] {
+  margin-top: 40px;
+  background-color: rgba(202, 152, 15, 0.973);
+  border-color: rgba(202, 152, 15, 0.973);
+  color: black;
+  border-radius: 8px;
+  width: 30vw;
+  height: 8vh;
+  margin-left: 13px;
+}
+
+.usuario {
+  width: 60vw;
+  height: 100vh;
+}
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: auto;
+  border: none;
+  width: 55vw;
+  height: 60vh;
+  margin-top: 8px;
+  margin-left: 20px;
+  background-color: transparent;
+}
+.card div {
+  position: absolute;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: 1s;
+}
+.card .front {
+background-color: #ebeff885;
+transform: perspective(500px) rotateY(0deg);
+}
+.card .back {
+  background-color:#ebeff885;
+  transform: perspective(500px) rotateY(180deg);
+}
+
+.table {
+  border-color:transparent;
+}
+
+.card:hover .front {
+  transform: perspective(500px) rotateY(180deg);
+}
+.card:hover .back {
+  transform: perspective(500px) rotateY(360deg);
+}
+
+.rubro {
+  display: flex;
+  justify-content: center;
+}
+.btn-ver-oferta {
+  border-radius: 6px;
+  width: 5vw;
+  height: 8vh;
+  background-color: #e9c564;
+  padding-top: 0;
+}
+.btn-ver-oferta a {
+  text-decoration: none;
+  color: black;
+}
+/* end buscador */

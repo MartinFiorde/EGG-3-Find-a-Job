@@ -11,7 +11,6 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh;
 }
 
 .form-holder .form-content {
@@ -145,34 +144,4 @@ body {
   margin-bottom: 8px !important;
 }
 /* end formulario */
-
-/* navbar */
-.navbar {
-  background-color: rgba(39, 39, 38, 0.911) !important;
-  font-size: 20px;
-  display: flex;
-  border-radius: 5px;
-  }
-  
-  .navbar-brand img{
-    display: inline-block;
-    vertical-align: middle;
-    width: 50px;
-  }
-      
-  #registrar {
-    background-color: #e9c564;
-    border: 0ch;
-    color: black;
-  }
-  
-  .btn {
-      color: aliceblue;
-  }
-  
-  .navbar-light .navbar-nav .nav-link {
-      color: aliceblue;
-  }
-
-  /* end navbar */
 
