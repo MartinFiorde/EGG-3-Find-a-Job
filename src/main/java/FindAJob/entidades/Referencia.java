@@ -1,15 +1,14 @@
 package FindAJob.entidades;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Referencia {
@@ -22,11 +21,11 @@ public class Referencia {
     @OneToOne
     private Profesion profesion;
 
-    @OneToMany
+    @OneToMany //pdf 
     private List<Archivo> archivos;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date inicioProfesion;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)   
+    private LocalDate inicioProfesion;
 
     // casilla donde el usuario describe la experiencia y conocimientos que tiene para realizar la profeción
     private String experiencia;
@@ -41,18 +40,7 @@ public class Referencia {
     private Integer puntosValoracionAcumulados;
     
     private Boolean alta;
-    
-    //
-    
-     public Date getInicioProfesion() {
-        return inicioProfesion;
-    }
-     
-    //
-
-    public void setInicioProfesion(Date inicioProfesion) {
-        this.inicioProfesion = inicioProfesion;
-    }
+   
 
     //
     public Referencia() {
@@ -130,6 +118,16 @@ public class Referencia {
     public void setAlta(Boolean alta) {
         this.alta = alta;
     }
+
+    public LocalDate getInicioProfesion() {
+        return inicioProfesion;
+    }
+
+    public void setInicioProfesion(LocalDate inicioProfesion) {
+        this.inicioProfesion = inicioProfesion;
+    }
+    
+    
     
     
 

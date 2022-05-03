@@ -41,6 +41,13 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     // METODOS
+    
+    @Transactional(rollbackOn = Exception.class)
+    public void guardar (Usuario usuario){
+        usuarioRepositorio.save(usuario);
+    }
+    
+    
     @Transactional(rollbackOn = Exception.class)
     public void registrarCuenta(String mail, String clave, String clave2) throws ErrorServicio {
         Usuario usuario = new Usuario();
@@ -81,31 +88,31 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuarioDestino);
     }
 
-    @Transactional(rollbackOn = Exception.class)
-    public void agregarReferencia(String idUsuario, Referencia referencia) throws ErrorServicio {
-        Usuario usuario = validarId(idUsuario);
-        List<Referencia> referencias = usuario.getReferencias();
-
-        if (referencias == null) {
-            referencias = new ArrayList();
-        }
-
-        int count = 0;
-        for (Referencia aux : referencias) {
-            if (referencia.getId() == aux.getId()) {
-                aux = referencia;
-                count++;
-            }
-        }
-        if (count == 0) {
-            referencias.add(referencia);
-        }
-        if (count > 1) {
-            throw new ErrorServicio("Error de sistema. Se intento guardar referencias con id duplicado");
-        }
-        usuario.setReferencias(referencias);
-        usuarioRepositorio.save(usuario);
-    }
+//    @Transactional(rollbackOn = Exception.class)
+//    public void agregarReferencia(String idUsuario, Referencia referencia) throws ErrorServicio {
+//        Usuario usuario = validarId(idUsuario);
+//        List<Referencia> referencias = usuario.getReferencias();
+//
+//        if (referencias == null) {
+//            referencias = new ArrayList();
+//        }
+//
+//        int count = 0;
+//        for (Referencia aux : referencias) {
+//            if (referencia.getId() == aux.getId()) {
+//                aux = referencia;
+//                count++;
+//            }
+//        }
+//        if (count == 0) {
+//            referencias.add(referencia);
+//        }
+//        if (count > 1) {
+//            throw new ErrorServicio("Error de sistema. Se intento guardar referencias con id duplicado");
+//        }
+//        usuario.setReferencias(referencias);
+//        usuarioRepositorio.save(usuario);
+//    }
 
     @Transactional(rollbackOn = Exception.class)
     public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
@@ -272,6 +279,19 @@ public class UsuarioServicio implements UserDetailsService {
 
     public List<Usuario> findAll() {
         return usuarioRepositorio.findAll();
+    }
+    
+    
+    
+    
+    
+    
+    public void asignarReferencia (Referencia referencia) throws ErrorServicio{
+        
+        Usuario usuario = validarId(returnIdSession());
+        usuario.getReferencias().add(referencia);
+        guardar(usuario);
+        
     }
 
 }
