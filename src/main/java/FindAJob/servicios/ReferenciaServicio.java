@@ -161,13 +161,18 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
 
     public List<Referencia> traerReferenciasUsuarioLogueado() throws ErrorServicio {
 
-        String idUsuarioLogueado = usuarioServicio.returnIdSession();   //traigo id usuario logueado        
+        String idUsuarioLogueado = usuarioServicio.returnIdSession();            //traigo id usuario logueado        
         Usuario usuarioLogueado = usuarioServicio.validarId(idUsuarioLogueado);  //a travez del id traigo el usuario   
         
-       
-        List<Referencia> listaRefAlta = referenciaRepositorio.buscarRefAlta();
-        //List<Referencia> listaRefUsuario = usuarioLogueado.getReferencias();   //paso a lista sus referencias (EN ALTA) cargadas
-
+        List<Referencia> listaRefAlta = new ArrayList<>();                       //lista de referencias solo con alta
+        List<Referencia> listaRef = usuarioLogueado.getReferencias();            //lista de referencias del usuario
+        
+        for (Referencia aux : listaRef) {
+            if(aux.getAlta()== true){
+                listaRefAlta.add(aux);
+            }
+        }
+        
         return listaRefAlta;
 
     }
