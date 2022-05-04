@@ -50,7 +50,7 @@ public class PosteoControlador {
         model.put("rubros", rubros);
         return model;
     }
-    
+
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
@@ -212,7 +212,7 @@ public class PosteoControlador {
             System.out.println("filtro por subtipo: " + subtipo);
             posteos = posteoServicio.buscarPostsPorSubtipoYStatusB(subtipo, "B_PUBLICADO");
             model.put("posteos", posteos);
-            model.put("titulo",subtipo);
+            model.put("titulo", subtipo);
             return "/post/buscador.html";
         }
         if (tipo != null && !tipo.equals("null")) {
@@ -244,14 +244,13 @@ public class PosteoControlador {
     @PostMapping("trabajo/form")
     @PreAuthorize("isAuthenticated()")
     public String procesarTrabajoForm(ModelMap model,
-            @PathVariable(required = false) @RequestParam(required = false) String idPosteo,
+            @RequestParam(required = false) String idPosteo,
             @ModelAttribute Posteo posteo) throws ErrorServicio {
         try {
+            System.out.println("1");
             if (idPosteo != null) {
                 posteo.setId(idPosteo);
             }
-            System.out.println("id: " + idPosteo);
-            System.out.println("posteo: " + posteo);
             posteoServicio.solicitarC(idPosteo, posteo.getDescripcionSolicitud(), posteo.getEntregaTrabajo(), posteo.getDineroGuardado());
             System.out.println("edita");
 
@@ -265,7 +264,12 @@ public class PosteoControlador {
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
-            model.put("posteo", posteo);
+            model.put("posteo", posteoServicio.validarId(idPosteo));
+            List<Posteo> posteos = new ArrayList();
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.E_PAGADO, usuarioServicio.returnIdSession()));
+            model.put("posteos", posteos);
             return "/testMAFBEnd/p/trabajo-form-test.html";
         }
     }

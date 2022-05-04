@@ -125,14 +125,24 @@ public class PosteoServicio {
     @Transactional(rollbackOn = Exception.class)
     public void solicitarC(String id, String descripcion, LocalDate entregaEstimada, Double dineroGuardado) throws ErrorServicio {
         Posteo posteo = validarId(id);
+        System.out.println("id: "+id);
         if (posteo.getTrabajador().getId().equals(usuarioServicio.returnIdSession())) {
             throw new ErrorServicio("No puede contratarse a si mismo.");
         }
         if (posteo.getStatus() != Status.B_PUBLICADO) {
             throw new ErrorServicio("La operacion no puede ser realizada sobre este post en su estado actual.");
         }
+
+        if (entregaEstimada == null) {
+            throw new ErrorServicio("Debe ingresar una fecha.");
+        }
+        if (entregaEstimada.toString().isEmpty()) {
+            throw new ErrorServicio("Debe ingresar una fecha.");
+        }
+        if (entregaEstimada.isBefore(LocalDate.now())) {
+            throw new ErrorServicio("La fecha ingresada no es valida.");
+        }
         posteo.setStatus(Status.C_ENPROCESO);
-        
         posteo.setCliente(usuarioServicio.validarId(usuarioServicio.returnIdSession()));
         posteo.setDescripcionSolicitud(descripcion);
         posteo.setEntregaTrabajo(entregaEstimada);
@@ -171,8 +181,8 @@ public class PosteoServicio {
         }
         posteo.setStatus(Status.E_PAGADO);
 
-        usuarioServicio.CargarOQuitarDinero(posteo.getTrabajador().getId(), +(posteo.getPrecio()));
-        posteo.setDineroGuardado(-posteo.getPrecio());
+        usuarioServicio.CargarOQuitarDinero(posteo.getTrabajador().getId(), +(posteo.getDineroGuardado()));
+        posteo.setDineroGuardado(posteo.getDineroGuardado() - posteo.getPrecio());
         posteo.setBaja(new Date());
 
         posteoRepositorio.save(posteo);
@@ -227,7 +237,7 @@ public class PosteoServicio {
         }
         return posteosFiltrados;
     }
-    
+
     public List<Posteo> dejarSoloTrabajadorLogeadoDeResultados(List<Posteo> posteosCompletos) {
         List<Posteo> posteosFiltrados = new ArrayList();
         for (Posteo aux : posteosCompletos) {
@@ -237,7 +247,7 @@ public class PosteoServicio {
         }
         return posteosFiltrados;
     }
-    
+
     public List<Posteo> filtrarListaPorZona(List<Posteo> posteos, String idZona) {
         List<Posteo> filtrados = new ArrayList();
         for (Posteo aux : posteos) {
@@ -248,12 +258,12 @@ public class PosteoServicio {
         return filtrados;
     }
 
-    public List<Posteo> buscarTrabajoPorTrabajador(Status idStatus, String idTrabajador){
+    public List<Posteo> buscarTrabajoPorTrabajador(Status idStatus, String idTrabajador) {
         return posteoRepositorio.buscarTrabajoPorTrabajador(idStatus, idTrabajador);
     }
 
-    public List<Posteo> buscarTrabajoPorCliente(Status idStatus, String idCliente){
-    return posteoRepositorio.buscarTrabajoPorCliente(idStatus, idCliente);
+    public List<Posteo> buscarTrabajoPorCliente(Status idStatus, String idCliente) {
+        return posteoRepositorio.buscarTrabajoPorCliente(idStatus, idCliente);
     }
-    
+
 }
