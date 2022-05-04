@@ -160,7 +160,7 @@ public class PosteoControlador {
     @PreAuthorize("isAuthenticated()")
     public String verPost(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
         model.put("posteo", posteoServicio.validarId(idPosteo));
-        return "/testMAFBEnd/p/post-ver-test.html";
+        return "/post/postVer.html";
     }
 
     @PostMapping("chat/escribir/{idPosteo}")
