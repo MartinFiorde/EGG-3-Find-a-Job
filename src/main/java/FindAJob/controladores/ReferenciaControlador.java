@@ -85,7 +85,7 @@ public class ReferenciaControlador {
         try {
             
 
-            //vincular rubro
+          
             referencia = referenciaServicio.inicializarNuevaReferencia(referencia);              //inicia valores en 0
             Archivo archivo2 = archivoServicio.guardar(archivo);                                 //guardar ya tiene sus validaciones
             System.out.println("archivo " + archivo2);
