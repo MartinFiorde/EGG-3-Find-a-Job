@@ -117,10 +117,10 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional(rollbackOn = Exception.class)
     public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
         Usuario usuario = validarId(idUsuario);
-        if ((usuario.getDineroEnCuenta() + monto) < 0) {
-            System.out.println("No hay saldo suficiente para realizar la operacion.");
-        }
         usuario.setDineroEnCuenta(usuario.getDineroEnCuenta() + monto);
+        if (usuario.getDineroEnCuenta() < 0) {
+            throw new ErrorServicio("No hay saldo suficiente para realizar la operacion.");
+        }
         usuarioRepositorio.save(usuario);
     }
 
