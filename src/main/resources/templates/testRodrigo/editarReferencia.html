@@ -68,17 +68,27 @@
 
             <input type="hidden" th:field="*{id}">
            
-            <div class="mb-3">
-                <label class="form-label">Rubro</label>               
-            </div>
-           
-            <div class="mb-3">
-                <label class="form-label">Tipo</label>                
-            </div>
-           
-            <div class="mb-3">
-                <label class="form-label">Subtipo</label>                                    >
-            </div>
+            <label>Rubro: </label>
+            <select name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
+                <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}"
+                    th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}"></option>
+            </select>
+
+            <br />
+            <br />
+            <label>Profesion: </label>
+            <select name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
+                <option th:each="aux3 : ${tipos}" th:value="${aux3}" th:text="${aux3}"
+                    th:selected="${idTipo != null ? idTipo == aux3 : false}"></option>
+            </select>
+            <br />
+            <br />
+            <label>Sub Profesion: </label>
+            <select name="subtipo" id="subtipo">
+                <option th:each="aux4 : ${subtipos}" th:value="${aux4}" th:text="${aux4}"
+                    th:selected="${idSubtipo != null ? idSubtipo == aux4 : false}"></option>
+            </select>
+
 
             <div class="mb-3">
                 <label class="form-label">Archivo</label>
@@ -112,7 +122,7 @@
 
         </div>
     </div>
-
+    <script src="/js/form.js"></script>
     <!-- end settings -->
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

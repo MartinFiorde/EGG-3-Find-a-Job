@@ -21,7 +21,4 @@ public interface ProfesionRepositorio extends JpaRepository<Profesion, String> {
     @Query(value = "SELECT a FROM Profesion a WHERE a.subtipo LIKE :subtipo")
     public Profesion filtrarPorSubtipo(@Param("subtipo") String subtipo);
     
-// @Query("SELECT l FROM profesion l WHERE l.rubro LIKE %rubro%")
-// public List<Profesion> buscarSubtipoPorRubro (@Param ("rubro") String rubro);    
-
 }

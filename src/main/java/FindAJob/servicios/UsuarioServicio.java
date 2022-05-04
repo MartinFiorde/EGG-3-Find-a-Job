@@ -281,11 +281,6 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarioRepositorio.findAll();
     }
     
-    
-    
-    
-    
-    
     public void asignarReferencia (Referencia referencia) throws ErrorServicio{
         
         Usuario usuario = validarId(returnIdSession());
@@ -294,4 +289,17 @@ public class UsuarioServicio implements UserDetailsService {
         
     }
 
+    public void validarProfesionDuplicada (String subtipo) throws ErrorServicio{
+       String id = returnIdSession();
+       Usuario usuario = validarId(id);
+       
+       List<Referencia> listaReferencias = usuario.getReferencias();
+       
+        for (Referencia aux : listaReferencias) {
+           if(aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)){
+               throw new ErrorServicio("Esta referencia ya fue creada");
+           }
+        }
+        
+    }
 }

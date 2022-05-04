@@ -48,27 +48,26 @@
         </tr>
       </thead>
       <tbody th:each="referencia : ${listaReferencias}">
-        <tr>
-          <!--
-            <td th:text="${referencia.profesion.rubro}" scope="row"></td>
-            -->
-          < <td>
-            </td>
-            <td></td>
-            <td></td>
-            <td th:text="${referencia.inicioProfesion}"></td>
-            <td th:text="${referencia.experiencia}"></td>
-            <td th:text="${referencia.herramientas}"></td>
-            <td>
-              <button class="btn btn-primary "><a
-                  th:href="@{/referencia/editar/(id =__${referencia.id}__)}">Editar</a></button>
-            </td>
-            <td>
-              <button class="btn btn-danger "><a
-                  th:href="@{/referencia/eliminar/(id =__${referencia.id}__)}">Eliminar</a></button>
-            </td>
-            
-            
+
+          <tr>
+          
+              <td th:text="${referencia.profesion.rubro.nombreLindo}"></td>
+              <td th:text="${referencia.profesion.tipo}"></td>
+              <td th:text="${referencia.profesion.subtipo}"></td>
+              <td th:text="${referencia.inicioProfesion}"></td>
+              <td th:text="${referencia.experiencia}"></td>
+              <td th:text="${referencia.herramientas}"></td>
+              <td>
+                <button class="btn btn-primary "><a
+                    th:href="@{/referencia/editar/(id =__${referencia.id}__)}">Editar</a></button>
+              </td>
+              <td>
+                <button class="btn btn-danger "><a
+                    th:href="@{/referencia/eliminar/(id =__${referencia.id}__)}">Eliminar</a></button>
+              </td>
+
+          </tr>
+
       </tbody>
 
       <p class="error" style="color: red;" th:text="${error != null ? error : ''}"></p>
