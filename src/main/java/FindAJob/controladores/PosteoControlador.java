@@ -162,7 +162,5 @@ public class PosteoControlador {
             model.put("posteo", posteoServicio.validarId(idPosteo));
             return "/testMAFBEnd/p/post-ver-test.html";
         }
-
     }
-
 }

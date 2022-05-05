@@ -40,10 +40,12 @@ public class UsuarioControlador {
 
     @PostMapping("/register2")
     @PreAuthorize("permitAll()")
-    public String cargarUsuario(ModelMap model, String mail, @RequestParam String clave, @RequestParam String clave2) {
+     //agrego el archivo al parametro
+    public String cargarUsuario(MultipartFile foto, ModelMap model, String mail, @RequestParam String clave, @RequestParam String clave2) {
         try {
             System.out.println("registrar");
-            usuarioServicio.registrarCuenta(mail, clave, clave2);
+             //se lo paso aca tambien
+            usuarioServicio.registrarCuenta(foto, mail, clave, clave2);
             model.put("error", "Se ha registrado correctamente!");
             return "registro.html";
         } catch (Exception ex) {
@@ -52,6 +54,8 @@ public class UsuarioControlador {
             model.put("mail", mail);
             model.put("clave", clave);
             model.put("clave2", clave2);
+             //la excepcion en caso que haya error
+            model.put("foto", foto);
             return "index.html";
         }
     }
@@ -102,6 +106,7 @@ public class UsuarioControlador {
         return "/settings/cambioDatos";
     }
 
+     //aca ya esta hecho
     @PostMapping("usuario/datos2")
     @PreAuthorize("isAuthenticated()")
     public String cargarCambioDatos(ModelMap model, @ModelAttribute Usuario usuario, @RequestParam(required = false) String zona2, @RequestParam(required = false) MultipartFile foto) {

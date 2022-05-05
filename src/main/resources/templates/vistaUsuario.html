@@ -39,6 +39,9 @@
       <div class="datos-usuario row">
         <h2 class="nombre-usuario"th:text="*{fullName}"></h2>
         <div class="perfil-datos">
+
+          <img src="th:if="${perfil.foto != null}" alt="" th:src="${'/foto/usuario/' + play.id}">
+          
           <div class="datos-user"><h3>MAIL</h3></div>
           <div class="datos-user"><h3>NOMBRE</h3></div>
           <div class="datos-user"><h3>APELLIDO</h3></div>
