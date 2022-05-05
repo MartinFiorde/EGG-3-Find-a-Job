@@ -27,11 +27,11 @@ public class ArchivoControlador {
         this.usuarioServicio = usuarioServicio;
     }
 
-    @GetMapping("foto{id}")
+    @GetMapping("/usuario/{id}")
     public ResponseEntity<byte[]> FotoUsuario(@PathVariable String id) {
 
         try {
-            Usuario usuario = usuarioServicio.buscarMailEqual(id);
+            Usuario usuario = usuarioServicio.validarId(id);
             if (usuario.getFoto() == null) {
                 throw new ErrorServicio("El usuaio no pose foto");
             }

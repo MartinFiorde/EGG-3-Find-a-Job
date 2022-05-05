@@ -40,7 +40,6 @@
         <h2 class="nombre-usuario"th:text="*{fullName}"></h2>
         <div class="perfil-datos">
 
-          <img src="th:if="${perfil.foto != null}" alt="" th:src="${'/foto/usuario/' + play.id}">
           
           <div class="datos-user"><h3>MAIL</h3></div>
           <div class="datos-user"><h3>NOMBRE</h3></div>
@@ -48,6 +47,7 @@
           <div class="datos-user"><h3>NACIMIENTO</h3></div>
           <div class="datos-user"><h3>SALDO</h3></div>
           <div class="datos-user"><h3>ZONA</h3></div>
+          <div class="datos-user"><h3>FOTO</h3></div>
         </div>
         <div class="perfil-datos2">
           <div class="datos-user1"><p th:text="*{mail}"></p></div>
@@ -55,7 +55,11 @@
           <div class="datos-user1"><p th:text="*{apellido}"></p></div>
           <div class="datos-user1"><p th:text="*{nacimiento}"></p></div>
           <div class="datos-user1"><p th:text="'$ '+*{dineroEnCuenta}"></p></div>
-          <div class="datos-user1"><p th:text="*{zona}"></p></div>         
+          <div class="datos-user1"><p th:text="*{zona}"></p></div>        
+          <p  th:text=" ${usuario.id}"></p>
+          <!--<div class="datos-user1"><p th:if="*{foto != null}"></p></div>-->      
+          <div> <img th:img="${usuario.foto}" th:src=" ${'/foto/usuario/' + usuario.id}"></div>      
+        
         </div>
       </div>
     </div>
