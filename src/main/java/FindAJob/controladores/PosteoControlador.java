@@ -174,6 +174,7 @@ public class PosteoControlador {
             model.put("posteo", posteoServicio.validarId(idPosteo));
             return "/testMAFBEnd/p/post-ver-test.html";
         }
+
     }
 
     @GetMapping("post/buscador")
@@ -344,6 +345,6 @@ public class PosteoControlador {
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
         return "/trabajo/trabajoLista.html";
-    }
 
+    }
 }

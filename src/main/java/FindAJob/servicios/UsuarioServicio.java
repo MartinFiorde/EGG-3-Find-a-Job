@@ -1,5 +1,6 @@
 package FindAJob.servicios;
 
+import FindAJob.entidades.Archivo;
 import FindAJob.entidades.Referencia;
 import FindAJob.entidades.Usuario;
 import FindAJob.enums.Rol;
@@ -8,6 +9,7 @@ import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
 import FindAJob.repositorios.ReferenciaRepositorio;
 import FindAJob.repositorios.UsuarioRepositorio;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,14 +52,16 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void registrarCuenta(String mail, String clave, String clave2) throws ErrorServicio {
+    public void registrarCuenta(MultipartFile foto, String mail, String clave, String clave2) throws ErrorServicio, IOException {
         Usuario usuario = new Usuario();
         usuario.setMail(validarMail(null, mail));
         String claveEncriptada = new BCryptPasswordEncoder().encode(validarClaves(clave, clave2));
         usuario.setClave(claveEncriptada);
         usuario.setAlta(new Date());
         usuario.setDineroEnCuenta(0d);
-        usuario.setActivo(Boolean.TRUE);
+        Archivo archivo = archivoServicio.guardar(foto);
+        // aca habia otro metodo, supongo que era de prueba, era el set archivo y tomaba un boolean
+        usuario.setFoto(archivo);
         usuario.setRol(Rol.USER);
         usuario.setZona(Zona.SINDETERMINAR);
         usuario.setReferencias(new ArrayList());
@@ -74,18 +78,18 @@ public class UsuarioServicio implements UserDetailsService {
 
     // PENDIENTE > > > CONECTAR CON SERVICIO DE ARCHIVOS PARA CARGAR LA FOTO
     @Transactional(rollbackOn = Exception.class)
-    public void modificarDatos(Usuario usuarioOrigen, MultipartFile archivo) throws ErrorServicio {
+   
+    public void modificarDatos(Usuario usuarioOrigen, MultipartFile archivo) throws ErrorServicio, IOException {
         Usuario usuarioDestino = validarId(usuarioOrigen.getId());
         usuarioDestino = validarNombreApellidoNacimiento(usuarioDestino, usuarioOrigen.getNombre(), usuarioOrigen.getApellido(), usuarioOrigen.getNacimiento());
         usuarioDestino.setZona(usuarioOrigen.getZona());
-        //usuarioDestino = validarZona(usuarioDestino, idZona);
-
+       
         String idFoto = null;
         if (usuarioDestino.getFoto() != null) {
             idFoto = usuarioDestino.getFoto().getId();
         }
         // ACA IRIA CARGA DE FOTO
-//        usuarioDestino.setFoto(archivoServicio.actualizar(idFoto, archivo));
+       usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));
 
         usuarioRepositorio.save(usuarioDestino);
     }
