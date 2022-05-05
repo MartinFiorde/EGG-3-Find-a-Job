@@ -128,23 +128,21 @@ public class PosteoControlador {
     @PreAuthorize("isAuthenticated()")
     public String AltaB(ModelMap model, @PathVariable String idPosteo) {
         try {
-            // activar cuando este referencia funcional
-//            if (posteoServicio.validarId(idPosteo).getReferencia() == null) {
-//                throw new ErrorServicio("Error. Cargue referencias en la sub profesion e intente nuevamente");
-//            }
+            System.out.println("a");
             posteoServicio.subirPosteoB(idPosteo);
             List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+            System.out.println("b");
             model.put("posteos", posteos);
-            // redirigir a la pagina de carga de referencias
+            System.out.println("c");
             return "redirect:/post/lista";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
-            model.put("IdPosteo", idPosteo);
-// redirigir a la pagina de carga de referencias
-            return "/testMAFBEnd/p/post-form-test.html";
+            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+            posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
+            model.put("posteos", posteos);
+            return "/post/postLista.html";
         }
-
     }
 
     @GetMapping("post/baja/{idPosteo}")
