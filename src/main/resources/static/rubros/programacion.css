@@ -1,0 +1,97 @@
+*{
+    padding: 0%;
+    margin: 0;
+  }
+  body {
+    background-color: #e9c564;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  
+  /* navbar */
+  .navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+  }
+  
+  #inicio {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+  }
+  
+  .btn {
+    color: aliceblue;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+  }
+  
+  /* end navbar */
+  .container {
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 75vw;
+    height: 100vh;
+  }
+  .sub-rubros {
+    margin: auto;
+    margin-top: 20px;
+    width: 60vw;
+    height: 29vh;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #ffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    text-shadow: 4px 4px 4px black;
+  }
+  a:link, a:visited, a:active {
+    text-decoration:none;
+    color: #ffff;
+  }
+  
+  #web {
+    background-image: url(img/Diseno-Web.jpg);
+    background-size: cover;
+    -webkit-transition: font-size 1s ease;
+     transition: font-size 1s ease;
+  }
+  #web:hover {
+    font-size: 100px;
+  }
+  
+  #angular {
+    background-image: url(img/angular.png);
+    background-size: cover;
+    -webkit-transition: font-size 1s ease;
+    transition: font-size 1s ease;
+  }
+  #angular:hover {
+    font-size: 100px;
+  }
+  
+  #grafico {
+    background-image: url(img/6172bb172ed5a.jpg);
+    background-size: cover;
+    -webkit-transition: font-size 1s ease;
+    transition: font-size 1s ease;
+  }
+  #grafico:hover {
+    font-size: 100px;
+  }
+

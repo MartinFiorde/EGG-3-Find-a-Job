@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <link rel="icon" href="img/icons8-user-30.png">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/postForm.css}">
+    <!-- animaciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <title>Formulario de posteo</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="container-fluid">
+        <nav th:replace="fragments/navbar2.html :: header"></nav>
+    </div>
+    <!-- end navbar -->
+    <div>
+        <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                <path
+                    d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z" />
+                <path
+                    d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z" />
+            </svg>
+            Publica una Solicitud de Trabajo
+        </h2>
+    </div>
+
+    <div class="fs-6">
+        Contanos lo que estás necesitando de forma gratuita y sin compromiso. <br>
+        Miles de trabajadores estaran disponibles para cumplir con tu necesidad <br>
+        Recibi propuestas y llega a un acuerdo ! <br>
+
+        No te olvides que también podés buscar los servicios publicados.
+        <a href="" class="alert-link">Buscá ahora mismo!</a>
+    </div>
+
+    <article>
+        <form class="formulario" id="formPost" th:action="@{/post/form}" th:object="${posteo}"
+            enctype="multipart/form-data" method="POST">
+            <input type="hidden" th:if="*{id != null}" name="idPosteo" th:value="*{id}" />
+
+            <p><span class="form-label">Posteo id: </span><span th:if="${posteo.id != null}" th:text="*{id}"></span></p>
+
+            <p><span class="form-label">Status: </span><span th:if="${posteo.status != null}"
+                    th:text="*{status.nombreLindo}"></span></p>
+
+            <p><span class="form-label">Fecha de alta: </span><span th:if="${posteo.alta != null}"
+                    th:text="*{alta}"></span></p>
+
+            <label for="" class="form-label">TITULO</label>
+            <input type="text" class="form-control" placeholder="Elegí un título para tu proyecto">
+            <br>
+            <label class="form-label">RUBRO </label>
+            <select class="form-select" name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
+                <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}"
+                    th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}"></option>
+            </select>
+
+            <label class="form-label">PROFESIÓN</label>
+            <select class="form-select" name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
+                <option th:each="aux3 : ${tipos}" th:value="${aux3}" th:text="${aux3}"
+                    th:selected="${idTipo != null ? idTipo == aux3 : false}"></option>
+            </select>
+            <br>
+            <label class="form-label ">SUB PROFESION</label>
+            <select class="form-select" name="subtipo" id="subtipo">
+                <option th:each="aux4 : ${subtipos}" th:value="${aux4}" th:text="${aux4}"
+                    th:selected="${idSubtipo != null ? idSubtipo == aux4 : false}"></option>
+            </select>
+
+            <br>
+
+            <label class="form-label">ZONA DE TRABAJO</label>
+            <select class="form-select" name="zona">
+                <option th:each="aux : ${zonas}" th:value="${aux}" th:text="${aux.nombreCiudad}"
+                    th:selected="${idZona != null ? idZona == aux.nombreCiudad : false}"></option>
+            </select>
+
+            <br>
+
+            <label for="" class="form-label ">DESCRIPCIÓN</label>
+            <textarea type="text" class="form-control" th:field="*{descripcionOferta}"
+                placeholder="Indica detalles del trabajo a realizar" style="height:200px;">
+            </textarea>
+            <br>
+            <label class="form-label">PRECIO ESTIMADO POR PROYECTO/HORA</label>
+            <br>
+            <input type="number" class="precio" placeholder="Precio" th:field="*{precio}" />
+            <br>
+            <button type="submit" class="btn btn-warning" onclick="changeFormAction('formPost', '/post/form/')">Guardar
+                Borrador</button>
+
+        </form>
+        <p style="color: red" th:if="${error != null}" th:text="${error}"></p>
+
+    </article>
+    <script src="/js/form.js"></script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+</html>

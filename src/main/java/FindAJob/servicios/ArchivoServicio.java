@@ -52,8 +52,22 @@ public class ArchivoServicio {
             throw new ErrorServicio("Error al actualizar la imagen");            
             }
         }
-         
-        return null;    
+        return null;
+        
     }
- }
+  
+        
+     public Archivo buscarPorId (String id) throws ErrorServicio {
+        Optional<Archivo> res = archivoRepositorio.findById(id);
+        if (!res.isPresent()) {
+            throw new ErrorServicio("No se encontro el usuario solicitado.");
+        }
+        return res.get();
+    }
+        
+    }
+        
+        
+    
+
 

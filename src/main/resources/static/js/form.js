@@ -29,6 +29,11 @@ function obtenerTipos() {
             while (select.options.length > 0) {
                 select.remove(0);
             }
+            
+            let optnull = document.createElement('option');
+            optnull.value = null;
+            optnull.innerHTML = null;
+            select.append(optnull);
 
             data.forEach(e => {
                 let opt = document.createElement('option');
@@ -55,6 +60,11 @@ function obtenerSubtipos() {
             while (select.options.length > 0) {
                 select.remove(0);
             }
+
+            let optnull = document.createElement('option');
+            optnull.value = null;
+            optnull.innerHTML = null;
+            select.append(optnull);
 
             data.forEach(e => {
                 let opt = document.createElement('option');

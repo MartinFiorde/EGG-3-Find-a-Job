@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,6 +94,7 @@ public class UsuarioControlador {
             return "/settings/cambioClave";
         }
     }
+   
 
     @GetMapping("usuario/datos")
     @PreAuthorize("isAuthenticated()")
@@ -137,6 +139,14 @@ public class UsuarioControlador {
         return "vistaUsuario.html";
     }
 
+    @GetMapping("/usuario/{idUsuario}")
+    @PreAuthorize("isAuthenticated()")
+    public String verPerfilUsuario(ModelMap model, @PathVariable String idUsuario) throws ErrorServicio {
+        Usuario usuario = usuarioServicio.validarId(idUsuario);
+        model.put("usuario", usuario);
+        return "vistaUsuario.html";
+    }
+    
     @GetMapping("/admin/usuarios")
     @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaUsuarios(ModelMap model) {
@@ -149,7 +159,7 @@ public class UsuarioControlador {
     public String verMenuDeSaldo(ModelMap model) throws ErrorServicio {
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
-        return "/testMAFBEnd/saldo-test.html";
+        return "/dinero/dinero.html";
     }
 
     @PostMapping("/usuario/saldo")
@@ -168,12 +178,12 @@ public class UsuarioControlador {
             if (Math.abs(carga)+Math.abs(retiro) != 0) {
             model.put("error", "Su operacion se realizó con éxito!");    
             }
-            return "/testMAFBEnd/saldo-test.html";
+            return "/dinero/dinero.html";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("usuario", usuarioServicio.validarId(usuarioServicio.returnIdSession()));
-            return "/testMAFBEnd/saldo-test.html";
+            return "/dinero/dinero.html";
         }
     }
 

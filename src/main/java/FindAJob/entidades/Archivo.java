@@ -61,6 +61,11 @@ public class Archivo {
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
     }
+
+    @Override
+    public String toString() {
+        return "Archivo{" + "id=" + id + ", nombre=" + nombre + ", mime=" + mime + ", contenido=" + contenido + '}';
+    }
     
     
     
