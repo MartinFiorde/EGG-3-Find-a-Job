@@ -114,12 +114,15 @@ public class PosteoServicio {
         if (posteo.getStatus() != Status.A_BORRADOR && posteo.getStatus() != Status.B_PUBLICADO) {
             throw new ErrorServicio("La operacion no puede ser realizada sobre este post en su estado actual.");
         }
+        
         posteo.setStatus(Status.B_PUBLICADO);
         List<String> chats = new ArrayList();
         chats.add(new Date() + " - " + "Sala de chat pública. Consulta inquietudes o convení términos con el oferente");
+        posteo.setReferencia(usuarioServicio.buscarParaPosteo(posteo.getProfesion().getId()));
         posteo.setChats(chats);
         posteo.setAlta(new Date());
         posteoRepositorio.save(posteo);
+        System.out.println("1");
     }
 
     @Transactional(rollbackOn = Exception.class)

@@ -39,7 +39,7 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
     //
     @Transactional(rollbackOn = Exception.class)
     public Referencia guardar(Referencia referencia) throws ErrorServicio {
-        
+
         validarExperiencia(referencia.getExperiencia());
         validarHerramientas(referencia.getHerramientas());
         validarFecha(referencia.getInicioProfesion());
@@ -57,18 +57,18 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
             throw new ErrorServicio("La referencia ya fue resubida");
         }
     }
-    
+
     @Transactional
     public Referencia buscarPorId(String id) throws ErrorServicio {
 
         Optional<Referencia> opReferencia = referenciaRepositorio.findById(id);
 
         if (opReferencia.isPresent()) {
-            Referencia referencia = opReferencia.get();           
+            Referencia referencia = opReferencia.get();
             return referencia;
-        } else {            
+        } else {
             throw new ErrorServicio("No se encontró la referencia");
-            
+
         }
     }
 
@@ -100,7 +100,6 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
 
         //Profesion profesion = profesionServicio.buscarPorId(id);        
         //referencia.setProfesion(profesion);
-
     }
 
     @Transactional(rollbackOn = Exception.class)
@@ -163,16 +162,16 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
 
         String idUsuarioLogueado = usuarioServicio.returnIdSession();            //traigo id usuario logueado        
         Usuario usuarioLogueado = usuarioServicio.validarId(idUsuarioLogueado);  //a travez del id traigo el usuario   
-        
+
         List<Referencia> listaRefAlta = new ArrayList<>();                       //lista de referencias solo con alta
         List<Referencia> listaRef = usuarioLogueado.getReferencias();            //lista de referencias del usuario
-        
+
         for (Referencia aux : listaRef) {
-            if(aux.getAlta()== true){
+            if (aux.getAlta() == true) {
                 listaRefAlta.add(aux);
             }
         }
-        
+
         return listaRefAlta;
 
     }
@@ -180,43 +179,42 @@ public class ReferenciaServicio {             // PROBADO : CARGA CORRECTAMENTE V
     @Transactional(rollbackOn = Exception.class)
     public Referencia asignarArchivo(Referencia referencia, Archivo archivo) throws ErrorServicio {
 
-        
         if (archivo == null) {
             System.out.println("el archivo es nulo");
         } else {
             Archivo a2 = archivoServicio.buscarPorId(archivo.getId());
-            List<Archivo> listaArchivo = referencia.getArchivos();  
+            List<Archivo> listaArchivo = referencia.getArchivos();
             System.out.println("archivo a2 " + a2);
-            listaArchivo.add(a2);        
+            listaArchivo.add(a2);
             referencia.setArchivos(listaArchivo);
-        }        
- 
+        }
+
         return referencia;
     }
-    
-    public void validarFecha(LocalDate fecha) throws ErrorServicio{   
-       
-        if (fecha == null ) {
+
+    public void validarFecha(LocalDate fecha) throws ErrorServicio {
+
+        if (fecha == null) {
             throw new ErrorServicio("Debe ingresar una fecha.");
-        }       
+        }
         if (fecha.toString().isEmpty()) {
             throw new ErrorServicio("Debe ingresar una fecha.");
-        }       
+        }
         if (fecha.isAfter(LocalDate.now())) {
             throw new ErrorServicio("La fecha ingresada no es valida.");
-        }       
-       
+        }
+
     }
-    
-    public void editarPorId(String id) throws ErrorServicio{
+
+    public void editarPorId(String id) throws ErrorServicio {
         Optional<Referencia> refOp = referenciaRepositorio.findById(id);
-        
-        if(!refOp.isPresent()){
+
+        if (!refOp.isPresent()) {
             throw new ErrorServicio("No se encontro la referencia");
         }
-        
+
     }
+
     
-   
 
 }

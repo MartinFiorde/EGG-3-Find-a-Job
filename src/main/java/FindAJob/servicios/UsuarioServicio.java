@@ -3,8 +3,10 @@ package FindAJob.servicios;
 import FindAJob.entidades.Referencia;
 import FindAJob.entidades.Usuario;
 import FindAJob.enums.Rol;
+import FindAJob.enums.Status;
 import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
+import FindAJob.repositorios.ReferenciaRepositorio;
 import FindAJob.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,13 +44,11 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     // METODOS
-    
     @Transactional(rollbackOn = Exception.class)
-    public void guardar (Usuario usuario){
+    public void guardar(Usuario usuario) {
         usuarioRepositorio.save(usuario);
     }
-    
-    
+
     @Transactional(rollbackOn = Exception.class)
     public void registrarCuenta(String mail, String clave, String clave2) throws ErrorServicio {
         Usuario usuario = new Usuario();
@@ -59,6 +60,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setActivo(Boolean.TRUE);
         usuario.setRol(Rol.USER);
         usuario.setZona(Zona.SINDETERMINAR);
+        usuario.setReferencias(new ArrayList());
         usuarioRepositorio.save(usuario);
     }
 
@@ -113,7 +115,6 @@ public class UsuarioServicio implements UserDetailsService {
 //        usuario.setReferencias(referencias);
 //        usuarioRepositorio.save(usuario);
 //    }
-
     @Transactional(rollbackOn = Exception.class)
     public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
         Usuario usuario = validarId(idUsuario);
@@ -280,26 +281,41 @@ public class UsuarioServicio implements UserDetailsService {
     public List<Usuario> findAll() {
         return usuarioRepositorio.findAll();
     }
-    
-    public void asignarReferencia (Referencia referencia) throws ErrorServicio{
-        
+
+    public void asignarReferencia(Referencia referencia) throws ErrorServicio {
+
         Usuario usuario = validarId(returnIdSession());
         usuario.getReferencias().add(referencia);
         guardar(usuario);
-        
+
     }
 
-    public void validarProfesionDuplicada (String subtipo) throws ErrorServicio{
-       String id = returnIdSession();
-       Usuario usuario = validarId(id);
-       
-       List<Referencia> listaReferencias = usuario.getReferencias();
-       
+    public void validarProfesionDuplicada(String subtipo) throws ErrorServicio {
+        String id = returnIdSession();
+        Usuario usuario = validarId(id);
+
+        List<Referencia> listaReferencias = usuario.getReferencias();
+
         for (Referencia aux : listaReferencias) {
-           if(aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)){
-               throw new ErrorServicio("Esta referencia ya fue creada");
-           }
+            if (aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)) {
+                throw new ErrorServicio("Esta referencia ya fue creada");
+            }
         }
-        
+
     }
+
+    public Referencia buscarParaPosteo(String idProfesion) throws ErrorServicio {
+        Referencia referencia = null;
+        Usuario usuario = validarId(returnIdSession());
+        for (Referencia aux : usuario.getReferencias()) {
+            if (aux.getProfesion().getId().equals(idProfesion)) {
+                referencia = aux;
+            }
+        }
+        if (referencia == null) {
+            throw new ErrorServicio("Usted no tiene una referencia para esta sub profesión. Por favor carguela e intente nuevamente");
+        }
+        return referencia;
+    }
+
 }
