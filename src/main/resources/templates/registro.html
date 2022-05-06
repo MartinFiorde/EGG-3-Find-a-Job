@@ -22,7 +22,8 @@
                 <div class="form-items shadow">
                   <h2>Registro</h2>
                   <h3>Ingrese aqui sus datos para registrarse</h3>
-                    <form class="requires-validation"  th:action="@{/register2}" method='post' novalidate>
+                  <form class="requires-validation"  th:action="@{/register2}" method='post' 
+                  enctype="multipart/form-data" novalidate>
 
                         <div class="col-md-12">
                             <input class="form-control" type="hidden" th:value="${id}" name="id" placeholder="id">
@@ -38,6 +39,10 @@
 
                 <div class="col-md-12">
                     <input class="form-control" type="password" th:value="${clave2}" name="clave2" placeholder="Password" required>                        
+                </div>
+
+                <div class="col-md-12">
+                    <input class="form-control" type="file" accept="image/png, image/jpeg" th:value="${foto}" name="foto" placeholder="foto" required>                        
                 </div>
   
                   <p class="error" style="color: red;" th:text="${error != null ? error : ''}"></p>

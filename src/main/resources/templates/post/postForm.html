@@ -95,9 +95,11 @@
             <br>
             <input type="number" class="precio" placeholder="Precio" th:field="*{precio}" />
             <br>
-            <button type="submit" class="btn btn-warning" onclick="changeFormAction('formPost', '/post/form/')">Guardar Borrador</button>
+            <button type="submit" class="btn btn-warning" onclick="changeFormAction('formPost', '/post/form/')">Guardar
+                Borrador</button>
 
         </form>
+        <p style="color: red" th:if="${error != null}" th:text="${error}"></p>
 
     </article>
     <script src="/js/form.js"></script>

@@ -91,5 +91,8 @@ public class ProfesionServicio {
         return res.get();
     }
 
-
+    public void validarDuplicado (String subtipo){
+        
+        List<Profesion> listaProfesion; //= referenciaRepositorio.profesionesUsuario;
+    }
 }
