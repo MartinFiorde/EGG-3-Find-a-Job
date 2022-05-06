@@ -134,6 +134,7 @@ public class UsuarioControlador {
     @GetMapping("/usuario")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model) throws ErrorServicio {
+        usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
         return "vistaUsuario.html";
@@ -142,6 +143,7 @@ public class UsuarioControlador {
     @GetMapping("/usuario/{idUsuario}")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model, @PathVariable String idUsuario) throws ErrorServicio {
+        usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(idUsuario);
         model.put("usuario", usuario);
         return "vistaUsuario.html";

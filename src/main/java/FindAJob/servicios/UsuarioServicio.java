@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -60,7 +61,6 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setAlta(new Date());
         usuario.setDineroEnCuenta(0d);
         Archivo archivo = archivoServicio.guardar(foto);
-        // aca habia otro metodo, supongo que era de prueba, era el set archivo y tomaba un boolean
         usuario.setFoto(archivo);
         usuario.setRol(Rol.USER);
         usuario.setZona(Zona.SINDETERMINAR);
@@ -76,49 +76,20 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    // PENDIENTE > > > CONECTAR CON SERVICIO DE ARCHIVOS PARA CARGAR LA FOTO
     @Transactional(rollbackOn = Exception.class)
-   
     public void modificarDatos(Usuario usuarioOrigen, MultipartFile archivo) throws ErrorServicio, IOException {
         Usuario usuarioDestino = validarId(usuarioOrigen.getId());
         usuarioDestino = validarNombreApellidoNacimiento(usuarioDestino, usuarioOrigen.getNombre(), usuarioOrigen.getApellido(), usuarioOrigen.getNacimiento());
         usuarioDestino.setZona(usuarioOrigen.getZona());
-       
+
         String idFoto = null;
         if (usuarioDestino.getFoto() != null) {
             idFoto = usuarioDestino.getFoto().getId();
         }
-        // ACA IRIA CARGA DE FOTO
-       usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));
-
+        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));
         usuarioRepositorio.save(usuarioDestino);
     }
 
-//    @Transactional(rollbackOn = Exception.class)
-//    public void agregarReferencia(String idUsuario, Referencia referencia) throws ErrorServicio {
-//        Usuario usuario = validarId(idUsuario);
-//        List<Referencia> referencias = usuario.getReferencias();
-//
-//        if (referencias == null) {
-//            referencias = new ArrayList();
-//        }
-//
-//        int count = 0;
-//        for (Referencia aux : referencias) {
-//            if (referencia.getId() == aux.getId()) {
-//                aux = referencia;
-//                count++;
-//            }
-//        }
-//        if (count == 0) {
-//            referencias.add(referencia);
-//        }
-//        if (count > 1) {
-//            throw new ErrorServicio("Error de sistema. Se intento guardar referencias con id duplicado");
-//        }
-//        usuario.setReferencias(referencias);
-//        usuarioRepositorio.save(usuario);
-//    }
     @Transactional(rollbackOn = Exception.class)
     public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
         Usuario usuario = validarId(idUsuario);
@@ -206,20 +177,15 @@ public class UsuarioServicio implements UserDetailsService {
         if (nombre.toLowerCase() == null || nombre.isEmpty() || nombre.trim() == "") {
             throw new ErrorServicio("Debe ingresar un nombre válido.");
         }
-
         if (apellido.toLowerCase() == null || apellido.isEmpty() || apellido.trim() == "") {
             throw new ErrorServicio("Debe ingresar un apellido válido.");
         }
-
-        // LocalDate nacimiento = nacimiento1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (nacimiento == null || nacimiento.toString().isEmpty() || nacimiento.isAfter(LocalDate.now())) {
             throw new ErrorServicio("Debe ingresar un año válido.");
         }
-
         if (nacimiento.plusYears(18l).isAfter(LocalDate.now())) {
             throw new ErrorServicio("Debe tener mas de 18 años.");
         }
-
         if (nacimiento.plusYears(100l).isBefore(LocalDate.now())) {
             throw new ErrorServicio("Su edad no puede superar los 100 años...");
         }
@@ -287,25 +253,20 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     public void asignarReferencia(Referencia referencia) throws ErrorServicio {
-
         Usuario usuario = validarId(returnIdSession());
         usuario.getReferencias().add(referencia);
         guardar(usuario);
-
     }
 
     public void validarProfesionDuplicada(String subtipo) throws ErrorServicio {
         String id = returnIdSession();
         Usuario usuario = validarId(id);
-
         List<Referencia> listaReferencias = usuario.getReferencias();
-
         for (Referencia aux : listaReferencias) {
             if (aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)) {
                 throw new ErrorServicio("Esta referencia ya fue creada");
             }
         }
-
     }
 
     public Referencia buscarParaPosteo(String idProfesion) throws ErrorServicio {
@@ -320,6 +281,14 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorServicio("Usted no tiene una referencia para esta sub profesión. Por favor carguela e intente nuevamente");
         }
         return referencia;
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public void validarDatosUsuario() throws ErrorServicio {
+        Optional<Usuario> res = usuarioRepositorio.findById(returnIdSession());
+        if (res.get().getNombre() == null) {
+            throw new ErrorServicio("Por favor ingrese todos sus datos de perfil para acceder a esta sección.");
+        }
     }
 
 }
