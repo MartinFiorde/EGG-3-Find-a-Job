@@ -126,7 +126,6 @@ h3 {
  h3 span:nth-child(12){ animation-delay:.55s; }
  h3 span:nth-child(13){ animation-delay:.6s; }
  h3 span:nth-child(14){ animation-delay:.65s; }
-
 .card {
   position: relative;
   width: 500px;

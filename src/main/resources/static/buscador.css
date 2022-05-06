@@ -150,6 +150,7 @@ label {
 background-color: #ebeff885;
 transform: perspective(500px) rotateY(0deg);
 }
+
 .card .back {
   background-color:#ebeff885;
   transform: perspective(500px) rotateY(180deg);

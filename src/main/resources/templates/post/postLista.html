@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <link rel="icon" href="img/icons8-user-30.png">
+  <link rel="icon" href="/img/LogoFindAJob1.png">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/postLista.css}">
   <!-- animaciones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <title>Usuario</title>
+  <title>Ofertas</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
   <!-- end navbar -->
   <div class="contenedor-tabla" style="position: relative;">
     <div class="titulo animate__animated animate__fadeInLeft">
-      <h2>Lista de Ofertas</h2> 
+      <h2>Mis Posteos</h2> 
     </div>
     <div class="fondo-blur">
         <div class="table-responsive">
@@ -72,7 +72,6 @@
                     </tr>
                 </tbody>
             </table>
-      </div>
       <button class="btn btn-nuevo-posteo"><a th:href="@{/post/form/{idPosteo}(idPosteo ='new')}">Nuevo posteo</a></button>
     </div>
   </div>
