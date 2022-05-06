@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <link rel="icon" href="img/icons8-user-30.png">
+    <link rel="icon" href="/img/LogoFindAJob1.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +21,7 @@
     </div>
     <!-- end navbar -->
     <div class="lista-contenedor">
-        <h2>Lista de Trabajos</h2>
+        <h2 th:text="${titulo}"></h2>
         <div class="tabla-contenedor">
             <table class="table table-borderless">
                 <thead class="">
@@ -41,7 +41,7 @@
                         <th scope="col">Cliente</th>
                         <!-- Agregar datos de cliente según hagan falta -->
 
-                        <th scope="col">Ver</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody th:each="posteo : ${posteos}">
@@ -72,10 +72,12 @@
                         </td>
 
                         <td scope="row">
+                          <button class="btn-ver">
                             <a th:if="${posteo.cliente == null}"
-                                th:href="@{/post/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
-                            <a th:if="${posteo.cliente != null}"
-                                th:href="@{/trabajo/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                            th:href="@{/post/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                        <a th:if="${posteo.cliente != null}"
+                            th:href="@{/trabajo/ver/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver</a>
+                          </button>
                         </td>
                     </tr>
                 </tbody>

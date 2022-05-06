@@ -65,7 +65,7 @@ body {
     margin-bottom: 60px;
     margin-top: 60px;
     width: 90vw;
-    height: 90vh;
+    height: max-content;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
     z-index: 3;
@@ -124,6 +124,7 @@ a:hover {
 }
 
 .btn-nuevo-posteo {
+    margin-bottom: 14px;
     margin-left: 8px;
     border-radius: 6px;
     width: 15vw;

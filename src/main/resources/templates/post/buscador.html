@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <link rel="icon" href="">
+    <link rel="icon" href="/img/LogoFindAJob1.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,10 +42,7 @@
                     </select>
 
                     <input type="submit" value="Buscar" />
-
-                    <br />
-                   </form>
-                    <br />
+                </form>
             </div>
             <div class="usuario  animate__animated animate__fadeInLeft">
                 <div class="card">
@@ -83,7 +80,8 @@
                                     <td th:text="${posteo.precio}" scope="row"></td>
                                     <td th:text="${posteo.alta}" scope="row"></td>
                                     <td scope="row">
-                                        <button class="btn btn-ver-oferta"><a th:href="@{/trabajo/form/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver oferta</a></button>
+                                        <button class="btn btn-ver-oferta"><a th:href="@{/trabajo/form/{idPosteo}(idPosteo =__${posteo.id}__)}">Ver
+                                                oferta</a></button>
                                     </td>
                                 </tr>
                             </tbody>
