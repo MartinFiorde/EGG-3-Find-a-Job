@@ -2,7 +2,9 @@ package FindAJob.controladores;
 
 import FindAJob.entidades.Archivo;
 import FindAJob.entidades.Referencia;
+import FindAJob.entidades.Usuario;
 import FindAJob.enums.Rubro;
+import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
 import FindAJob.servicios.ArchivoServicio;
 import FindAJob.servicios.PosteoServicio;
@@ -46,8 +48,19 @@ public class ReferenciaControlador {
 
     @GetMapping("/trabajador")
     @PreAuthorize("isAuthenticated()")
-    public String verReferencias(ModelMap model) {
-
+    public String verReferencias(ModelMap model) throws ErrorServicio {
+         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         try {
 
             model.put("listaReferencias", referenciaServicio.traerReferenciasUsuarioLogueado());
@@ -61,13 +74,24 @@ public class ReferenciaControlador {
 
     @GetMapping("/form")
     @PreAuthorize("isAuthenticated()")
-    public String agregarReferencia(ModelMap model) {
-
+    public String agregarReferencia(ModelMap model) throws ErrorServicio {
+       try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         Referencia referencia = new Referencia();
 
         List<Rubro> rubros = Arrays.asList(Rubro.values());
         model.put("rubros", rubros);
-        
+
         model.addAttribute("referencia", referencia);
 
         return "testRodrigo/testReferencia";
@@ -80,12 +104,21 @@ public class ReferenciaControlador {
             @RequestParam(required = false) String rubro,
             MultipartFile archivo,
             @RequestParam(required = false) LocalDate date,
-            @RequestParam String subtipo) {
-
+            @RequestParam String subtipo) throws ErrorServicio {
+         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         try {
-            
-
-          
+            usuarioServicio.validarDatosUsuario();
             referencia = referenciaServicio.inicializarNuevaReferencia(referencia);              //inicia valores en 0
             Archivo archivo2 = archivoServicio.guardar(archivo);                                 //guardar ya tiene sus validaciones
             System.out.println("archivo " + archivo2);
@@ -103,12 +136,12 @@ public class ReferenciaControlador {
 
             List<Rubro> rubros = Arrays.asList(Rubro.values());
             model.put("rubros", rubros);
-            
+
             return "testRodrigo/testReferencia";
         } catch (IOException ex) {
-             List<Rubro> rubros = Arrays.asList(Rubro.values());
+            List<Rubro> rubros = Arrays.asList(Rubro.values());
             model.put("rubros", rubros);
-           
+
             model.put("error2", ex.getMessage());
             return "testRodrigo/testReferencia";
         }
@@ -118,10 +151,21 @@ public class ReferenciaControlador {
 
     @GetMapping("/editar/")
     public String Editar(@RequestParam String id,
-            ModelMap model) {
-
+            ModelMap model) throws ErrorServicio {
+         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         try {
-
+            usuarioServicio.validarDatosUsuario();
             Referencia referencia2 = referenciaServicio.buscarPorId(id);
             model.addAttribute("referencia", referencia2);
 
@@ -146,9 +190,21 @@ public class ReferenciaControlador {
     public String editado(@ModelAttribute Referencia referencia,
             ModelMap model,
             @RequestParam(required = false) LocalDate date,
-            @RequestParam String subtipo) {
-
+            @RequestParam String subtipo) throws ErrorServicio {
         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        try {
+            usuarioServicio.validarDatosUsuario();
             usuarioServicio.validarProfesionDuplicada(subtipo);
             referencia.setProfesion(profesionServicio.devolverProfesionDelSubtipo(subtipo));
 
@@ -166,9 +222,21 @@ public class ReferenciaControlador {
 
     @GetMapping("/eliminar")
     public String eliminarReferencia(ModelMap model,
-            @RequestParam String id) {
-
+            @RequestParam String id) throws ErrorServicio {
         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        try {
+            usuarioServicio.validarDatosUsuario();
             Referencia referencia = referenciaServicio.buscarPorId(id);
             referencia = referenciaServicio.baja(id);
             referenciaServicio.guardar(referencia);
