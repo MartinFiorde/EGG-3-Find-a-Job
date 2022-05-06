@@ -53,18 +53,6 @@ public class PosteoControlador {
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
         posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
         model.put("posteos", posteos);
@@ -75,18 +63,6 @@ public class PosteoControlador {
     @PreAuthorize("isAuthenticated()")
     public String enviarPosteoForm(ModelMap model,
             @PathVariable(required = false) String idPosteo) throws ErrorServicio {
-         try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         Posteo posteo = new Posteo();
         System.out.println("idPosteo: " + idPosteo);
         if (!idPosteo.equals("new")) {
@@ -109,18 +85,7 @@ public class PosteoControlador {
     public String procesarPosteoForm(ModelMap model, @PathVariable(required = false) @RequestParam(required = false) String idPosteo,
             @ModelAttribute Posteo posteo, @RequestParam(required = false) String zona,
             @RequestParam(required = false) String subtipo) throws ErrorServicio {
-         try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
+
         try {
             if (idPosteo != null) {
                 posteo.setId(idPosteo);
@@ -160,19 +125,7 @@ public class PosteoControlador {
 
     @GetMapping("post/alta/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
-    public String AltaB(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
+    public String AltaB(ModelMap model, @PathVariable String idPosteo) {
         try {
             System.out.println("a");
             posteoServicio.subirPosteoB(idPosteo);
@@ -203,18 +156,6 @@ public class PosteoControlador {
     @GetMapping("post/ver/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String verPost(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         model.put("posteo", posteoServicio.validarId(idPosteo));
         return "/post/postVer.html";
     }
@@ -223,19 +164,6 @@ public class PosteoControlador {
     @PreAuthorize("isAuthenticated()")
     public String EscribirEnChat(ModelMap model, @PathVariable String idPosteo, @RequestParam String msj) throws ErrorServicio {
         try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
-        try {
-            usuarioServicio.validarDatosUsuario();
             posteoServicio.escribirChat(idPosteo, msj);
             model.put("posteo", posteoServicio.validarId(idPosteo));
             return "redirect:/post/ver/" + idPosteo;
@@ -251,18 +179,6 @@ public class PosteoControlador {
     @GetMapping("post/buscador")
     @PreAuthorize("isAuthenticated()")
     public String buscarPosts(ModelMap model, @RequestParam(required = false) String idRubro, @RequestParam(required = false) String idTipo, @RequestParam(required = false) String idSubtipo, @RequestParam(required = false) String idZona) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         cargarListasDesplegables(model);
         List<Posteo> posteos = null;
         if (idSubtipo != null) {
@@ -288,18 +204,6 @@ public class PosteoControlador {
     @PostMapping("post/buscador")
     @PreAuthorize("isAuthenticated()")
     public String buscarPostsPorRubro(ModelMap model, @RequestParam(required = false) String rubro, @RequestParam(required = false) String tipo, @RequestParam(required = false) String subtipo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         cargarListasDesplegables(model);
         List<Posteo> posteos = null;
         if (subtipo != null && !subtipo.equals("null")) {
@@ -330,18 +234,6 @@ public class PosteoControlador {
     @GetMapping("trabajo/form/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String enviarTrabajoForm(ModelMap model, @PathVariable(required = false) String idPosteo) throws ErrorServicio {
-         try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         Posteo posteo = posteoServicio.validarId(idPosteo);
         model.put("posteo", posteo);
         return "/trabajo/trabajoForm.html";
@@ -352,18 +244,6 @@ public class PosteoControlador {
     public String procesarTrabajoForm(ModelMap model,
             @RequestParam(required = false) String idPosteo,
             @ModelAttribute Posteo posteo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         try {
             System.out.println("1");
             if (idPosteo != null) {
@@ -396,18 +276,6 @@ public class PosteoControlador {
     @GetMapping("trabajo/lista/{tipoUsuario}")
     @PreAuthorize("isAuthenticated()")
     public String verListaTrabajos(ModelMap model, @PathVariable String tipoUsuario) throws ErrorServicio {
-         try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         List<Posteo> posteos = new ArrayList();
         if (tipoUsuario.equals("trabajador")) {
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
@@ -428,18 +296,6 @@ public class PosteoControlador {
     @GetMapping("trabajo/ver/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String verTrabajo(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         model.put("idUser", usuarioServicio.returnIdSession());
         model.put("posteo", posteoServicio.validarId(idPosteo));
         return "/trabajo/trabajoVer.html";
@@ -448,24 +304,11 @@ public class PosteoControlador {
     @GetMapping("trabajo/entregar/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String entregarTrabajo(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         Posteo posteo = posteoServicio.validarId(idPosteo);
         if (!posteo.getTrabajador().getId().equals(usuarioServicio.returnIdSession())) {
             throw new ErrorServicio("No tiene autorización para entregar el trabajo");
         }
         try {
-            usuarioServicio.validarDatosUsuario();
             posteoServicio.entregarD(idPosteo);
             model.put("idUser", usuarioServicio.returnIdSession());
             model.put("posteo", posteoServicio.validarId(idPosteo));
@@ -486,7 +329,6 @@ public class PosteoControlador {
             throw new ErrorServicio("No tiene autorización para pagar el trabajo");
         }
         try {
-            usuarioServicio.validarDatosUsuario();
             posteoServicio.PagarE(idPosteo);
             model.put("idUser", usuarioServicio.returnIdSession());
             model.put("posteo", posteoServicio.validarId(idPosteo));
@@ -502,18 +344,6 @@ public class PosteoControlador {
     @GetMapping("admin/posteos")
     @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaTrabajosAdmin(ModelMap model) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
         model.put("titulo","Lista de trabajos");
