@@ -80,7 +80,7 @@ body {
   font-size: 20px;
 }
 
-.form-content input[type=password],input[type=mail],input[type=text], .form-content select {
+.form-content input[type=password],input[type=mail],input[type=text],input[type=file], .form-content select {
   width: 100%;
   padding: 9px 20px;
   text-align: left;
