@@ -88,17 +88,43 @@
             </div>
             <div class="col-6">
                 <div class="g-col-7">
-                    <h3 th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></h3>
-                    <div class="info-cliente">
-                        <div th:if="${posteo.trabajador.id == idUser}">
-                                <a th:if="${posteo.status.nombreLindo == 'En proceso'}" th:href="@{/trabajo/entregar/{idPosteo}(idPosteo =__${posteo.id}__)}">
+                    <h3>Cliente</h3>
+                    <div class="info-cliente row">
+                        <div class="datos">
+                            <div class="g-col-5">
+                                <h4>Nombre</h4>
+                            </div>
+                            <div class="g-col-5">
+                                <h4>Fecha de entrega</h4>
+                            </div>
+                            <div class="g-col-5">
+                                <h4>Descripcion de la solicitud</h4>
+                            </div>
+                        </div>
+                        <div class="datos1">
+                            <div class="g-col-6">
+                                <p th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></p>
+                            </div>
+                            <div class="g-col-6">
+                                <p th:if="${posteo.cliente != null}" th:text="*{entregaTrabajo}"></p>
+                            </div>
+                            <div class="g-col-6">
+                                <p th:if="${posteo.cliente != null}" th:text="*{descripcionSolicitud}"></p>
+                            </div>
+                        </div>
+                        <div class="boton">
+                            <div class="btn-entregar" th:if="${posteo.trabajador.id == idUser}">
+                                <a th:if="${posteo.status.nombreLindo == 'En proceso'}"
+                                    th:href="@{/trabajo/entregar/{idPosteo}(idPosteo =__${posteo.id}__)}">
                                     Entregar
                                 </a>
-                        </div>                       
-                        <div th:if="${posteo.cliente.id == idUser}">
-                                <a th:if="${posteo.status.nombreLindo == 'Entregado'}" th:href="@{/trabajo/pagar/{idPosteo}(idPosteo =__${posteo.id}__)}">
+                            </div>
+                            <div class="btn-entregar" th:if="${posteo.cliente.id == idUser}">
+                                <a th:if="${posteo.status.nombreLindo == 'Entregado'}"
+                                    th:href="@{/trabajo/pagar/{idPosteo}(idPosteo =__${posteo.id}__)}">
                                     Pagar
                                 </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,24 +134,24 @@
             </div>
         </div>
         <div class="chat row">
-           <div class="col-3">
-            <div class="col-2">
-                <h3 th:if="*{chats != null}" >Sala de chat</h3>
-                <table class="table table-striped table-sm">
-                    <tbody th:each="chat : ${posteo.chats}">
-                        <tr>
-                            <td th:text="${chat}" scope="row"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-3">
+                <div class="col-2">
+                    <h3 th:if="*{chats != null}">Sala de chat</h3>
+                    <table class="table table-striped table-sm">
+                        <tbody th:each="chat : ${posteo.chats}">
+                            <tr>
+                                <td th:text="${chat}" scope="row"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-           </div>
             <div class="col-8">
                 <form id="formPost" th:action="@{/chat/escribir/{idPosteo}(idPosteo =__${posteo.id}__)}"
                     enctype="multipart/form-data" method="POST">
-                    <input type="text" placeholder="Mensaje para el chat" name="msj"/>
+                    <input type="text" placeholder="Mensaje para el chat" name="msj" />
                     <div class="enviar">
-                        <input class="btn btn-enviar" type="submit" value="Enviar"/>
+                        <input class="btn btn-enviar" type="submit" value="Enviar" />
                     </div>
                 </form>
             </div>

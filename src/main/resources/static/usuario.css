@@ -15,7 +15,7 @@ body {
   display: flex;
   border-radius: 5px;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
 }
 
 .navbar-brand img {
@@ -64,12 +64,12 @@ body {
 
 
 .fondo-blur {
-  backdrop-filter: blur(10px);
+  background-color:#ebeff87c;
   margin:  auto;
   padding-top: 60px;
   margin-bottom: 60px;
   margin-top: 60px;
-  width: 70vw;
+  width: 80%;
   height: 90vh;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
@@ -77,66 +77,91 @@ body {
 }
 .titulo {
   position: absolute;
-  left: 40%;
   margin-top: -50px;
+  width: 100%;
+  height: 19%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
 }
-
 .titulo h2 {
-  position: relative;
   color: #e9c564;
   font-size: 6vw;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   text-shadow: 4px 4px 4px black;
 }
-.nombre-usuario {
-  text-align: center;
-  color: darkgrey;
-}
 .datos-usuario{
   margin: auto;
-  width: 70vw;
-  height: 70vh;
+  width: 100%;
+  height: 100%;
+}
+.col-3 {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imagen {
+  width: 90%;
+  height: 60%;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-usuario {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.col-9 {
+  width: 65%;
+  height: 100%;
+}
+.col-9 h3 {
+  font-family: 'Archivo Black', sans-serif;
+  text-align: center;
+  color: black;
+  font-size: 25px;
+  width: max-content;
+}
+.col-5{
+  width: 30%;
+  height: 100%;
+}
+.col-7 {
+  width: 70%;
+  height: 100%;
 }
 
- .perfil-datos {
+.col-1-userDate {
+  margin-top: 15px;
+  width: 40%;
+  height: 10%;
+}
+.g-col-6 {
   margin: auto;
-  margin-left: 150px;
-  margin-right: 0%;
-  width: 15vw;
-  height: 60vh;
-  border-radius: 15px;
- }
- .perfil-datos2 {
-  margin: auto;
-  margin-left: 0%;
-  width: 21vw;
-  height: 60vh;
-  border-radius: 15px;
- }
- .datos-user1 {
-   text-align: center;
-   color: aliceblue;
-   padding: auto;
-   font-size: 20px;
-   background-color:rgba(255, 255, 255, 0.123);
-   border-radius: 8px;
-   box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
-   margin: 15px;
-   width: 32vw;
-   height: 7vh;
- }
+  margin-top: 13px;
+  padding-top: 10px;
+  border-radius: 6px;
+  background-color:rgba(22, 21, 21, 0.932);
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
 
- .datos-user {
-  margin: 17px;
-  width: 11vw;
-  height: 7vh;
-  color: darkgrey;
+.g-col-6 p {
+  color: #8D8D8D;
+  font-size: 20px;
+  font-weight: 300;
+  font-family: inherit;
 }
-.datos-usuario img {
-  border: 1px solid black;
-  width: 15vw;
-  height: 15vh;
-}
+
+
 
 

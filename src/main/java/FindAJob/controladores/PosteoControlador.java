@@ -180,7 +180,7 @@ public class PosteoControlador {
             System.out.println("b");
             model.put("posteos", posteos);
             System.out.println("c");
-            return "redirect:/post/lista";
+            return "redirect:/post/postLista";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
@@ -197,7 +197,7 @@ public class PosteoControlador {
         posteoServicio.BajaA(idPosteo);
         List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
         model.put("posteos", posteos);
-        return "redirect:/post/lista";
+        return "redirect:/post/postLista";
     }
 
     @GetMapping("post/ver/{idPosteo}")
@@ -313,6 +313,7 @@ public class PosteoControlador {
             System.out.println("filtro por tipo: " + tipo);
             posteos = posteoServicio.buscarPostsPorTipoYStatusB(tipo, "B_PUBLICADO");
             model.put("posteos", posteos);
+            model.put("titulo", tipo);
             return "/post/buscador.html";
         }
         if (rubro != null && !rubro.equals("null")) {

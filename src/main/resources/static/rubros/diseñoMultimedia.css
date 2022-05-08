@@ -89,42 +89,43 @@
     color: #ffff;
   }
   
-  #web {
-    background-image: url(/img/rubros/Diseno-Web.jpg);
+  #uno {
+    background-image: url(/img/rubros/6172bb172ed5a.jpg);
     background-size: cover;
     -webkit-transition: font-size 1s ease;
      transition: font-size 1s ease;
   }
-  #web:hover {
+  #uno:hover {
     font-size: 100px;
   }
   
-  #back-end {
-    background-image: url(/img/rubros/carrera-programador-web-full-stack.jpg);
+  #dos {
+    background-image: url(/img/rubros/interiores.jpg);
     background-size: cover;
     -webkit-transition: font-size 1s ease;
     transition: font-size 1s ease;
   }
-  #back-end:hover {
-    font-size: 80px;
-  }
-  
-  #reparacion-celulares {
-    background-image: url(/img/rubros/celulares.jpg);
-    /* background-size: cover; */
-    -webkit-transition: font-size 1s ease;
-    transition: font-size 1s ease;
-  }
-  #reparacion-celulares:hover {
-    font-size: 80px;
-  }
-
-  #redes {
-    background-image: url(/img/rubros/tecnico-redes.jpg);
-    -webkit-transition: font-size 1s ease;
-    transition: font-size 1s ease;
-  }
-  #redes:hover {
+  #dos:hover {
     font-size: 100px;
   }
+  #tres {
+    background-image: url(/img/rubros/fotografia.jpg);
+    background-size: cover;
+    -webkit-transition: font-size 1s ease;
+    transition: font-size 1s ease;
+  }
+  #tres:hover {
+    font-size: 100px;
+  }
+  #cuatro {
+    background-image: url(/img/rubros/sonidista.jpg);
+    background-size: cover;
+    -webkit-transition: font-size 1s ease;
+    transition: font-size 1s ease;
+  }
+  #cuatro:hover {
+    font-size: 100px;
+  }
+
+
 

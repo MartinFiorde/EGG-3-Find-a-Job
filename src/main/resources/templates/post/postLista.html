@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/postLista.css}">
   <!-- animaciones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-  <title>Ofertas</title>
+  <title>Mis posteos</title>
 </head>
 
 <body>
@@ -34,11 +34,9 @@
                         <th scope="col">Rubro</th>
                         <th scope="col">Profesion</th>
                         <th scope="col">Sub Profesion</th>
-                        <th scope="col">Zona</th>
-                        
+                        <th scope="col">Zona</th>                        
                         <th scope="col">Trabajador</th>
                         <th scope="col">Precio oferta</th>
-
                         <th scope="col">Ver</th>
                         <th scope="col">Editar</th>
                         <th scope="col">Posteado</th>
@@ -48,13 +46,11 @@
         
                 <tbody th:each="posteo : ${posteos}">
                     <tr>
-                        <!-- <td th:text="${libro.id}" scope="row"></td> -->
                         <td th:text="${posteo.status.nombreLindo}" scope="row"></td>
                         <td th:text="${posteo.profesion.rubro.nombreLindo}" scope="row"></td>
                         <td th:text="${posteo.profesion.tipo}" scope="row"></td>
                         <td th:text="${posteo.profesion.subtipo}" scope="row"></td>
-                        <td th:text="${posteo.zona.nombreCiudad}" scope="row"></td>
-                        
+                        <td th:text="${posteo.zona.nombreCiudad}" scope="row"></td>                        
                         <td th:text="${posteo.trabajador.fullName}" scope="row"></td>
                         <td th:text="${posteo.precio}" scope="row"></td>
                         

@@ -1,0 +1,128 @@
+*{
+  padding: 0%;
+  margin: 0;
+}
+body {
+  background-image: url(/img/fondo-posteo.png);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* navbar */
+/* navbar */
+.navbar {
+background-color: rgba(39, 39, 38, 0.911) !important;
+font-size: 20px;
+display: flex;
+border-radius: 5px;
+width: 100%;
+z-index: 1;
+}
+
+.navbar-brand img {
+display: inline-block;
+vertical-align: middle;
+width: 50px;
+}
+
+#registrar {
+background-color: #e9c564;
+border: 0ch;
+color: black;
+}
+
+.btn {
+color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+background-color: #e9c564;
+border-color: #e9c564;
+color: black;
+font-size: 20px;
+}
+
+#dropdown-item {
+color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+top: 100%;
+left: -47px;
+margin-top: 0.125rem;
+text-align: end;
+}
+
+.nav-pills .nav-link {
+color: aliceblue;
+}
+
+/* end navbar */
+.container {
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 75vw;
+  height: max-content;
+}
+.sub-rubros {
+  margin: auto;
+  margin-top: 20px;
+  width: 70vw;
+  height: 29vh;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: #ffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  text-shadow: 4px 4px 4px black;
+}
+a:link, a:visited, a:active {
+  text-decoration:none;
+  color: #ffff;
+}
+
+#uno {
+  background-image: url(/img/rubros/aire.png);
+  background-size: cover;
+  -webkit-transition: font-size 1s ease;
+   transition: font-size 1s ease;
+}
+#uno:hover {
+  font-size: 100px;
+}
+
+#dos {
+  background-image: url(/img/rubros/estufas.jpeg);
+  background-size: cover;
+  -webkit-transition: font-size 1s ease;
+  transition: font-size 1s ease;
+}
+#dos:hover {
+  font-size: 80px;
+}
+#tres {
+  background-image: url(/img/rubros/plomero.jpg);
+  background-size: cover;
+  -webkit-transition: font-size 1s ease;
+  transition: font-size 1s ease;
+}
+#tres:hover {
+  font-size: 100px;
+}
+#cuatro {
+  background-image: url(/img/rubros/electricista.jpg);
+  background-size: cover;
+  -webkit-transition: font-size 1s ease;
+  transition: font-size 1s ease;
+}
+#cuatro:hover {
+  font-size: 100px;
+}
