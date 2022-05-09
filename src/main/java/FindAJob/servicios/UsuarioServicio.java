@@ -81,12 +81,14 @@ public class UsuarioServicio implements UserDetailsService {
         Usuario usuarioDestino = validarId(usuarioOrigen.getId());
         usuarioDestino = validarNombreApellidoNacimiento(usuarioDestino, usuarioOrigen.getNombre(), usuarioOrigen.getApellido(), usuarioOrigen.getNacimiento());
         usuarioDestino.setZona(usuarioOrigen.getZona());
-
         String idFoto = null;
         if (usuarioDestino.getFoto() != null) {
             idFoto = usuarioDestino.getFoto().getId();
         }
-        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));
+        if (archivo != null) {
+        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));    
+        }
+        
         usuarioRepositorio.save(usuarioDestino);
     }
 

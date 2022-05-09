@@ -105,6 +105,7 @@ public class ReferenciaControlador {
             MultipartFile archivo,
             @RequestParam(required = false) LocalDate date,
             @RequestParam String subtipo) throws ErrorServicio {
+
         try {
             usuarioServicio.validarDatosUsuario();
         } catch (Exception ex) {
@@ -117,6 +118,7 @@ public class ReferenciaControlador {
             model.put("foto", usuario.getFoto());
             return "/settings/cambioDatos";
         }
+
         try {
             usuarioServicio.validarDatosUsuario();
             referencia = referenciaServicio.inicializarNuevaReferencia(referencia);              //inicia valores en 0
@@ -152,6 +154,7 @@ public class ReferenciaControlador {
     @GetMapping("/editar/")
     public String Editar(@RequestParam String id,
             ModelMap model) throws ErrorServicio {
+
         try {
             usuarioServicio.validarDatosUsuario();
         } catch (Exception ex) {
@@ -193,18 +196,6 @@ public class ReferenciaControlador {
             @RequestParam String subtipo) throws ErrorServicio {
         try {
             usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
-        try {
-            usuarioServicio.validarDatosUsuario();
             usuarioServicio.validarProfesionDuplicada(subtipo);
             referencia.setProfesion(profesionServicio.devolverProfesionDelSubtipo(subtipo));
 
@@ -223,18 +214,6 @@ public class ReferenciaControlador {
     @GetMapping("/eliminar")
     public String eliminarReferencia(ModelMap model,
             @RequestParam String id) throws ErrorServicio {
-        try {
-            usuarioServicio.validarDatosUsuario();
-        } catch (Exception ex) {
-            model.put("error", ex.getMessage());
-            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
-            List<Zona> zonas2 = Arrays.asList(Zona.values());
-            model.put("usuario", usuario);
-            model.put("zonas2", zonas2);
-            model.put("idZona", usuario.getZona().getNombreCiudad());
-            model.put("foto", usuario.getFoto());
-            return "/settings/cambioDatos";
-        }
         try {
             usuarioServicio.validarDatosUsuario();
             Referencia referencia = referenciaServicio.buscarPorId(id);

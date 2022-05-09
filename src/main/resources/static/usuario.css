@@ -144,6 +144,7 @@ body {
 }
 .g-col-6 {
   margin: auto;
+
   margin-top: 13px;
   padding-top: 10px;
   border-radius: 6px;
@@ -153,6 +154,7 @@ body {
   display: flex;
   justify-content: center;
   align-content: center;
+
 }
 
 .g-col-6 p {
