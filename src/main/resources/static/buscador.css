@@ -166,11 +166,16 @@ transform: perspective(500px) rotateY(0deg);
 .card:hover .back {
   transform: perspective(500px) rotateY(360deg);
 }
-
-.rubro {
+.titulo {
   display: flex;
+  align-items: center;
   justify-content: center;
 }
+.rubro h2 {
+  width: 70%;
+  text-align: center;
+}
+
 .btn-ver-oferta {
   border-radius: 6px;
   width: 5vw;

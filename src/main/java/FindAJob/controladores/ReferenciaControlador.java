@@ -49,7 +49,7 @@ public class ReferenciaControlador {
     @GetMapping("/trabajador")
     @PreAuthorize("isAuthenticated()")
     public String verReferencias(ModelMap model) throws ErrorServicio {
-         try {
+        try {
             usuarioServicio.validarDatosUsuario();
         } catch (Exception ex) {
             model.put("error", ex.getMessage());
@@ -69,13 +69,13 @@ public class ReferenciaControlador {
             model.put("error", e.getMessage());
         }
 
-        return "testRodrigo/listaReferencia";
+        return "/referencia/listaDeReferencias";
     }
 
     @GetMapping("/form")
     @PreAuthorize("isAuthenticated()")
     public String agregarReferencia(ModelMap model) throws ErrorServicio {
-       try {
+        try {
             usuarioServicio.validarDatosUsuario();
         } catch (Exception ex) {
             model.put("error", ex.getMessage());
@@ -105,6 +105,20 @@ public class ReferenciaControlador {
             MultipartFile archivo,
             @RequestParam(required = false) LocalDate date,
             @RequestParam String subtipo) throws ErrorServicio {
+
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+
         try {
             usuarioServicio.validarDatosUsuario();
             referencia = referenciaServicio.inicializarNuevaReferencia(referencia);              //inicia valores en 0
@@ -133,13 +147,26 @@ public class ReferenciaControlador {
             model.put("error2", ex.getMessage());
             return "testRodrigo/testReferencia";
         }
-        return "testRodrigo/listaReferencia";
+        return "/referencia/listaDeReferencias";
 
     }
 
     @GetMapping("/editar/")
     public String Editar(@RequestParam String id,
             ModelMap model) throws ErrorServicio {
+
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         try {
             usuarioServicio.validarDatosUsuario();
             Referencia referencia2 = referenciaServicio.buscarPorId(id);
@@ -157,7 +184,7 @@ public class ReferenciaControlador {
             return "testRodrigo/editarReferencia";
         } catch (ErrorServicio e) {
             model.put("error", e.getMessage());
-            return "testRodrigo/listaReferencia";
+            return "/referencia/listaDeReferencias";
         }
 
     }
@@ -176,7 +203,7 @@ public class ReferenciaControlador {
             referenciaServicio.guardar(referencia);
 
             model.put("listaReferencias", referenciaServicio.traerReferenciasUsuarioLogueado()); //envia a la vista lista de referencia con alta dada
-            return "testRodrigo/listaReferencia";
+            return "/referencia/listaDeReferencias";
         } catch (ErrorServicio e) {
             System.out.println(e);
             model.put("error", e.getMessage());
@@ -198,7 +225,7 @@ public class ReferenciaControlador {
             model.put("Error", e);
         }
 
-        return "testRodrigo/listaReferencia";
+        return "/referencia/listaDeReferencias";
     }
 
 }

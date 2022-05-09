@@ -75,13 +75,5 @@ function obtenerSubtipos() {
         });
 
 }   
-//funcion que hace desaparecer el boton
 
-function borraBoton(e) {
-    e.preventDefault;
- button.style.display = "none"
-}
-
-let button = document.getElementById('button-pagar');
-button.addEventListener("click", borraBoton)
 
