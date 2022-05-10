@@ -59,6 +59,7 @@ public class UsuarioServicio implements UserDetailsService {
         String claveEncriptada = new BCryptPasswordEncoder().encode(validarClaves(clave, clave2));
         usuario.setClave(claveEncriptada);
         usuario.setAlta(new Date());
+        usuario.setActivo(Boolean.TRUE);
         usuario.setDineroEnCuenta(0d);
         Archivo archivo = archivoServicio.guardar(foto);
         usuario.setFoto(archivo);
@@ -81,12 +82,14 @@ public class UsuarioServicio implements UserDetailsService {
         Usuario usuarioDestino = validarId(usuarioOrigen.getId());
         usuarioDestino = validarNombreApellidoNacimiento(usuarioDestino, usuarioOrigen.getNombre(), usuarioOrigen.getApellido(), usuarioOrigen.getNacimiento());
         usuarioDestino.setZona(usuarioOrigen.getZona());
-
         String idFoto = null;
         if (usuarioDestino.getFoto() != null) {
             idFoto = usuarioDestino.getFoto().getId();
         }
-        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));
+        if (archivo != null) {
+        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));    
+        }
+        
         usuarioRepositorio.save(usuarioDestino);
     }
 
@@ -264,7 +267,10 @@ public class UsuarioServicio implements UserDetailsService {
         List<Referencia> listaReferencias = usuario.getReferencias();
         for (Referencia aux : listaReferencias) {
             if (aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)) {
-                throw new ErrorServicio("Esta referencia ya fue creada");
+                if (aux.getId().equalsIgnoreCase(id)) {
+                throw new ErrorServicio("Esta referencia ya fue creada");    
+                }
+                
             }
         }
     }

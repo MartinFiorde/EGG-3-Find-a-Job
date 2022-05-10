@@ -134,6 +134,18 @@ public class UsuarioControlador {
     @GetMapping("/usuario")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
@@ -143,6 +155,18 @@ public class UsuarioControlador {
     @GetMapping("/usuario/{idUsuario}")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model, @PathVariable String idUsuario) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(idUsuario);
         model.put("usuario", usuario);
