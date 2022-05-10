@@ -1,11 +1,15 @@
 package FindAJob.servicios;
 
+import FindAJob.entidades.Archivo;
 import FindAJob.entidades.Referencia;
 import FindAJob.entidades.Usuario;
 import FindAJob.enums.Rol;
+import FindAJob.enums.Status;
 import FindAJob.enums.Zona;
 import FindAJob.excepciones.ErrorServicio;
+import FindAJob.repositorios.ReferenciaRepositorio;
 import FindAJob.repositorios.UsuarioRepositorio;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +18,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,16 +48,24 @@ public class UsuarioServicio implements UserDetailsService {
 
     // METODOS
     @Transactional(rollbackOn = Exception.class)
-    public void registrarCuenta(String mail, String clave, String clave2) throws ErrorServicio {
+    public void guardar(Usuario usuario) {
+        usuarioRepositorio.save(usuario);
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void registrarCuenta(MultipartFile foto, String mail, String clave, String clave2) throws ErrorServicio, IOException {
         Usuario usuario = new Usuario();
         usuario.setMail(validarMail(null, mail));
         String claveEncriptada = new BCryptPasswordEncoder().encode(validarClaves(clave, clave2));
         usuario.setClave(claveEncriptada);
         usuario.setAlta(new Date());
-        usuario.setDineroEnCuenta(0d);
         usuario.setActivo(Boolean.TRUE);
+        usuario.setDineroEnCuenta(0d);
+        Archivo archivo = archivoServicio.guardar(foto);
+        usuario.setFoto(archivo);
         usuario.setRol(Rol.USER);
         usuario.setZona(Zona.SINDETERMINAR);
+        usuario.setReferencias(new ArrayList());
         usuarioRepositorio.save(usuario);
     }
 
@@ -63,57 +77,29 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
-    // PENDIENTE > > > CONECTAR CON SERVICIO DE ARCHIVOS PARA CARGAR LA FOTO
     @Transactional(rollbackOn = Exception.class)
-    public void modificarDatos(Usuario usuarioOrigen, MultipartFile archivo) throws ErrorServicio {
+    public void modificarDatos(Usuario usuarioOrigen, MultipartFile archivo) throws ErrorServicio, IOException {
         Usuario usuarioDestino = validarId(usuarioOrigen.getId());
         usuarioDestino = validarNombreApellidoNacimiento(usuarioDestino, usuarioOrigen.getNombre(), usuarioOrigen.getApellido(), usuarioOrigen.getNacimiento());
         usuarioDestino.setZona(usuarioOrigen.getZona());
-        //usuarioDestino = validarZona(usuarioDestino, idZona);
-
         String idFoto = null;
         if (usuarioDestino.getFoto() != null) {
             idFoto = usuarioDestino.getFoto().getId();
         }
-        // ACA IRIA CARGA DE FOTO
-//        usuarioDestino.setFoto(archivoServicio.actualizar(idFoto, archivo));
-
+        if (archivo != null) {
+        usuarioDestino.setFoto(archivoServicio.actualizarFoto(idFoto, archivo));    
+        }
+        
         usuarioRepositorio.save(usuarioDestino);
-    }
-
-    @Transactional(rollbackOn = Exception.class)
-    public void agregarReferencia(String idUsuario, Referencia referencia) throws ErrorServicio {
-        Usuario usuario = validarId(idUsuario);
-        List<Referencia> referencias = usuario.getReferencias();
-
-        if (referencias == null) {
-            referencias = new ArrayList();
-        }
-
-        int count = 0;
-        for (Referencia aux : referencias) {
-            if (referencia.getId() == aux.getId()) {
-                aux = referencia;
-                count++;
-            }
-        }
-        if (count == 0) {
-            referencias.add(referencia);
-        }
-        if (count > 1) {
-            throw new ErrorServicio("Error de sistema. Se intento guardar referencias con id duplicado");
-        }
-        usuario.setReferencias(referencias);
-        usuarioRepositorio.save(usuario);
     }
 
     @Transactional(rollbackOn = Exception.class)
     public void CargarOQuitarDinero(String idUsuario, Double monto) throws ErrorServicio {
         Usuario usuario = validarId(idUsuario);
-        if ((usuario.getDineroEnCuenta() + monto) < 0) {
-            System.out.println("No hay saldo suficiente para realizar la operacion.");
-        }
         usuario.setDineroEnCuenta(usuario.getDineroEnCuenta() + monto);
+        if (usuario.getDineroEnCuenta() < 0) {
+            throw new ErrorServicio("No hay saldo suficiente para realizar la operacion.");
+        }
         usuarioRepositorio.save(usuario);
     }
 
@@ -194,20 +180,15 @@ public class UsuarioServicio implements UserDetailsService {
         if (nombre.toLowerCase() == null || nombre.isEmpty() || nombre.trim() == "") {
             throw new ErrorServicio("Debe ingresar un nombre válido.");
         }
-
         if (apellido.toLowerCase() == null || apellido.isEmpty() || apellido.trim() == "") {
             throw new ErrorServicio("Debe ingresar un apellido válido.");
         }
-
-        // LocalDate nacimiento = nacimiento1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (nacimiento == null || nacimiento.toString().isEmpty() || nacimiento.isAfter(LocalDate.now())) {
             throw new ErrorServicio("Debe ingresar un año válido.");
         }
-
         if (nacimiento.plusYears(18l).isAfter(LocalDate.now())) {
             throw new ErrorServicio("Debe tener mas de 18 años.");
         }
-
         if (nacimiento.plusYears(100l).isBefore(LocalDate.now())) {
             throw new ErrorServicio("Su edad no puede superar los 100 años...");
         }
@@ -272,6 +253,48 @@ public class UsuarioServicio implements UserDetailsService {
 
     public List<Usuario> findAll() {
         return usuarioRepositorio.findAll();
+    }
+
+    public void asignarReferencia(Referencia referencia) throws ErrorServicio {
+        Usuario usuario = validarId(returnIdSession());
+        usuario.getReferencias().add(referencia);
+        guardar(usuario);
+    }
+
+    public void validarProfesionDuplicada(String subtipo) throws ErrorServicio {
+        String id = returnIdSession();
+        Usuario usuario = validarId(id);
+        List<Referencia> listaReferencias = usuario.getReferencias();
+        for (Referencia aux : listaReferencias) {
+            if (aux.getProfesion().getSubtipo().equalsIgnoreCase(subtipo)) {
+                if (aux.getId().equalsIgnoreCase(id)) {
+                throw new ErrorServicio("Esta referencia ya fue creada");    
+                }
+                
+            }
+        }
+    }
+
+    public Referencia buscarParaPosteo(String idProfesion) throws ErrorServicio {
+        Referencia referencia = null;
+        Usuario usuario = validarId(returnIdSession());
+        for (Referencia aux : usuario.getReferencias()) {
+            if (aux.getProfesion().getId().equals(idProfesion)) {
+                referencia = aux;
+            }
+        }
+        if (referencia == null) {
+            throw new ErrorServicio("Usted no tiene una referencia para esta sub profesión. Por favor carguela e intente nuevamente");
+        }
+        return referencia;
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    public void validarDatosUsuario() throws ErrorServicio {
+        Optional<Usuario> res = usuarioRepositorio.findById(returnIdSession());
+        if (res.get().getNombre() == null) {
+            throw new ErrorServicio("Por favor ingrese todos sus datos de perfil para acceder a esta sección.");
+        }
     }
 
 }

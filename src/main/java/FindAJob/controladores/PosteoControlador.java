@@ -54,15 +54,41 @@ public class PosteoControlador {
     @GetMapping("post/lista")
     @PreAuthorize("isAuthenticated()")
     public String verListaPosts(ModelMap model) throws ErrorServicio {
-        List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+        posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-lista-test.html";
+        return "/post/postLista.html";
     }
 
+    //visto
     @GetMapping("post/form/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String enviarPosteoForm(ModelMap model,
             @PathVariable(required = false) String idPosteo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         Posteo posteo = new Posteo();
         System.out.println("idPosteo: " + idPosteo);
         if (!idPosteo.equals("new")) {
@@ -77,15 +103,27 @@ public class PosteoControlador {
         }
         cargarListasDesplegables(model);
         model.put("posteo", posteo);
-        return "/testMAFBEnd/p/post-form-test.html";
+        return "/post/postForm.html";
     }
 
+    //visto
     @PostMapping("post/form/")
     @PreAuthorize("isAuthenticated()")
     public String procesarPosteoForm(ModelMap model, @PathVariable(required = false) @RequestParam(required = false) String idPosteo,
             @ModelAttribute Posteo posteo, @RequestParam(required = false) String zona,
             @RequestParam(required = false) String subtipo) throws ErrorServicio {
-
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         try {
             if (idPosteo != null) {
                 posteo.setId(idPosteo);
@@ -107,11 +145,10 @@ public class PosteoControlador {
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
             cargarListasDesplegables(model);
             model.put("error", "Los datos se han guardado correctamente!");
-
-            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+            posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
             model.put("posteos", posteos);
-
-            return "/testMAFBEnd/p/post-lista-test.html";
+            return "/post/postLista.html";
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -120,31 +157,41 @@ public class PosteoControlador {
             model.put("idZona", posteo.getZona().getNombreCiudad());
             model.put("idRubro", posteo.getProfesion().getRubro().getNombreLindo());
             cargarListasDesplegables(model);
-            return "/testMAFBEnd/p/post-form-test.html";
+            return "/post/postForm.html";
         }
     }
 
     @GetMapping("post/alta/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
-    public String AltaB(ModelMap model, @PathVariable String idPosteo) {
+    public String AltaB(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
         try {
-            // activar cuando este referencia funcional
-//            if (posteoServicio.validarId(idPosteo).getReferencia() == null) {
-//                throw new ErrorServicio("Error. Cargue referencias en la sub profesion e intente nuevamente");
-//            }
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        try {
+            System.out.println("a");
             posteoServicio.subirPosteoB(idPosteo);
             List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
+            System.out.println("b");
             model.put("posteos", posteos);
-            // redirigir a la pagina de carga de referencias
+            System.out.println("c");
             return "redirect:/post/lista";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
-            model.put("IdPosteo", idPosteo);
-// redirigir a la pagina de carga de referencias
-            return "/testMAFBEnd/p/post-form-test.html";
+            List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("A_BORRADOR"));
+            posteos.addAll(posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO")));
+            model.put("posteos", posteos);
+            return "/post/postLista.html";
         }
-
     }
 
     @GetMapping("post/baja/{idPosteo}")
@@ -159,98 +206,192 @@ public class PosteoControlador {
     @GetMapping("post/ver/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String verPost(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         model.put("posteo", posteoServicio.validarId(idPosteo));
-        return "/testMAFBEnd/p/post-ver-test.html";
+        return "/post/postVer.html";
     }
 
     @PostMapping("chat/escribir/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String EscribirEnChat(ModelMap model, @PathVariable String idPosteo, @RequestParam String msj) throws ErrorServicio {
         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        try {
             posteoServicio.escribirChat(idPosteo, msj);
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "redirect:/post/ver/" + idPosteo;
+            if (posteoServicio.validarId(idPosteo).getTrabajador().getId() == usuarioServicio.returnIdSession()) {
+                if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                    return "redirect:/trabajo/ver/" + idPosteo;
+                }
+                return "redirect:/post/ver/" + idPosteo;
+            }
+            if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                return "redirect:/trabajo/ver/" + idPosteo;
+            }
+            return "redirect:/trabajo/form/" + idPosteo;
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/post-ver-test.html";
+            if (posteoServicio.validarId(idPosteo).getTrabajador().getId() == usuarioServicio.returnIdSession()) {
+                if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                    return "redirect:/trabajo/ver/" + idPosteo;
+                }
+                return "redirect:/post/ver/" + idPosteo;
+            }
+            if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                return "redirect:/trabajo/ver/" + idPosteo;
+            }
+            return "redirect:/trabajo/form/" + idPosteo;
         }
+
     }
 
+    //visto
     @GetMapping("post/buscador")
     @PreAuthorize("isAuthenticated()")
     public String buscarPosts(ModelMap model, @RequestParam(required = false) String idRubro, @RequestParam(required = false) String idTipo, @RequestParam(required = false) String idSubtipo, @RequestParam(required = false) String idZona) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         cargarListasDesplegables(model);
         List<Posteo> posteos = null;
         if (idSubtipo != null) {
             posteos = posteoServicio.quitarTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO"));
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (idTipo != null) {
             posteos = posteoServicio.quitarTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO"));
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         if (idRubro != null) {
             posteos = posteoServicio.quitarTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorRubroYStatusB(idRubro, "B_PUBLICADO"));
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         posteos = posteoServicio.quitarTrabajadorLogeadoDeResultados(posteoServicio.buscarPostsPorStatusB("B_PUBLICADO"));
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-buscador-test.html";
+        return "/post/buscador.html";
     }
 
+    //visto
     @PostMapping("post/buscador")
     @PreAuthorize("isAuthenticated()")
     public String buscarPostsPorRubro(ModelMap model, @RequestParam(required = false) String rubro, @RequestParam(required = false) String tipo, @RequestParam(required = false) String subtipo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         cargarListasDesplegables(model);
         List<Posteo> posteos = null;
         if (subtipo != null && !subtipo.equals("null")) {
             System.out.println("filtro por subtipo: " + subtipo);
             posteos = posteoServicio.buscarPostsPorSubtipoYStatusB(subtipo, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            model.put("titulo", subtipo);
+            return "/post/buscador.html";
         }
         if (tipo != null && !tipo.equals("null")) {
             System.out.println("filtro por tipo: " + tipo);
             posteos = posteoServicio.buscarPostsPorTipoYStatusB(tipo, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            model.put("titulo", tipo);
+            return "/post/buscador.html";
         }
         if (rubro != null && !rubro.equals("null")) {
             System.out.println("filtro por rubro: " + rubro);
             posteos = posteoServicio.buscarPostsPorRubroYStatusB(rubro, "B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/post-buscador-test.html";
+            return "/post/buscador.html";
         }
         System.out.println("sin filtro");
         posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/post-buscador-test.html";
+        return "/post/buscador.html";
     }
 
     @GetMapping("trabajo/form/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String enviarTrabajoForm(ModelMap model, @PathVariable(required = false) String idPosteo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         Posteo posteo = posteoServicio.validarId(idPosteo);
         model.put("posteo", posteo);
-        return "/testMAFBEnd/p/trabajo-form-test.html";
+        return "/trabajo/trabajoForm.html";
     }
 
     @PostMapping("trabajo/form")
     @PreAuthorize("isAuthenticated()")
     public String procesarTrabajoForm(ModelMap model,
-            @PathVariable(required = false) @RequestParam(required = false) String idPosteo,
+            @RequestParam(required = false) String idPosteo,
             @ModelAttribute Posteo posteo) throws ErrorServicio {
         try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        try {
+            System.out.println("1");
             if (idPosteo != null) {
                 posteo.setId(idPosteo);
             }
-            System.out.println("id: " + idPosteo);
-            System.out.println("posteo: " + posteo);
             posteoServicio.solicitarC(idPosteo, posteo.getDescripcionSolicitud(), posteo.getEntregaTrabajo(), posteo.getDineroGuardado());
             System.out.println("edita");
 
@@ -259,59 +400,105 @@ public class PosteoControlador {
 
             List<Posteo> posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/testMAFBEnd/p/trabajo-lista-test.html";
+            return "redirect:/trabajo/lista/cliente";
 
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
-            model.put("posteo", posteo);
-            return "/testMAFBEnd/p/trabajo-form-test.html";
+
+            model.put("posteo", posteoServicio.validarId(idPosteo));
+            List<Posteo> posteos = new ArrayList();
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
+            posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.E_PAGADO, usuarioServicio.returnIdSession()));
+            model.put("posteos", posteos);
+            return "/trabajo/trabajoForm.html";
         }
     }
 
+    //visto
     @GetMapping("trabajo/lista/{tipoUsuario}")
     @PreAuthorize("isAuthenticated()")
     public String verListaTrabajos(ModelMap model, @PathVariable String tipoUsuario) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         List<Posteo> posteos = new ArrayList();
         if (tipoUsuario.equals("trabajador")) {
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.E_PAGADO, usuarioServicio.returnIdSession()));
+            model.put("titulo", "Trabajos Realizados");
         }
         if (tipoUsuario.equals("cliente")) {
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.E_PAGADO, usuarioServicio.returnIdSession()));
+            model.put("titulo", "Trabajos Contratados");
         }
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/trabajo-lista-test.html";
+        return "/trabajo/trabajoLista.html";
     }
 
     @GetMapping("trabajo/ver/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String verTrabajo(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         model.put("idUser", usuarioServicio.returnIdSession());
         model.put("posteo", posteoServicio.validarId(idPosteo));
-        return "/testMAFBEnd/p/trabajo-ver-test.html";
+        return "/trabajo/trabajoVer.html";
     }
 
     @GetMapping("trabajo/entregar/{idPosteo}")
     @PreAuthorize("isAuthenticated()")
     public String entregarTrabajo(ModelMap model, @PathVariable String idPosteo) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         Posteo posteo = posteoServicio.validarId(idPosteo);
         if (!posteo.getTrabajador().getId().equals(usuarioServicio.returnIdSession())) {
             throw new ErrorServicio("No tiene autorización para entregar el trabajo");
         }
         try {
+            usuarioServicio.validarDatosUsuario();
             posteoServicio.entregarD(idPosteo);
             model.put("idUser", usuarioServicio.returnIdSession());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/trabajo-ver-test.html";
+            return "/trabajo/trabajoVer.html";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/trabajo-ver-test.html";
+            return "/trabajo/trabajoVer.html";
         }
     }
 
@@ -323,24 +510,39 @@ public class PosteoControlador {
             throw new ErrorServicio("No tiene autorización para pagar el trabajo");
         }
         try {
+            usuarioServicio.validarDatosUsuario();
             posteoServicio.PagarE(idPosteo);
             model.put("idUser", usuarioServicio.returnIdSession());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/trabajo-ver-test.html";
+            return "/trabajo/trabajoVer.html";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/trabajo-ver-test.html";
+            return "/trabajo/trabajoVer.html";
         }
     }
 
+    //visto
     @GetMapping("admin/posteos")
     @PreAuthorize("hasAnyRole('ADMIN','ADMIN')")
     public String verListaTrabajosAdmin(ModelMap model) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
         List<Posteo> posteos = posteoServicio.findAll();
         model.put("posteos", posteos);
-        return "/testMAFBEnd/p/trabajo-lista-test.html";
+        model.put("titulo", "Lista de trabajos");
+        return "/trabajo/trabajoLista.html";
+
     }
-    
 }

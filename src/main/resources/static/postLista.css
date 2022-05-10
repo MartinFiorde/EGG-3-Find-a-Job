@@ -1,0 +1,143 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    background-color: #3e4144;
+    background-size: cover;
+}
+
+/* navbar */
+.navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+#registrar {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+    background-color: #e9c564;
+    border-color: #e9c564;
+    color: black;
+    font-size: 20px;
+}
+
+#dropdown-item {
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -47px;
+    margin-top: 0.125rem;
+    text-align: end;
+}
+
+.nav-pills .nav-link {
+    color: aliceblue;
+}
+
+/* end navbar */
+.fondo-blur {
+    background-color: #ebeff84d;
+    margin: auto;
+    padding-top: 60px;
+    margin-bottom: 60px;
+    margin-top: 60px;
+    width: 90vw;
+    height: max-content;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    z-index: 3;
+}
+
+.titulo {
+    position: absolute;
+    padding-left: 100px;
+    margin-top: -50px;
+    z-index: 2;
+}
+
+.titulo h2 {
+    position: relative;
+    color: #e9c564;
+    font-size: 6vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+}
+
+.table {
+    text-align: center;
+    font-size: 19px;
+    border-color:transparent;
+}
+.tbody{
+    text-align: start;
+}
+a{
+    color:black;
+}
+a:hover {
+    color: black;
+}
+.btn-ver {
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color:#aac7d7;
+    border: #aac7d7;
+}
+
+.btn-editar {
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color: #c8e2c9;
+    border-color: #c8e2c9;
+}
+.btn-si-no{
+    border-radius: 6px;
+    width: 5vw;
+    height: 6vh;
+    background-color: #ed808f;
+    border: #ed808f;
+}
+
+.btn-nuevo-posteo {
+    margin-bottom: 14px;
+    margin-left: 8px;
+    border-radius: 6px;
+    width: 15vw;
+    height: 7vh;
+    background-color: #e9c564;
+    border: #e9c564;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
+
+.btn-nuevo-posteo a {
+    text-decoration: none;
+}
+
+
+
+

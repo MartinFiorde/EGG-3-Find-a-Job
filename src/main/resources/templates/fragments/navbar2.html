@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <!-- animaciones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <title>navbar</title>
+</head>
+
+<body>
+  <!-- navbar -->
+  <div class="container">
+    <nav th:fragment="header" role="navigation"
+      class="navbar navbar-expand-lg navbar-light bg-light animate__animated animate__fadeInLeft">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <img src="/img/LogoFindAJob1.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Inicio</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills">
+            <li sec:authorize="hasAnyRole('ADMIN')" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown"
+                aria-expanded="false">Admin</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li>
+                  <a class="dropdown-item" th:href="@{/admin/mediaciones}">Ver mediaciones pendientes</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/admin/posteos}">Ver todos los Trabajos</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/admin/usuarios}">Lista de usuarios</a>
+                </li>
+              </ul>
+            </li>
+
+            <li sec:authorize="hasAnyRole('USER','ADMIN')" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown"
+                aria-expanded="false">Cliente</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li>
+                  <a class="dropdown-item" th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'cliente')}">Trabajos contratados</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/post/buscador}">Buscar ofertas</a>
+                </li>
+              </ul>
+            </li>
+
+            <li sec:authorize="hasAnyRole('USER','ADMIN')" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown"
+                aria-expanded="false">Trabajador</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown03">
+                <li>
+                  <a class="dropdown-item" th:href="@{/referencia/trabajador}">Ver referencias</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/post/lista}">Mis posteos</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/trabajo/lista/{tipoUsuario}(tipoUsuario = 'trabajador')}">Trabajos realizados</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+          <form class="d-flex">
+            <a type="button" class="btn btn-lg" href="/login" sec:authorize="!isAuthenticated()" disabled>Login</a>
+
+            <a type="button" id="registrar" href="/register" class="btn btn-secondary btn-lg"
+              sec:authorize="!isAuthenticated()" disabled>Registrarse</a>
+          </form>
+
+          <div class="dropdown" sec:authorize="hasAnyRole('USER','ADMIN')">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Cuenta
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" th:href="@{/usuario/}">Ver perfil</a></li>
+              <li><a class="dropdown-item" th:href="@{/usuario/saldo}">Ver saldo</a></li>
+              <li><a class="dropdown-item" th:href="@{/usuario/datos}">Modificar datos</a></li>
+              <li><a class="dropdown-item" th:href="@{/usuario/clave}">Cambiar clave</a></li>
+              <li><a class="dropdown-item" sec:authorize="hasAnyRole('USER','ADMIN')" href="/logout">Cerrar Sesion</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- end navbar -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

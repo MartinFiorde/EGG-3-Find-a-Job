@@ -40,7 +40,7 @@
                 enctype="multipart/form-data"
                 method="POST"
             >
-                <input type="hidden" th:if="*{id != null}" name="idPosteo" th:value="*{id}" />
+                <input type="hidden" th:if="*{id != null}" name="idPosteo" th:value="*{id}"/>
 
                 <br />
                 <label>Condiciones del Cliente: </label>
@@ -51,7 +51,7 @@
                 <input type="number" placeholder="Monto comprometido" th:field="*{dineroGuardado}"  /><span>Valor garantizado de cobro contra conclusión demostrada del trabajo</span>
                 <br />
                 <label>Fecha de entrega: </label>
-                <input type="date" placeholder="Fecha de entrega" th:field="*{entregaTrabajo}"  />
+                <input type="date" placeholder="Fecha de entrega" th:field="*{entregaTrabajo}"/>
 
                 <!--                <input type="submit" value="Editar" />                -->
                 <br />
@@ -78,7 +78,7 @@
             >
             <input type="text" placeholder="Mensaje para el chat" name="msj" />
             <input type="submit" value="Enviar mensaje al chat" />
-        </form>
+         </form>
 
             <p
                 style="color: red"

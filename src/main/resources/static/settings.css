@@ -8,37 +8,59 @@
     background-attachment: fixed;
   }
   
-  /* navbar */
-  .navbar {
-    background-color: rgba(39, 39, 38, 0.911) !important;
-    font-size: 20px;
-    display: flex;
-    border-radius: 5px;
-    width: 100%;
-  }
-  
-  .navbar-brand img {
-    display: inline-block;
-    vertical-align: middle;
-    width: 50px;
-  }
-  
-  #inicio {
-    background-color: #e9c564;
-    border: 0ch;
-    color: black;
-  }
-  
-  .btn {
-    color: aliceblue;
-  }
-  
-  .navbar-light .navbar-nav .nav-link {
-    color: aliceblue;
-  }
-  
-  /* end navbar */
-  
+/* navbar */
+.navbar {
+  background-color: rgba(39, 39, 38, 0.911) !important;
+  font-size: 20px;
+  display: flex;
+  border-radius: 5px;
+  width: 100%;
+  z-index: 1;
+}
+
+.navbar-brand img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+}
+
+#registrar {
+  background-color: #e9c564;
+  border: 0ch;
+  color: black;
+}
+
+.btn {
+  color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+  background-color: #e9c564;
+  border-color: #e9c564;
+  color: black;
+  font-size: 20px;
+}
+
+#dropdown-item {
+  color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  left: -47px;
+  margin-top: 0.125rem;
+  text-align: end;
+}
+
+.nav-pills .nav-link {
+  color: aliceblue;
+}
+
+/* end navbar */
   /* settings */
   .form-holder {
     display: flex;
@@ -122,6 +144,7 @@
   input[type=mail],
   input[type=text],
   input[type=date],
+  input[type=file],
   .form-content select {
     width: 100%;
     padding: 9px 20px;

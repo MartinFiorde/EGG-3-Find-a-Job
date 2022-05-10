@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +41,12 @@ public class UsuarioControlador {
 
     @PostMapping("/register2")
     @PreAuthorize("permitAll()")
-    public String cargarUsuario(ModelMap model, String mail, @RequestParam String clave, @RequestParam String clave2) {
+     //agrego el archivo al parametro
+    public String cargarUsuario(MultipartFile foto, ModelMap model, String mail, @RequestParam String clave, @RequestParam String clave2) {
         try {
             System.out.println("registrar");
-            usuarioServicio.registrarCuenta(mail, clave, clave2);
+             //se lo paso aca tambien
+            usuarioServicio.registrarCuenta(foto, mail, clave, clave2);
             model.put("error", "Se ha registrado correctamente!");
             return "registro.html";
         } catch (Exception ex) {
@@ -52,6 +55,8 @@ public class UsuarioControlador {
             model.put("mail", mail);
             model.put("clave", clave);
             model.put("clave2", clave2);
+             //la excepcion en caso que haya error
+            model.put("foto", foto);
             return "index.html";
         }
     }
@@ -89,6 +94,7 @@ public class UsuarioControlador {
             return "/settings/cambioClave";
         }
     }
+   
 
     @GetMapping("usuario/datos")
     @PreAuthorize("isAuthenticated()")
@@ -102,6 +108,7 @@ public class UsuarioControlador {
         return "/settings/cambioDatos";
     }
 
+     //aca ya esta hecho
     @PostMapping("usuario/datos2")
     @PreAuthorize("isAuthenticated()")
     public String cargarCambioDatos(ModelMap model, @ModelAttribute Usuario usuario, @RequestParam(required = false) String zona2, @RequestParam(required = false) MultipartFile foto) {
@@ -127,6 +134,19 @@ public class UsuarioControlador {
     @GetMapping("/usuario")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
         return "vistaUsuario.html";
@@ -135,6 +155,19 @@ public class UsuarioControlador {
     @GetMapping("/usuario/{idUsuario}")
     @PreAuthorize("isAuthenticated()")
     public String verPerfilUsuario(ModelMap model, @PathVariable String idUsuario) throws ErrorServicio {
+        try {
+            usuarioServicio.validarDatosUsuario();
+        } catch (Exception ex) {
+            model.put("error", ex.getMessage());
+            Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
+            List<Zona> zonas2 = Arrays.asList(Zona.values());
+            model.put("usuario", usuario);
+            model.put("zonas2", zonas2);
+            model.put("idZona", usuario.getZona().getNombreCiudad());
+            model.put("foto", usuario.getFoto());
+            return "/settings/cambioDatos";
+        }
+        usuarioServicio.validarDatosUsuario();
         Usuario usuario = usuarioServicio.validarId(idUsuario);
         model.put("usuario", usuario);
         return "vistaUsuario.html";
@@ -152,7 +185,7 @@ public class UsuarioControlador {
     public String verMenuDeSaldo(ModelMap model) throws ErrorServicio {
         Usuario usuario = usuarioServicio.validarId(usuarioServicio.returnIdSession());
         model.put("usuario", usuario);
-        return "/testMAFBEnd/saldo-test.html";
+        return "/dinero/dinero.html";
     }
 
     @PostMapping("/usuario/saldo")
@@ -171,12 +204,12 @@ public class UsuarioControlador {
             if (Math.abs(carga)+Math.abs(retiro) != 0) {
             model.put("error", "Su operacion se realizó con éxito!");    
             }
-            return "/testMAFBEnd/saldo-test.html";
+            return "/dinero/dinero.html";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("usuario", usuarioServicio.validarId(usuarioServicio.returnIdSession()));
-            return "/testMAFBEnd/saldo-test.html";
+            return "/dinero/dinero.html";
         }
     }
 

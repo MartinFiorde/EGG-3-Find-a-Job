@@ -1,0 +1,177 @@
+body {
+    background-image: url(img/FondoPostVer.png);
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+
+
+/* navbar */
+.navbar {
+    background-color: rgb(39, 39, 38) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+#registrar {
+    background-color: #e9c664;
+    border: 0ch;
+    color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+    background-color: #e9c564;
+    border-color: #e9c564;
+    color: black;
+    font-size: 20px;
+}
+
+#dropdown-item {
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -47px;
+    margin-top: 0.125rem;
+    text-align: end;
+}
+
+.nav-pills .nav-link {
+    color: aliceblue;
+}
+
+/* end navbar */
+
+
+h2 {
+    display: inline-block;
+    position: relative;
+    padding: 20px;
+    color: #e9c664;
+    font-size: 3.5vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+    letter-spacing: 0.5px;
+}
+
+h2::after,
+h2::before {
+    content: '';
+    position: absolute;
+    width: 160px;
+    height: 3px;
+    top: 1em;
+    background-color: #e9c664d3;
+    transform: scale(0.6);
+    transition: all 0.2s ease-in;
+}
+
+h2:hover::before,
+h2:hover::after {
+    transform: scale(1);
+}
+
+h2::before {
+    left: -170px;
+}
+
+h2::after {
+    right: -170px;
+}
+
+article {
+    width: 600px;
+    margin: auto;
+    padding-top: 25px;
+}
+
+/*linea separacion*/
+.placeholder {
+    margin: 16px 1px;
+    border-radius: 5px;
+}
+/*fin linea separacion*/
+
+.formulario {
+    text-align: left;
+    margin: auto;
+    padding: 25px;
+    background-color: #ebeff885;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
+
+.titulos {
+    color: #ffc935;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    text-shadow: #646464c5 0px 5px 15px;
+
+}
+
+
+.informacion {
+    font-size: 1.1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: solid;
+}
+
+.input-group-text {
+    background-color: #e9c564;
+    border: none;
+    font-size: 1.2rem;
+    color: #000000;
+    font-style: oblique;
+
+}
+
+/*boton enviar*/
+.btn.btn-warning {
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #000000;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    margin: 5px;
+
+}
+/*fin boton enviar*/
+
+.chat {
+    text-align: center;
+    color: #ffc935;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1.2px;
+    margin-bottom: 0px;
+    text-shadow: #646464c5 0px 5px 15px;
+}
+.campo-chat {
+    background-color: #27272791;
+    border: none;
+    min-width: 100%;
+    min-height: 10rem;
+    font-size: 1.2rem;
+    font-style: italic;
+}

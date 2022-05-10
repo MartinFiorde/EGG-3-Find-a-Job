@@ -1,0 +1,56 @@
+
+footer{
+  width: 100%;
+  background-image: url(\img/fondoFooter.png);
+  position: absolute;
+  bottom: 0;
+  padding: 42px ;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.columnas{
+display: flex;
+justify-content: right;
+margin-left: 450px;
+
+}
+
+.footer-dark {
+  padding: 50px 0;
+  color:#FFB233;
+  font-size: 25px;
+
+}
+
+.footer-dark ul {
+  padding:0;
+  list-style:none;
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:0;
+  
+}
+
+.footer-dark ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-dark ul a:hover {
+  opacity:1;
+}
+
+.footer-dark .item.text p {
+  opacity:0.6;
+  margin-bottom:0;
+}
+
+.footer-dark .copyright {
+  display: flex;
+  justify-content: end;
+    padding-top:24px;
+  opacity:0.7;
+  font-size:14px;
+  margin-bottom:0;
+}

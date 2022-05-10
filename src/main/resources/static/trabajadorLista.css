@@ -1,0 +1,105 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    background-image: url(/img/user/fondo-buscador.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* navbar */
+.navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+#registrar {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+    background-color: #e9c564;
+    border-color: #e9c564;
+    color: black;
+    font-size: 20px;
+}
+
+#dropdown-item {
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -47px;
+    margin-top: 0.125rem;
+    text-align: end;
+}
+
+.nav-pills .nav-link {
+    color: aliceblue;
+}
+
+/* end navbar */
+
+.lista-contenedor {
+    margin: auto;
+    width: 97vw;
+    height: max-content;
+    margin-top: 50px;
+    
+}
+
+.lista-contenedor h2 {
+    text-align: center;
+    color: #e9c564;
+    font-size: 6vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+}
+
+.tabla-contenedor {
+    margin: auto;
+    width: 90vw;
+    height: max-content;
+}
+
+.table {
+    border-radius: 10px;
+    background-color: rgba(39, 39, 38, 0.911);
+    color: #ffff;
+    text-align: center; 
+}
+a {
+    color: white;
+}
+
+.btn-ver {
+    width: 3vw;
+    height: 5vh;
+    border-radius: 5px;
+    background-color: #e9c564;
+    border: none;
+}
+.btn-ver a {
+    text-decoration: none;
+    color: black;
+}

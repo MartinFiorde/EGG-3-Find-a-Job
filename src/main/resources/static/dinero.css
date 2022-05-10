@@ -1,0 +1,115 @@
+body {
+    background-image: url(/img/saldo.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* navbar */
+.navbar {
+    background-color: rgba(39, 39, 38, 0.911) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+#registrar {
+    background-color: #e9c564;
+    border: 0ch;
+    color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+    background-color: #e9c564;
+    border-color: #e9c564;
+    color: black;
+    font-size: 20px;
+}
+
+#dropdown-item {
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -47px;
+    margin-top: 0.125rem;
+    text-align: end;
+}
+
+.nav-pills .nav-link {
+    color: aliceblue;
+}
+
+/* end navbar */
+
+.container {
+
+    background-color: #ebeff84d;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    margin: auto;
+    width: 50vw;
+    height: 60vh;
+    margin-top: 100px;
+
+}
+
+h2 {
+    text-align: center;
+    color: #e9c564;
+    font-size: 6vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+}
+
+form {
+    display: flex;
+    text-align: center;
+
+}
+.saldo {
+    font-size: 40px;
+    text-align: center;
+}
+
+
+input[type=number] {
+    width: 15vw;
+    height: 8vh;
+    background-color:rgba(22, 21, 21, 0.932);
+    border-color: rgba(22, 21, 21, 0.932);
+    color: #ffff;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-left: 130px;
+}
+input[type=submit] {
+    width: 15vw;
+    height: 8vh;
+    margin-top: 5px;
+    border-radius: 10px;
+    background-color: rgba(202, 152, 15, 0.973);
+    border-color: rgba(202, 152, 15, 0.973);
+    color: black;
+    font-size: 17px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
