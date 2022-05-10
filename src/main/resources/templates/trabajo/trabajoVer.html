@@ -23,140 +23,109 @@
         <nav th:replace="fragments/navbar2.html :: header"></nav>
     </div>
     <!-- end navbar -->
-    <div class="container animate__animated animate__fadeInLeft" th:object="${posteo}">
+    <div class="container m-auto animate__animated animate__fadeInLeft" th:object="${posteo}">
+        <div class="titulo">
+            <h2>Informacion detallada</h2>
+        </div>
         <div class="row">
-            <div class="col-9">
-                <h2>Informacion Detallada</h2>
-            </div>
-            <div class="col-4">
-                <div class="g-col-4 row">
-                    <h3>Trabajador</h3>
-                    <div class="col-1">
-                        <div class="g-col-5">
-                            <h4>Status</h4>
-                        </div>
-                        <div class="g-col-5">
-                            <h4>Nombre</h4>
-                        </div>
-                        <div class="g-col-5">
-                            <h4>Edad</h4>
-                        </div>
-                        <div class="g-col-5">
-                            <h4>Zona</h4>
-                        </div>
-                        <div class="g-col-5">
-                            <h4>Rubro</h4>
-                        </div>
-                        <div class="g-col-5">
-                            <h4>Profesion</h4>
-                        </div>
-                        <div class="g-col-2">
-                            <h4>Sub Profesion</h4>
-                        </div>
-                        <div class="g-col-2">
-                            <h4>Fecha de Publicacion</h4>
-                        </div>
+            <div class="col-6" id="trabajador">
+                <h3>Trabajador</h3>
+                <div class="usuario-datos">
+                    <div class="info row">
+                        <div class="fila-1"><p>Status</p></div>
+                        <div class="fila-2"><p th:if="*{status != null}" th:text="*{status.nombreLindo}"></p></div>
                     </div>
-                    <div class="col-2 grid">
-                        <div class="g-col-6">
-                            <p th:if="*{status != null}" th:text="*{status.nombreLindo}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="${posteo.trabajador != null}" th:text="*{trabajador.fullName}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="${posteo.trabajador != null}" th:text="*{trabajador.edad}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="*{zona != null}" th:text="*{zona.nombreCiudad}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="*{profesion != null}" th:text="*{profesion.rubro.nombreLindo}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="*{profesion != null}" th:text="*{profesion.tipo}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="*{profesion != null}" th:text="*{profesion.subtipo}"></p>
-                        </div>
-                        <div class="g-col-6">
-                            <p th:if="*{alta != null}" th:text="*{alta}"></p>
-                            <p th:if="*{alta == null}"></p>
-                        </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Nombre</p></div>
+                        <div class="fila-2"><p th:if="${posteo.trabajador != null}" th:text="*{trabajador.fullName}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Edad</p></div>
+                        <div class="fila-2"><p th:if="${posteo.trabajador != null}" th:text="*{trabajador.edad}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Zona</p></div>
+                        <div class="fila-2"><p th:if="*{zona != null}" th:text="*{zona.nombreCiudad}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Rubro</p></div>
+                        <div class="fila-2"><p th:if="*{profesion != null}" th:text="*{profesion.rubro.nombreLindo}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Profesion</p></div>
+                        <div class="fila-2"><p th:if="*{profesion != null}" th:text="*{profesion.tipo}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1" id="sub-profesion"><p>Sub Profesion</p></div>
+                        <div class="fila-2"><p th:if="*{profesion != null}" th:text="*{profesion.subtipo}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Fecha</p></div>
+                        <div class="fila-2"><p th:if="*{alta != null}" th:text="*{alta}"></p>
+                            <p th:if="*{alta == null}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1"><p>Descripcion</p></div>
+                        <div class="fila-2"><p th:if="${posteo.trabajador != null}" th:text="*{descripcionOferta}"></p></div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="g-col-7">
-                    <h3>Cliente</h3>
-                    <div class="info-cliente row">
-                        <div class="datos">
-                            <div class="g-col-5">
-                                <h4>Nombre</h4>
-                            </div>
-                            <div class="g-col-5">
-                                <h4>Fecha de entrega</h4>
-                            </div>
-                            <div class="g-col-5">
-                                <h4>Descripcion de la solicitud</h4>
-                            </div>
-                        </div>
-                        <div class="datos1">
-                            <div class="g-col-6">
-                                <p th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></p>
-                            </div>
-                            <div class="g-col-6">
-                                <p th:if="${posteo.cliente != null}" th:text="*{entregaTrabajo}"></p>
-                            </div>
-                            <div class="g-col-6">
-                                <p th:if="${posteo.cliente != null}" th:text="*{descripcionSolicitud}"></p>
-                            </div>
-                        </div>
-                        <div class="boton">
-                            <div class="btn-entregar" th:if="${posteo.trabajador.id == idUser}">
-                                <a th:if="${posteo.status.nombreLindo == 'En proceso'}"
-                                    th:href="@{/trabajo/entregar/{idPosteo}(idPosteo =__${posteo.id}__)}">
-                                    Entregar
-                                </a>
-                            </div>
-                            <div class="btn-entregar" th:if="${posteo.cliente.id == idUser}">
-                                <a th:if="${posteo.status.nombreLindo == 'Entregado'}"
-                                    th:href="@{/trabajo/pagar/{idPosteo}(idPosteo =__${posteo.id}__)}">
-                                    Pagar
-                                </a>
-                            </div>
-                        </div>
+            <div class="col-6" id="cliente">
+                <h3>Cliente</h3>
+                <div class="usuario-datos">
+                    <div class="info row">
+                        <div class="fila-1"><p>Nombre</p></div>
+                        <div class="fila-2"><p th:if="${posteo.cliente != null}" th:text="*{cliente.fullName}"></p></div>
+                    </div>
+                    <div class="info row">
+                        <div class="fila-1" id="fecha"><p>Fecha de entrega</p></div>
+                        <div class="fila-2" id="cont-fecha"><p th:if="${posteo.cliente != null}" th:text="*{entregaTrabajo}"></p></div>
+                    </div>
+                    <div class="descripcion row">
+                        <div class="fila-3"><p>Descripcion</p></div>
+                        <div class="fila-4"><p th:if="${posteo.cliente != null}" th:text="*{descripcionSolicitud}"></p></div>
                     </div>
                 </div>
-                <div class="nombre-chat">
-                    <h2>Chat</h2>
+                <div class="boton">
+                    <div class="btn-entregar" th:if="${posteo.trabajador.id == idUser}">
+                        <a th:if="${posteo.status.nombreLindo == 'En proceso'}"
+                            th:href="@{/trabajo/entregar/{idPosteo}(idPosteo =__${posteo.id}__)}">
+                            Entregar
+                        </a>
+                    </div>
+                    <div class="btn-entregar" th:if="${posteo.cliente.id == idUser}">
+                        <a th:if="${posteo.status.nombreLindo == 'Entregado'}"
+                            th:href="@{/trabajo/pagar/{idPosteo}(idPosteo =__${posteo.id}__)}">
+                            Pagar
+                        </a>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="titulo-chat">
+            <h2>Chat</h2>
         </div>
         <div class="chat row">
-            <div class="col-3">
-                <div class="col-2">
-                    <h3 th:if="*{chats != null}">Sala de chat</h3>
-                    <table class="table table-striped table-sm">
-                        <tbody th:each="chat : ${posteo.chats}">
-                            <tr>
-                                <td th:text="${chat}" scope="row"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-6" id="lista-chat">
+                <h3 th:if="*{chats != null}">Sala de chat</h3>
+                <table class="table table-striped table-sm">
+                    <tbody th:each="chat : ${posteo.chats}">
+                        <tr>
+                            <td th:text="${chat}" scope="row"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="col-8">
+            <div class="col-6" id="chat-form">
                 <form id="formPost" th:action="@{/chat/escribir/{idPosteo}(idPosteo =__${posteo.id}__)}"
-                    enctype="multipart/form-data" method="POST">
-                    <input type="text" placeholder="Mensaje para el chat" name="msj" />
-                    <div class="enviar">
-                        <input class="btn btn-enviar" type="submit" value="Enviar" />
-                    </div>
-                </form>
+                enctype="multipart/form-data" method="POST">
+                <input type="text" placeholder="Mensaje para el chat" name="msj" />
+                <div class="enviar">
+                    <input class="btn btn-enviar" type="submit" value="Enviar" />
+                </div>
+            </form>
             </div>
         </div>
-        <p style="color: red" th:if="${error != null}" th:text="${error}"></p>
     </div>
     <script src="/js/form.js"></script>
 </body>
