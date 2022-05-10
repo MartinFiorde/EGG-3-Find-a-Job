@@ -39,7 +39,7 @@
         Recibi propuestas y llega a un acuerdo ! <br>
 
         No te olvides que también podés buscar los servicios publicados.
-        <a href="" class="alert-link">Buscá ahora mismo!</a>
+        <a th:href="@{/post/buscador}" class="alert-link">BUSCA AHORA MISMO !</a>
     </div>
 
     <article>
@@ -63,7 +63,7 @@
                 <option th:each="aux2 : ${rubros}" th:value="${aux2}" th:text="${aux2.nombreLindo}"
                     th:selected="${idRubro != null ? idRubro == aux2.nombreLindo : false}"></option>
             </select>
-
+            <br>
             <label class="form-label">PROFESIÓN</label>
             <select class="form-select" name="tipo" id="tipo" onclick="obtenerSubtipos()" onchange="obtenerSubtipos()">
                 <option th:each="aux3 : ${tipos}" th:value="${aux3}" th:text="${aux3}"

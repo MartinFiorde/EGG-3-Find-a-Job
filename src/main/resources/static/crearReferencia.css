@@ -1,0 +1,137 @@
+body {
+    background-image: url(img/fondoReferencia.png);
+    background-size: cover;
+    background-attachment: fixed;
+    text-align: center;
+}
+
+/* navbar */
+.navbar {
+    background-color: rgb(39, 39, 38) !important;
+    font-size: 20px;
+    display: flex;
+    border-radius: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.navbar-brand img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+#registrar {
+    background-color: #e9c664;
+    border: 0ch;
+    color: black;
+}
+
+.btn {
+    color: aliceblue;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: aliceblue;
+}
+
+#dropdownMenuButton1 {
+    background-color: #e9c564;
+    border-color: #e9c564;
+    color: black;
+    font-size: 20px;
+}
+
+#dropdown-item {
+    color: black;
+}
+
+.dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -47px;
+    margin-top: 0.125rem;
+    text-align: end;
+}
+
+.nav-pills .nav-link {
+    color: aliceblue;
+}
+
+/* end navbar */
+
+h1 {
+    display: inline-block;
+    position: relative;
+    color: #e9c664;
+    font-size: 3.5vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-shadow: 4px 4px 4px black;
+    letter-spacing: 0.5px;
+}
+
+h1::after,
+h1::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 3px;
+    top: 0.6em;
+    background-color: #e9c664d3;
+    transform: scale(0.6);
+    transition: all 0.2s ease-in;
+}
+
+h1:hover::before,
+h1:hover::after {
+    transform: scale(1);
+}
+
+h1::before {
+    left: -130px;
+}
+
+h1::after {
+    right: -130px;
+}
+
+article {
+    width: 600px;
+    margin: auto;
+}
+
+.formulario {
+    text-align: left;
+    margin: auto;
+    padding: 25px;
+    background-color: #ebeff84b;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+    backdrop-filter: blur(10px);
+    
+}
+
+/* titulos formulario */
+label{
+    color: #ffc935;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1.2px;
+    text-shadow: #646464c5 0px 5px 15px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+/* end titulos formulario */
+
+/* Boton enviar */
+.btn.btn-warning {
+    margin-top: 10px;
+    padding: 15px;
+    width: 170px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 6px;
+    font-size: 18px;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.568) 0px 5px 15px;
+}
+/* Fin Boton enviar */
