@@ -94,7 +94,7 @@ public class ReferenciaControlador {
 
         model.addAttribute("referencia", referencia);
 
-        return "testRodrigo/testReferencia";
+        return "referencia/crearReferencia";
     }
 
     @PostMapping("/form")
@@ -137,13 +137,13 @@ public class ReferenciaControlador {
             List<Rubro> rubros = Arrays.asList(Rubro.values());
             model.put("rubros", rubros);
 
-            return "testRodrigo/testReferencia";
+            return "referencia/crearReferencia";
         } catch (IOException ex) {
             List<Rubro> rubros = Arrays.asList(Rubro.values());
             model.put("rubros", rubros);
 
             model.put("error2", ex.getMessage());
-            return "testRodrigo/testReferencia";
+            return "referencia/crearReferencia";
         }
         return "/referencia/listaDeReferencias";
 
@@ -178,7 +178,7 @@ public class ReferenciaControlador {
             model.put("subtipos", profesionServicio.devolverSubtiposFiltradosPorTipo(referencia2.getProfesion().getTipo()));
             model.put("idSubtipo", referencia2.getProfesion().getSubtipo());
 
-            return "testRodrigo/editarReferencia";
+            return "/referencia/editarReferencia";
         } catch (ErrorServicio e) {
             model.put("error", e.getMessage());
             return "/referencia/listaDeReferencias";
@@ -205,7 +205,7 @@ public class ReferenciaControlador {
         }
         try {
             usuarioServicio.validarDatosUsuario();
-            usuarioServicio.validarProfesionDuplicada(subtipo);
+            //usuarioServicio.validarProfesionDuplicada(subtipo);
             referencia.setProfesion(profesionServicio.devolverProfesionDelSubtipo(subtipo));
 
             referencia.setAlta(Boolean.TRUE);
@@ -216,7 +216,7 @@ public class ReferenciaControlador {
         } catch (ErrorServicio e) {
             System.out.println(e);
             model.put("error", e.getMessage());
-            return "testRodrigo/editarReferencia";
+            return "/referencia/editarReferencia";
         }
     }
 
