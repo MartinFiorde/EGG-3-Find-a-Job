@@ -240,15 +240,30 @@ public class PosteoControlador {
         try {
             posteoServicio.escribirChat(idPosteo, msj);
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            if (posteoServicio.validarId(idPosteo).getCliente() == null) {
+            if (posteoServicio.validarId(idPosteo).getTrabajador().getId() == usuarioServicio.returnIdSession()) {
+                if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                    return "redirect:/trabajo/ver/" + idPosteo;
+                }
                 return "redirect:/post/ver/" + idPosteo;
             }
-            return "redirect:/trabajo/ver/" + idPosteo;
+            if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                return "redirect:/trabajo/ver/" + idPosteo;
+            }
+            return "redirect:/trabajo/form/" + idPosteo;
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
             model.put("posteo", posteoServicio.validarId(idPosteo));
-            return "/testMAFBEnd/p/post-ver-test.html";
+            if (posteoServicio.validarId(idPosteo).getTrabajador().getId() == usuarioServicio.returnIdSession()) {
+                if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                    return "redirect:/trabajo/ver/" + idPosteo;
+                }
+                return "redirect:/post/ver/" + idPosteo;
+            }
+            if (posteoServicio.validarId(idPosteo).getCliente() != null) {
+                return "redirect:/trabajo/ver/" + idPosteo;
+            }
+            return "redirect:/trabajo/form/" + idPosteo;
         }
 
     }
@@ -385,7 +400,7 @@ public class PosteoControlador {
 
             List<Posteo> posteos = posteoServicio.buscarPostsPorStatusB("B_PUBLICADO");
             model.put("posteos", posteos);
-            return "/trabajo/trabajoLista.html";
+            return "redirect:/trabajo/lista/cliente";
 
         } catch (Exception ex) {
             System.out.println(ex);

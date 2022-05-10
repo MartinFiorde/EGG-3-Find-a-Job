@@ -26,7 +26,7 @@
     </div>
 
     <article>
-        <form class="formulario" th:object="${posteo}">
+        <div class="formulario" th:object="${posteo}">
 
             <p>
                 <span class="titulos">Posteo id : </span>
@@ -86,14 +86,14 @@
 
             <form id="formPost" th:action="@{/chat/escribir/{idPosteo}(idPosteo =__${posteo.id}__)}"
                 enctype="multipart/form-data" method="POST">
-                <textarea class="campo-chat" type="text" placeholder="Escribe tu mensaje" name="msj"></textarea><br>
+                <input class="campo-chat" type="text" placeholder="Escribe tu mensaje" name="msj"></input><br>
                 <input class="btn btn-warning" type="submit" value="Enviar mensaje" />
             </form>
 
 
             <p style="color: red" th:if="${error != null}" th:text="${error}"></p>
 
-        </form>
+        </div>
         <p style="color: red" th:if="${error != null}" th:text="${error}"></p>
 
     </article>
