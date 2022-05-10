@@ -29,7 +29,7 @@
                 <path
                     d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z" />
             </svg>
-            Publica una Solicitud de Trabajo
+            Publica una Oferta de Trabajo
         </h2>
     </div>
 
@@ -38,8 +38,6 @@
         Miles de trabajadores estaran disponibles para cumplir con tu necesidad <br>
         Recibi propuestas y llega a un acuerdo ! <br>
 
-        No te olvides que también podés buscar los servicios publicados.
-        <a th:href="@{/post/buscador}" class="alert-link">BUSCA AHORA MISMO !</a>
     </div>
 
     <article>
@@ -55,8 +53,6 @@
             <p><span class="form-label">Fecha de alta: </span><span th:if="${posteo.alta != null}"
                     th:text="*{alta}"></span></p>
 
-            <label for="" class="form-label">TITULO</label>
-            <input type="text" class="form-control" placeholder="Elegí un título para tu proyecto">
             <br>
             <label class="form-label">RUBRO </label>
             <select class="form-select" name="rubro" id="rubro" onclick="obtenerTipos()" onchange="obtenerTipos()">
@@ -70,7 +66,7 @@
                     th:selected="${idTipo != null ? idTipo == aux3 : false}"></option>
             </select>
             <br>
-            <label class="form-label ">SUB PROFESION</label>
+            <label class="form-label ">SUB PROFESIÓN</label>
             <select class="form-select" name="subtipo" id="subtipo">
                 <option th:each="aux4 : ${subtipos}" th:value="${aux4}" th:text="${aux4}"
                     th:selected="${idSubtipo != null ? idSubtipo == aux4 : false}"></option>
