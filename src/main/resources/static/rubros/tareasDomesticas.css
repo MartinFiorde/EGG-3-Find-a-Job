@@ -84,11 +84,6 @@ color: aliceblue;
   font-size: 50px;
   text-shadow: 4px 4px 4px black;
 }
-a:link, a:visited, a:active {
-  text-decoration:none;
-  color: #ffff;
-}
-
 #uno {
   background-image: url(/img/rubros/paseadormascotas.jpg);
   background-size: cover;
