@@ -34,7 +34,7 @@
                         <th scope="col">Zona</th>
 
                         <th scope="col">Trabajador</th>
-                        <th scope="col">Referencias</th>
+                        <!-- <th scope="col">Referencias</th> -->
                         <th scope="col">Precio oferta</th>
                         <!-- Agregar datos de trabajador según hagan falta -->
 
@@ -57,12 +57,12 @@
                             <a th:text="${posteo.trabajador.fullName}"
                                 th:href="@{/usuario/{idUsuario}(idUsuario =__${posteo.trabajador.id}__)}"></a>
                         </td>
-                        <td scope="row">
+                        <!-- <td scope="row">
+                            PONER LINK A URL DE VISTA INDIVIDUAL DE LA REFERENCIA 
                             <a th:if="${posteo.referencia == null}">Sin datos</a>
-                            <!-- PONER LINK A URL DE VISTA INDIVIDUAL DE LA REFERENCIA -->
                             <a th:if="${posteo.referencia != null}"
                                 th:href="@{/xxxxxx/{idRef}(idRef =__${posteo.referencia.id}__)}">Ver detalle</a>
-                        </td>
+                        </td> -->
                         <td th:text="${posteo.precio}" scope="row"></td>
 
                         <td scope="row">
