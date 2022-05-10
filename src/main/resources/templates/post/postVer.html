@@ -55,6 +55,11 @@
                 <span class="informacion" th:if="*{profesion != null}" th:text="*{profesion.subtipo}"></span>
             </p>
             <p>
+                <span class="titulos">Descripcion: </span>
+                <span class="informacion" th:if="${posteo.trabajador != null}" th:text="*{descripcionOferta}"></span>
+            </p>
+
+            <p>
                 <span class="titulos">Zona : </span>
                 <span class="informacion" th:if="*{zona != null}" th:text="*{zona.nombreCiudad}"></span>
             </p>
