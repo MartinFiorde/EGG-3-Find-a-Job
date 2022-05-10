@@ -84,11 +84,7 @@
     font-size: 50px;
     text-shadow: 4px 4px 4px black;
   }
-  a:link, a:visited, a:active {
-    text-decoration:none;
-    color: #ffff;
-  }
-  
+ 
   #web {
     background-image: url(/img/rubros/Diseno-Web.jpg);
     background-size: cover;

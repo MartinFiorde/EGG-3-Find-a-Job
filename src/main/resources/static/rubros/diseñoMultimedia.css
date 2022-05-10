@@ -84,11 +84,7 @@
     font-size: 50px;
     text-shadow: 4px 4px 4px black;
   }
-  a:link, a:visited, a:active {
-    text-decoration:none;
-    color: #ffff;
-  }
-  
+ 
   #uno {
     background-image: url(/img/rubros/6172bb172ed5a.jpg);
     background-size: cover;

@@ -437,13 +437,13 @@ public class PosteoControlador {
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorTrabajador(Status.E_PAGADO, usuarioServicio.returnIdSession()));
-            model.put("titulo", "Trabajos Realizados");
+            model.put("titulo", "Mis trabajos");
         }
         if (tipoUsuario.equals("cliente")) {
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.C_ENPROCESO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.D_ENTREGADO, usuarioServicio.returnIdSession()));
             posteos.addAll(posteoServicio.buscarTrabajoPorCliente(Status.E_PAGADO, usuarioServicio.returnIdSession()));
-            model.put("titulo", "Trabajos Contratados");
+            model.put("titulo", "Trabajos contratados");
         }
         model.put("posteos", posteos);
         return "/trabajo/trabajoLista.html";
