@@ -196,7 +196,7 @@ public class ReferenciaControlador {
             @RequestParam String subtipo) throws ErrorServicio {
         try {
             usuarioServicio.validarDatosUsuario();
-            usuarioServicio.validarProfesionDuplicada(subtipo);
+            // usuarioServicio.validarProfesionDuplicada(subtipo);
             referencia.setProfesion(profesionServicio.devolverProfesionDelSubtipo(subtipo));
 
             referencia.setAlta(Boolean.TRUE);
