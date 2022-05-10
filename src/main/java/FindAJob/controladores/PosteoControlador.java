@@ -183,7 +183,7 @@ public class PosteoControlador {
             System.out.println("b");
             model.put("posteos", posteos);
             System.out.println("c");
-            return "redirect:/post/postLista";
+            return "redirect:/post/lista";
         } catch (Exception ex) {
             System.out.println(ex);
             model.put("error", ex.getMessage());
@@ -200,7 +200,7 @@ public class PosteoControlador {
         posteoServicio.BajaA(idPosteo);
         List<Posteo> posteos = posteoServicio.dejarSoloTrabajadorLogeadoDeResultados(posteoServicio.findAll());
         model.put("posteos", posteos);
-        return "redirect:/post/postLista";
+        return "redirect:/post/lista";
     }
 
     @GetMapping("post/ver/{idPosteo}")

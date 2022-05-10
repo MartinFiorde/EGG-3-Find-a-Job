@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-  <link rel="icon" href="img/icons8-user-30.png">
+  <link rel="icon" href="/img/LogoFindAJob1.png">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +34,6 @@
       <div class="datos-usuario row">
         <div class="col-3">
           <div class="imagen">
-            <!-- <p  th:text=" ${usuario.id}"></p> -->
             <img class="img-usuario" th:img="${usuario.foto}" th:src="${'/foto/usuario/' + usuario.id}">          
           </div>
         </div>
